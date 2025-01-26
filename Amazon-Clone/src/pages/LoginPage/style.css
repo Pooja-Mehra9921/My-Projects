@@ -1,0 +1,39 @@
+.login-container .login-paper {
+  height: 440px !important;
+  width: 700px;
+  margin: 6% auto;
+}
+
+.flipkart-login-image {
+  background-image: url(../../assents/images/login-page-image.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 440px;
+
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.fk-left-sec {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.fk-right-sec{
+    padding-right: 16px;
+}
+
+.btn-container{
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px auto;
+}
+
+.chip-btn{
+    width: 140px !important;
+    cursor: pointer !important;
+
+}
