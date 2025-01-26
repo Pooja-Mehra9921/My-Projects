@@ -15,6 +15,7 @@ import { Chip } from "@mui/material";
 const LoginPage = () => {
   const [hide, sethide] = useState(false);
   const [logindata, setlogindata] = useState({ email: "", password: "" });
+  const [isSubmit, setisSubmit] = useState(false);
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
 
@@ -24,6 +25,17 @@ const LoginPage = () => {
   const handleShowPassword = () => {
     sethide(!hide);
   };
+
+   /**
+   * @description to click chip button user is submit or note
+   */
+   const handleSubmitbtn = () => {
+    console.log("submiytttt");
+    setisSubmit(true);
+  };
+
+  const emailerror = isSubmit && Boolean(!logindata.email);
+  const passworderror = isSubmit && Boolean(!logindata.password);
 
   return (
     <>
@@ -39,34 +51,34 @@ const LoginPage = () => {
                 Get access to your Orders, Wishlist and Recommendations
               </Typography>
               <TextField
-                error={Boolean(!logindata.email)}
+                error={emailerror}
                 id="outlined-error-helper-text"
                 label="Email"
                 margin="dense"
                 size="small"
                 helperText={
-                  Boolean(!logindata.email) && "Please enter valid email   "
+                    emailerror && "Please enter valid email   "
                 }
                 fullWidth
                 slotProps={{
                   input: {
                     endAdornment: (
                       <InputAdornment position="start">
-                        <MailOutlineIcon />
+                        <MailOutlineIcon style={{ color: emailerror ? "red" : "grey"}} />
                       </InputAdornment>
                     ),
                   },
                 }}
               />
               <TextField
-                error={Boolean(!logindata.password)}
+                error={passworderror}
                 type={hide ? "password" : "text"}
                 id="outlined-error-helper-text"
                 label="Password"
                 margin="dense"
                 size="small"
                 helperText={
-                  Boolean(!logindata.password) && "Please enter valid password"
+                    passworderror && "Please enter valid password"
                 }
                 fullWidth
                 slotProps={{
@@ -76,7 +88,7 @@ const LoginPage = () => {
                         position="start"
                         style={{ cursor: "pointer" }}
                       >
-                        <IconButton onClick={handleShowPassword}>
+                        <IconButton style={{color : passworderror ? "red" : "grey"}} onClick={handleShowPassword}>
                           {hide ? <VisibilityOffIcon /> : <VisibilityIcon />}
                         </IconButton>
                       </InputAdornment>
@@ -86,13 +98,13 @@ const LoginPage = () => {
               />
 
               <Box className="btn-container">
-                <Chip className="chip-btn" label="Login" variant="outlined" />
+                <Chip className="chip-btn" label="Login" variant="outlined" onClick={handleSubmitbtn}/>
                 <Chip className="chip-btn" label="SignUp" variant="outlined" />
               </Box>
 
               <Typography variant="body1" style={{ marginTop: "60px" }}>
                 We not longer support login via Social accounts. To recover your
-                old accounts{" "}
+                old accounts
               </Typography>
             </Grid>
           </Grid>
