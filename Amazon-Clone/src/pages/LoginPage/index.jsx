@@ -32,10 +32,20 @@ const LoginPage = () => {
    const handleSubmitbtn = () => {
     console.log("submiytttt");
     setisSubmit(true);
+    console.log("logindata", setlogindata);
+  };
+const handleEmail =(event)=>{
+  setisSubmit(false);
+setlogindata({...logindata, email:"event.target.value"})
+};
+
+const handlePassword =(event)=>{
+  setisSubmit(false);
+  setlogindata({...logindata, password:"event.target.value"})
   };
 
-  const emailerror = isSubmit && Boolean(!logindata.email);
-  const passworderror = isSubmit && Boolean(!logindata.password);
+  const emailerror = isSubmit && !logindata.email.length <=5 ;
+  const passworderror = isSubmit && !logindata.password.length <=6;
 
   return (
     <>
@@ -69,6 +79,7 @@ const LoginPage = () => {
                     ),
                   },
                 }}
+                onChange={handleEmail}
               />
               <TextField
                 error={passworderror}
@@ -95,6 +106,7 @@ const LoginPage = () => {
                     ),
                   },
                 }}
+                onChange={handlePassword}
               />
 
               <Box className="btn-container">
