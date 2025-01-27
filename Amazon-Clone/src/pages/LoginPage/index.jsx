@@ -11,6 +11,8 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import { Chip } from "@mui/material";
+import { API } from "../../configs/api";
+import axios from "axios";
 
 const LoginPage = () => {
   const [hide, sethide] = useState(false);
@@ -29,23 +31,38 @@ const LoginPage = () => {
    /**
    * @description to click chip button user is submit or note
    */
-   const handleSubmitbtn = () => {
-    console.log("submiytttt");
-    setisSubmit(true);
-    console.log("logindata", setlogindata);
+   const handleSubmitbtn = async() => {
+    try{
+      setisSubmit(true);
+      console.log("---login data",logindata);
+    
+      const res = await axios.post(API.LOGIN_API,  { username: 'emilys',
+        password: 'emilyspass',
+        expiresInMins: 30});
+    
+        console.log("response------", res);
+    }catch(error){
+      console.log("sometning went wrong while fetching api");
+    };
+  
+
+    
   };
-const handleEmail =(event)=>{
-  setisSubmit(false);
-setlogindata({...logindata, email:"event.target.value"})
+
+ 
+      
+    
+
+
+
+const handlechange =(type)=>(event)=>{
+setlogindata({...logindata, [type]: event.target.value});
 };
 
-const handlePassword =(event)=>{
-  setisSubmit(false);
-  setlogindata({...logindata, password:"event.target.value"})
-  };
 
-  const emailerror = isSubmit && !logindata.email.length <=5 ;
-  const passworderror = isSubmit && !logindata.password.length <=6;
+  const emailerror = isSubmit && logindata.email.length <=5 ;
+  const passworderror = isSubmit && logindata.password.length <=6;
+
 
   return (
     <>
@@ -79,7 +96,7 @@ const handlePassword =(event)=>{
                     ),
                   },
                 }}
-                onChange={handleEmail}
+                onChange={handlechange("email")}
               />
               <TextField
                 error={passworderror}
@@ -106,7 +123,7 @@ const handlePassword =(event)=>{
                     ),
                   },
                 }}
-                onChange={handlePassword}
+                onChange={handlechange("password")}
               />
 
               <Box className="btn-container">
