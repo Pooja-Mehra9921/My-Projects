@@ -33,6 +33,7 @@ const LoginPage = () => {
    */
    const handleSubmitbtn = async() => {
     try{
+      if(logindata.email <5 || logindata.password < 6) return;
       setisSubmit(true);
       console.log("---login data",logindata);
     
@@ -127,7 +128,7 @@ setlogindata({...logindata, [type]: event.target.value});
               />
 
               <Box className="btn-container">
-                <Chip className="chip-btn" label="Login" variant="outlined" onClick={handleSubmitbtn}/>
+                <Chip className="chip-btn" label="Login" variant="outlined" onClick={handleSubmitbtn} disabled={logindata.email <5 || logindata.password < 6}/>
                 <Chip className="chip-btn" label="SignUp" variant="outlined" />
               </Box>
 
