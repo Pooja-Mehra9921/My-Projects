@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { API } from "../../configs/api";
 import "./style.css";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -10,17 +11,19 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
-import { Chip } from "@mui/material";
-import { API } from "../../configs/api";
+import { Chip, Tooltip } from "@mui/material";
 import axios from "axios";
+import BackdropLoader from "../../component/BackdropLoader";
+import Notifications from "../../component/Notifications";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+const navigate = useNavigate();
   const [hide, sethide] = useState(false);
   const [logindata, setlogindata] = useState({ email: "", password: "" });
   const [isSubmit, setisSubmit] = useState(false);
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState("");
-
+  const [isLoading, setisLoading] = useState(false);
+  const [isOpen, setisOpen] = useState(false);
   /**
    * @description show and hide password
    */
@@ -28,45 +31,44 @@ const LoginPage = () => {
     sethide(!hide);
   };
 
-   /**
+  /**
    * @description to click chip button user is submit or note
    */
-   const handleSubmitbtn = async() => {
-    try{
-      if(logindata.email <5 || logindata.password < 6) return;
+  const handleSubmitbtn = async () => {
+    try {
+      setisLoading(true);
+      if (logindata.email < 5 || logindata.password < 6) return;
       setisSubmit(true);
-      console.log("---login data",logindata);
-    
-      const res = await axios.post(API.LOGIN_API,  { username: 'emilys',
-        password: 'emilyspass',
-        expiresInMins: 30});
-    
-        console.log("response------", res);
-    }catch(error){
-      console.log("sometning went wrong while fetching api");
-    };
-  
+      console.log("---login data", logindata);
 
-    
+      const { status, data } = await axios.post(API.LOGIN_API, {
+        username: "emilys",
+        password: "emilyspass",
+        expiresInMins: 30,
+      });
+
+      if (status == 200) {
+        setisLoading(false);
+        setisOpen(true);
+        localStorage.setItem("userdata",JSON.stringify(data));
+        navigate("/home");
+      }
+    } catch (error) {
+      console.log("sometning went wrong while fetching api");
+    }
   };
 
- 
-      
-    
+  const handlechange = (type) => (event) => {
+    setlogindata({ ...logindata, [type]: event.target.value });
+  };
 
-
-
-const handlechange =(type)=>(event)=>{
-setlogindata({...logindata, [type]: event.target.value});
-};
-
-
-  const emailerror = isSubmit && logindata.email.length <=5 ;
-  const passworderror = isSubmit && logindata.password.length <=6;
-
+  const emailerror = isSubmit && logindata.email.length <= 5;
+  const passworderror = isSubmit && logindata.password.length <= 6;
 
   return (
     <>
+      <BackdropLoader isLoading={isLoading} />
+      <Notifications isOpen = {isOpen}/>
       <Box className="login-container">
         <Paper elevation={4} className="login-paper">
           <Grid container spacing={2}>
@@ -84,15 +86,15 @@ setlogindata({...logindata, [type]: event.target.value});
                 label="Email"
                 margin="dense"
                 size="small"
-                helperText={
-                    emailerror && "Please enter valid email   "
-                }
+                helperText={emailerror && "Please enter valid email   "}
                 fullWidth
                 slotProps={{
                   input: {
                     endAdornment: (
                       <InputAdornment position="start">
-                        <MailOutlineIcon style={{ color: emailerror ? "red" : "grey"}} />
+                        <MailOutlineIcon
+                          style={{ color: emailerror ? "red" : "grey" }}
+                        />
                       </InputAdornment>
                     ),
                   },
@@ -106,9 +108,7 @@ setlogindata({...logindata, [type]: event.target.value});
                 label="Password"
                 margin="dense"
                 size="small"
-                helperText={
-                    passworderror && "Please enter valid password"
-                }
+                helperText={passworderror && "Please enter valid password"}
                 fullWidth
                 slotProps={{
                   input: {
@@ -117,7 +117,10 @@ setlogindata({...logindata, [type]: event.target.value});
                         position="start"
                         style={{ cursor: "pointer" }}
                       >
-                        <IconButton style={{color : passworderror ? "red" : "grey"}} onClick={handleShowPassword}>
+                        <IconButton
+                          style={{ color: passworderror ? "red" : "grey" }}
+                          onClick={handleShowPassword}
+                        >
                           {hide ? <VisibilityOffIcon /> : <VisibilityIcon />}
                         </IconButton>
                       </InputAdornment>
@@ -128,7 +131,23 @@ setlogindata({...logindata, [type]: event.target.value});
               />
 
               <Box className="btn-container">
-                <Chip className="chip-btn" label="Login" variant="outlined" onClick={handleSubmitbtn} disabled={logindata.email <5 || logindata.password < 6}/>
+                <Tooltip
+                  title={
+                    (logindata.email < 5 && "please enter valid email") ||
+                    (logindata.password < 6 && "please enter valid password")
+                  }
+                >
+                  <span>
+                    <Chip
+                      className="chip-btn"
+                      label="Login"
+                      variant="outlined"
+                      onClick={handleSubmitbtn}
+                      disabled={logindata.email < 5 || logindata.password < 6}
+                    />
+                  </span>
+                </Tooltip>
+
                 <Chip className="chip-btn" label="SignUp" variant="outlined" />
               </Box>
 
