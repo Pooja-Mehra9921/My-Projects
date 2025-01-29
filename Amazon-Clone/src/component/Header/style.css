@@ -76,4 +76,9 @@
     justify-content: center;
     background-color: red;
     width: 100%;
+    margin: 20px;
+}
+
+.user-image{
+    height: 50px;
 }

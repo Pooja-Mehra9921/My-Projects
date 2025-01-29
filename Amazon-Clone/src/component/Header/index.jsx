@@ -15,8 +15,8 @@ import "./style.css";
 const Header = () => {
   const navigate = useNavigate();
 
-  const userdata = JSON.parse(localStorage.getItem("userData"));
-  console.log("userdata------------", userdata);
+  const userData = JSON.parse(localStorage.getItem("userdata"));
+  console.log("userData------------", userData);
   const redirectToLogin = () => {
     navigate("/login");
   };
@@ -51,19 +51,23 @@ const Header = () => {
               />
             </Box>
             {
-                Boolean(userdata?.token)? 
-                <Button
-              className="login-btn"
-              variant="outlined"
-              onClick={redirectToLogin}
-            >
-              Login
-            </Button>
+                !Boolean(userData?.token)
+                ? 
+                <Box className="user-profile">
+                <img className="user-image" src={userData.image} alt="userimage" />
+                <Typography>{userData.firstName}</Typography>
+              </Box>
+
+
+                
             :
-            <Box className="user-profile">
-            <img src={userdata.image} alt="user image" />
-            <Typography>{userdata.firstName}</Typography>
-          </Box>
+            <Button
+            className="login-btn"
+            variant="outlined"
+            onClick={redirectToLogin}
+          >
+            Login
+          </Button>
             }
             
            
