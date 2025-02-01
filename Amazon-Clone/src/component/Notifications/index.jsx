@@ -6,8 +6,8 @@ const Notifications =({isOpen = false})=>{
         <>
         <Snackbar open={isOpen} autoHideDuration={6000}>
 
-<Alert variant="outlined" severity="success">
-  This is an outlined success Alert.
+<Alert variant="contained" severity="success">
+  You are Login sucussfully
 </Alert>
 </Snackbar>
         </>

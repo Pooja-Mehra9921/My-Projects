@@ -37,7 +37,9 @@ const navigate = useNavigate();
   const handleSubmitbtn = async () => {
     try {
       setisLoading(true);
-      if (logindata.email < 5 || logindata.password < 6) return;
+      if (logindata.email.length < 5 || logindata.password.length < 6) return;
+
+
       setisSubmit(true);
       console.log("---login data", logindata);
 
@@ -48,13 +50,16 @@ const navigate = useNavigate();
       });
 
       if (status == 200) {
-        setisLoading(false);
-        setisOpen(true);
-        localStorage.setItem("userdata",JSON.stringify(data));
-        navigate("/home");
+          setisLoading(false);
+          setisOpen(true);
+          localStorage.setItem("userdata",JSON.stringify(data));
+          navigate("/home");
+        
       }
     } catch (error) {
-      console.log("sometning went wrong while fetching api");
+      setisLoading(false);
+      setisOpen(false);
+      console.log("sometning went wrong while fetching api", error);
     }
   };
 
@@ -62,8 +67,8 @@ const navigate = useNavigate();
     setlogindata({ ...logindata, [type]: event.target.value });
   };
 
-  const emailerror = isSubmit && logindata.email.length <= 5;
-  const passworderror = isSubmit && logindata.password.length <= 6;
+  const emailerror = isSubmit && logindata.email.length <= 5 ;
+  const passworderror = isSubmit && logindata.password.length <= 6 ;
 
   return (
     <>
