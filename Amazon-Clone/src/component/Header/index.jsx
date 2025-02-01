@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Divider,
+  Fade,
   IconButton,
   InputAdornment,
   ListItemIcon,
@@ -13,9 +14,9 @@ import {
   Typography,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
+import PersonAdd from "@mui/icons-material/PersonAdd";
+import Settings from "@mui/icons-material/Settings";
+import Logout from "@mui/icons-material/Logout";
 import React, { useState } from "react";
 import FLIPKART_PLUS_IMAGE from "../../assents/images/FLIPKART_PLUS.png";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -23,12 +24,11 @@ import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 const Header = () => {
-
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem("userdata"));
   const [anchorEl, setanchorEl] = useState(null);
 
- const isOpen = Boolean(anchorEl);
+  const isOpen = Boolean(anchorEl);
   const redirectToLogin = () => {
     navigate("/login");
   };
@@ -42,9 +42,14 @@ const Header = () => {
     setanchorEl(event.currentTarget);
   };
 
-const handleClose =()=>{
-  setanchorEl(null);
-}
+  const handleClose = () => {
+    setanchorEl(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
 
   return (
     <>
@@ -58,14 +63,42 @@ const handleClose =()=>{
               alt="flipkart image "
             />
           </Box>
-
+<Box className="menu-container">
+  <Typography className="menu">Home</Typography>
+  <Typography className="menu">Product</Typography>
+  <Typography className="menu">About</Typography>
+  <Typography className="menu">Contact</Typography>
+  <Button
+        id="fade-button"
+      //  aria-controls={open ? 'fade-menu' : undefined}
+       // aria-haspopup="true"
+        //aria-expanded={open ? 'true' : undefined}
+        //onClick={handleClick}
+      >
+        Quick Search
+      </Button>
+      <Menu
+        id="fade-menu"
+        MenuListProps={{
+          'aria-labelledby': 'fade-button',
+        }}
+        //anchorEl={anchorEl}
+       // open={open}
+       // onClose={handleClose}
+       // TransitionComponent={Fade}
+      >
+        <MenuItem onClick={handleClose}>Laptop</MenuItem>
+        <MenuItem onClick={handleClose}>Mobile</MenuItem>
+        <MenuItem onClick={handleClose}>Cloths</MenuItem>
+      </Menu>
+</Box>
           <Box className="search-container">
             <Box className="search-bar">
               <Box className="search-icon">
                 <SearchIcon style={{ margin: "2px" }} />
               </Box>
               <TextField
-                style={{ width: "400px" }}
+                style={{ width: "300px" }}
                 placeholder="Search for Products, Brands and More"
                 variant="standard"
                 size="normal"
@@ -80,8 +113,6 @@ const handleClose =()=>{
                   open={isOpen}
                   onClose={handleClose}
                   onClick={handleClose}
-                 
-                
                   transformOrigin={{ horizontal: "left", vertical: "bottom" }}
                   anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
                 >
@@ -104,7 +135,7 @@ const handleClose =()=>{
                     </ListItemIcon>
                     Settings
                   </MenuItem>
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={handleLogout}>
                     <ListItemIcon>
                       <Logout fontSize="small" />
                     </ListItemIcon>
@@ -120,7 +151,6 @@ const handleClose =()=>{
                     onClick={handleProfileClick}
                     size="small"
                     sx={{ ml: 2 }}
-                    
                   >
                     <Box className="user-profile">
                       <img

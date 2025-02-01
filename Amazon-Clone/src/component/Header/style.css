@@ -59,7 +59,6 @@
    display: flex;
    align-items: center;
    justify-content: center;
-   margin-left:  80px;
    cursor: pointer;
 }
 
@@ -80,4 +79,17 @@
 
 .user-image{
     height: 50px;
+}
+
+.menu-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu{
+    margin: 5px !important;
+    cursor: pointer;
+    color: grey;
+
 }
