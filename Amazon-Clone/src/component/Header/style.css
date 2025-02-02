@@ -3,10 +3,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
 .header-container{
-    width: 80%;
+    width: 90%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -74,7 +75,7 @@
     align-items: center;
     justify-content: center;
         width: 100%;
-    margin: 20px;
+    margin: 20px auto;
 }
 
 .user-image{
@@ -85,11 +86,4 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.menu{
-    margin: 5px !important;
-    cursor: pointer;
-    color: grey;
-
 }
