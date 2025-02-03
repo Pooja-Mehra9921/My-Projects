@@ -24,7 +24,7 @@ import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import CountertopsIcon from "@mui/icons-material/Countertops";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
-import FLIPKART_PLUS_IMAGE from "../../assents/images/FLIPKART_PLUS.png";
+import FLIPKART_PLUS_IMAGE from "../../assents/images/flipkart_plus.png";
 
 import "./style.css";
 import { Badge } from "@mui/material";
@@ -96,13 +96,22 @@ const Header = () => {
     <>
       <Box className="header-main-container">
         <Box className="header-container">
-          <Box className="flipkart-plus-image">
-            <img
+          <Box className="flipkart-plus-image">{
+            isUserLoggedIn ? (
+              <img
               onClick={redirectToHome}
               className="flipkart-image-style"
               src={FLIPKART_PLUS_IMAGE}
               alt="flipkart image "
             />
+            ):
+            <img
+              onClick={handleLogout}
+              className="flipkart-image-style"
+              src={FLIPKART_PLUS_IMAGE}
+              alt="flipkart image "
+            />
+          }
           </Box>
           <Box className="menu-container">
             <Button variant="text">Home</Button>

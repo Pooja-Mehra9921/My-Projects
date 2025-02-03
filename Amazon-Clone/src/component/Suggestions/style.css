@@ -1,0 +1,25 @@
+.suggestion-container{
+    background-color: white;
+    margin: 10px 20px;
+    padding: 15px;
+    
+}
+
+.suggestion-card{
+    height: 240px;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.suggestion-images{
+    height: 160px;
+    width: 150px;
+}
+
+.image-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

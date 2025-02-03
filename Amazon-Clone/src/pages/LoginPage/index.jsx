@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 const LoginPage = () => {
 const navigate = useNavigate();
   const [hide, sethide] = useState(false);
-  const [logindata, setlogindata] = useState({ email: "", password: "" });
+  const [logindata, setlogindata] = useState({ username: "", password: "" });
   const [isSubmit, setisSubmit] = useState(false);
   const [isLoading, setisLoading] = useState(false);
   const [isOpen, setisOpen] = useState(false);
@@ -37,15 +37,15 @@ const navigate = useNavigate();
   const handleSubmitbtn = async () => {
     try {
       setisLoading(true);
-      if (logindata.email.length < 5 || logindata.password.length < 6) return;
+      if (logindata.username.length < 5 || logindata.password.length < 6) return;
 
 
       setisSubmit(true);
       console.log("---login data", logindata);
 
       const { status, data } = await axios.post(API.LOGIN_API, {
-        username: "emilys",
-        password: "emilyspass",
+        username: logindata.username,
+        password: logindata.password,
         expiresInMins: 30,
       });
 
@@ -67,7 +67,7 @@ const navigate = useNavigate();
     setlogindata({ ...logindata, [type]: event.target.value });
   };
 
-  const emailerror = isSubmit && logindata.email.length <= 5 ;
+  const emailerror = isSubmit && logindata.username.length <= 5 ;
   const passworderror = isSubmit && logindata.password.length <= 6 ;
 
   return (
@@ -88,7 +88,7 @@ const navigate = useNavigate();
               <TextField
                 error={emailerror}
                 id="outlined-error-helper-text"
-                label="Email"
+                label="UserName"
                 margin="dense"
                 size="small"
                 helperText={emailerror && "Please enter valid email   "}
@@ -104,7 +104,7 @@ const navigate = useNavigate();
                     ),
                   },
                 }}
-                onChange={handlechange("email")}
+                onChange={handlechange("username")}
               />
               <TextField
                 error={passworderror}
@@ -138,7 +138,7 @@ const navigate = useNavigate();
               <Box className="btn-container">
                 <Tooltip
                   title={
-                    (logindata.email < 5 && "please enter valid email") ||
+                    (logindata.username < 5 && "please enter valid Username") ||
                     (logindata.password < 6 && "please enter valid password")
                   }
                 >
@@ -148,7 +148,7 @@ const navigate = useNavigate();
                       label="Login"
                       variant="outlined"
                       onClick={handleSubmitbtn}
-                      disabled={logindata.email < 5 || logindata.password < 6}
+                      disabled={logindata.username < 5 || logindata.password < 6}
                     />
                   </span>
                 </Tooltip>

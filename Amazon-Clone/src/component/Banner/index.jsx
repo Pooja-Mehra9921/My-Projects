@@ -1,11 +1,12 @@
 import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+
 import { Carousel } from 'react-responsive-carousel';
-import BANNER_IMG_1 from "../../assents/banner-images/carouselimage2.webp"
-import BANNER_IMG_2 from "../../assents/banner-images/carouselimage1.webp"
-import BANNER_IMG_3 from "../../assents/banner-images/carouselimage3.webp"
-import BANNER_IMG_4 from "../../assents/banner-images/carouselimage4.webp"
-import BANNER_IMG_5 from "../../assents/banner-images/carouselimage5.webp"
+import BANNER_IMG_1 from "../../assents/banner-images/carouselImage1.webp"
+import BANNER_IMG_2 from "../../assents/banner-images/carouselImage2.webp"
+import BANNER_IMG_3 from "../../assents/banner-images/carouselImage3.webp"
+import BANNER_IMG_4 from "../../assents/banner-images/carouselImage4.webp"
+import BANNER_IMG_5 from "../../assents/banner-images/carouselImage5.webp"
 
 const Banner =()=>{
     return(
