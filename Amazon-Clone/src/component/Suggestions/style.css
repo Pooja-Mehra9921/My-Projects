@@ -1,7 +1,14 @@
-.suggestion-container{
+.suggestion-main-container{
     background-color: white;
     margin: 10px 20px;
     padding: 15px;
+}
+
+.suggestion-container{
+   
+   display: flex;
+   align-items: center;
+   justify-content: center;
     
 }
 
@@ -11,6 +18,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 12px auto;
+   
 }
 
 .suggestion-images{

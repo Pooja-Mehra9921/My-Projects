@@ -1,4 +1,4 @@
 export const API = {
     LOGIN_API :"https://dummyjson.com/auth/login",
-    PRODUCT_API: "https://dummyjson.com/products",
+    PRODUCTS_API: `https://dummyjson.com/products?limit=200`,
 }

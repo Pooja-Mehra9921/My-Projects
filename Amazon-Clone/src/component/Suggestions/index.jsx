@@ -1,27 +1,57 @@
-import { Box, Typography } from "@mui/material";
 import React from "react";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import appliances from "../../assents/suggestions/appliances.png";
+import electronics from "../../assents/suggestions/electronics.png";
+import fashion from "../../assents/suggestions/fashion.png";
+import furniture from "../../assents/suggestions/furniture.png";
+import grocery from "../../assents/suggestions/grocery.png";
+import mobiles from "../../assents/suggestions/mobiles.png";
+import toys from "../../assents/suggestions/toys.png";
+import travel from "../../assents/suggestions/travel.png";
+import twowheeler from "../../assents/suggestions/twowheeler.png";
+
 import "./style.css";
 
 const Suggestions = () => {
+  const suggestions = [
+    { id: "1", img: appliances, title: "Appliances", hasData: false },
+    { id: "2", img: electronics, title: "Electronics", hasData: false },
+    { id: "3", img: fashion, title: "Fashion", hasData: false },
+    { id: "4", img: furniture, title: "Furniture", hasData: false },
+    { id: "5", img: grocery, title: "Grocery", hasData: false },
+    { id: "6", img: mobiles, title: "Mobiles", hasData: false },
+    { id: "7", img: toys, title: "Toys", hasData: false },
+    { id: "8", img: travel, title: "Travel", hasData: false },
+    { id: "9", img: twowheeler, title: "Twowheeler", hasData: false },
+    
+  ];
+
   return (
     <>
-      <Box className="suggestion-container">
-        <Typography variant="h4" style={{margin:"10px auto"}}>Top Offers</Typography>
-        <Box className="suggestion-card">
-            <Box>
-                <Box className="image-container">
-                <img
-            className="suggestion-images"
-            src="https://images.unsplash.com/photo-1585060544812-6b45742d762f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2VsbCUyMHBob25lfGVufDB8fDB8fHww"
-            alt="suggestion card images"
-          />
-                </Box>
-           
-          <Typography variant="body1" style={{fontSize:"14px"}}>This is a Mobile Phone</Typography>
-          <Typography variant="body1" style={{fontSize:"14px", textAlign:"center"}}>from 1200</Typography>
+      <Box className="suggestion-main-container">
+        <Box className="suggestion-container">
+          {suggestions.map((ele, index) => {
+            return (
+              <>
+                <Box key={index} className="suggestion-card">
+                  <Box>
+                    <Box className="image-container">
+                      <img
+                        className="suggestion-images"
+                        src={ele?.img}
+                        alt={ele?.title}
+                      />
+                    </Box>
 
-            </Box>
-          
+                    <Typography variant="body1" style={{ fontSize: "20px", textAlign:"center", marginTop:"10px" }}>
+                      {ele?.title}
+                    </Typography>
+                  </Box>
+                </Box>
+              </>
+            );
+          })}
         </Box>
       </Box>
     </>
