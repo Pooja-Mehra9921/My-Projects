@@ -23,15 +23,10 @@ const response = await axios.get(API.PRODUCTS_API);
 console.log("responseeeee----", response.data);
 const {status , data:{products =[]}, }= response || {};
 if(status == 200){
-  products.forEach(product => {
-    if(product?.category == "laptops" || 
-      product?.category == "smartphones" ||
-      product?.category == "mobile-accessories"
-    ){
-      electronicsProducts.push(product);
-      setelectronicsProducts(electronicsProducts);
-    }
-  });
+  
+  
+
+
 }
 
     } catch (error) {
