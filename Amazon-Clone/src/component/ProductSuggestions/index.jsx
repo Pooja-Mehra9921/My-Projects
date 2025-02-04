@@ -13,7 +13,7 @@ import twowheeler from "../../assents/suggestions/twowheeler.png";
 
 import "./style.css";
 
-const ProductSuggestions = ({title = "abc"}) => {
+const ProductSuggestions = ({title = "abc", product =[]}) => {
 
 
 
@@ -32,8 +32,8 @@ const ProductSuggestions = ({title = "abc"}) => {
                     <Box className="image-container">
                       <img
                         className="Product-suggestion-images"
-                        src={title}
-                        alt={title}
+                        src={product?.brand}
+                        alt={product?.category}
                       />
                     </Box>
 

@@ -19,7 +19,7 @@ import "./style.css";
 
 const Home = () => {
   // States to manage product details
-  const [electronicsProducts, setelectronicsProducts] = useState([]);
+  const [electronicesProducts, setelectronicesProducts] =useState([]);
 
   // useeffect hook  to manage fetchproduct function  while api call
   useEffect(() => {
@@ -36,6 +36,15 @@ const Home = () => {
         data: { products = [] },
       } = response || {};
       if (status == 200) {
+        const electronices = products.filter((product)=>{
+          product?.category == "mobile-accessories",
+          product?.category == "smartphones",
+          product?.category == "laptops"
+
+        })
+
+        setelectronicesProducts(electronices);
+        
       }
     } catch (error) {
       console.log("error while fetching product api", error);
@@ -47,7 +56,7 @@ const Home = () => {
       <Header />
       <Suggestions />
       <Banner />
-      <ProductSuggestions title="Best of Electronices" />
+      <ProductSuggestions title="Best of Electronices" product={electronicesProducts} />
       <ProductSuggestions title="Beauty, Food, Toys & more" />
       <ProductSuggestions title="Grooming, Books, Auto & more" />
       <ProductSuggestions title="fashion Top Deals" />
