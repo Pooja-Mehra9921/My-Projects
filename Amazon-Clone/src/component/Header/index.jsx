@@ -119,7 +119,7 @@ const Header = () => {
             <Button variant="text">About</Button>
             <Button variant="text">Contact</Button>
             <Button
-              style={{ width: "120px" }}
+              style={{ width: "130px" }}
               id="fade-button"
               aria-haspopup="true"
               onClick={handleQuickSearch}

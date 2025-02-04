@@ -1,34 +1,45 @@
-import React, { useState } from "react";
-import { API } from "../../configs/api";
-import "./style.css";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import InputAdornment from "@mui/material/InputAdornment";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import IconButton from "@mui/material/IconButton";
-import { Chip, Tooltip } from "@mui/material";
+import React from "react";
 import axios from "axios";
-import BackdropLoader from "../../component/BackdropLoader";
-import Notifications from "../../component/Notifications";
+
+// Import necessary React hooks
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
-const navigate = useNavigate();
-  const [hide, sethide] = useState(false);
-  const [logindata, setlogindata] = useState({ username: "", password: "" });
-  const [isSubmit, setisSubmit] = useState(false);
-  const [isLoading, setisLoading] = useState(false);
-  const [isOpen, setisOpen] = useState(false);
+// Import necessary material ui components
+import InputAdornment from "@mui/material/InputAdornment";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import { Chip, Tooltip } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+
+// import components
+import BackdropLoader from "../../component/BackdropLoader";
+import Notifications from "../../component/Notifications";
+import { API } from "../../configs/api";
+
+// style sheet
+import "./style.css";
+
+const Login = () => {
+  const navigate = useNavigate();
+  const [hidePassword, sethidePassword] = useState(false); // state to set hide icon in the password input field
+  const [loginData, setloginData] = useState({ username: "", password: "" }); // state to store login data enter from the user
+  const [isSubmit, setisSubmit] = useState(false); // state to check user is submit the form or not
+  const [isLoading, setisLoading] = useState(false); // state for show lodaing when we submit the form
+  const [isOpen, setisOpen] = useState(false); // to show succuss messages
+
   /**
-   * @description show and hide password
+   * @description show and hidePassword password
    */
+
   const handleShowPassword = () => {
-    sethide(!hide);
+    sethidePassword(!hidePassword);
   };
 
   /**
@@ -37,24 +48,23 @@ const navigate = useNavigate();
   const handleSubmitbtn = async () => {
     try {
       setisLoading(true);
-      if (logindata.username.length < 5 || logindata.password.length < 6) return;
-
+      if (loginData.username.length < 5 || loginData.password.length < 6)
+        return;
 
       setisSubmit(true);
-      console.log("---login data", logindata);
+      console.log("---login data", loginData);
 
       const { status, data } = await axios.post(API.LOGIN_API, {
-        username: logindata.username,
-        password: logindata.password,
+        username: loginData.username,
+        password: loginData.password,
         expiresInMins: 30,
       });
 
       if (status == 200) {
-          setisLoading(false);
-          setisOpen(true);
-          localStorage.setItem("userdata",JSON.stringify(data));
-          navigate("/home");
-        
+        setisLoading(false);
+        setisOpen(true);
+        localStorage.setItem("userdata", JSON.stringify(data));
+        navigate("/home");
       }
     } catch (error) {
       setisLoading(false);
@@ -63,17 +73,21 @@ const navigate = useNavigate();
     }
   };
 
+  /** @description to get user value from username and password input enter by user  */
+
   const handlechange = (type) => (event) => {
-    setlogindata({ ...logindata, [type]: event.target.value });
+    setloginData({ ...loginData, [type]: event.target.value });
   };
 
-  const emailerror = isSubmit && logindata.username.length <= 5 ;
-  const passworderror = isSubmit && logindata.password.length <= 6 ;
+  /** @description error validations  */
+
+  const emailerror = isSubmit && loginData.username.length <= 5;
+  const passworderror = isSubmit && loginData.password.length <= 6;
 
   return (
     <>
       <BackdropLoader isLoading={isLoading} />
-      <Notifications isOpen = {isOpen}/>
+      <Notifications isOpen={isOpen} />
       <Box className="login-container">
         <Paper elevation={4} className="login-paper">
           <Grid container spacing={2}>
@@ -108,7 +122,7 @@ const navigate = useNavigate();
               />
               <TextField
                 error={passworderror}
-                type={hide ? "password" : "text"}
+                type={hidePassword ? "password" : "text"}
                 id="outlined-error-helper-text"
                 label="Password"
                 margin="dense"
@@ -126,7 +140,11 @@ const navigate = useNavigate();
                           style={{ color: passworderror ? "red" : "grey" }}
                           onClick={handleShowPassword}
                         >
-                          {hide ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                          {hidePassword ? (
+                            <VisibilityOffIcon />
+                          ) : (
+                            <VisibilityIcon />
+                          )}
                         </IconButton>
                       </InputAdornment>
                     ),
@@ -138,8 +156,8 @@ const navigate = useNavigate();
               <Box className="btn-container">
                 <Tooltip
                   title={
-                    (logindata.username < 5 && "please enter valid Username") ||
-                    (logindata.password < 6 && "please enter valid password")
+                    (loginData.username < 5 && "please enter valid Username") ||
+                    (loginData.password < 6 && "please enter valid password")
                   }
                 >
                   <span>
@@ -148,7 +166,9 @@ const navigate = useNavigate();
                       label="Login"
                       variant="outlined"
                       onClick={handleSubmitbtn}
-                      disabled={logindata.username < 5 || logindata.password < 6}
+                      disabled={
+                        loginData.username < 5 || loginData.password < 6
+                      }
                     />
                   </span>
                 </Tooltip>
@@ -168,4 +188,4 @@ const navigate = useNavigate();
   );
 };
 
-export default LoginPage;
+export default Login;
