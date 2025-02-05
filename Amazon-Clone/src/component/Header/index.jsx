@@ -46,6 +46,10 @@ const Header = () => {
     navigate("/home");
   };
 
+  const redirectToProductPage =()=>{
+    navigate("/product");
+  }
+
   /**
    * @description to open profile menus
    */
@@ -114,8 +118,8 @@ const Header = () => {
           }
           </Box>
           <Box className="menu-container">
-            <Button variant="text">Home</Button>
-            <Button variant="text">Product</Button>
+            <Button onClick={redirectToHome} variant="text">Home</Button>
+            <Button onClick={redirectToProductPage} variant="text">Product</Button>
             <Button variant="text">About</Button>
             <Button variant="text">Contact</Button>
             <Button

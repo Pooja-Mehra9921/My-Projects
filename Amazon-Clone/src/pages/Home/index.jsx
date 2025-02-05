@@ -1,10 +1,10 @@
-import React from "react";
+import React, { use } from "react";
 
-// Import necessary React hooks
+// Import  React hooks
 import { useEffect } from "react";
 import { useState } from "react";
 
-// Import necessary Components
+// Import custom Components
 import Header from "../../component/Header";
 import Footer from "../../component/Footer";
 import Suggestions from "../../component/Suggestions";
@@ -12,14 +12,17 @@ import ProductSuggestions from "../../component/ProductSuggestions";
 import Banner from "../../component/Banner";
 import { API } from "../../configs/api";
 
-// Import necessary Components from material-UI
+// Import material-UI Components
 
 import axios from "axios";
 import "./style.css";
 
 const Home = () => {
   // States to manage product details
-  const [electronicesProducts, setelectronicesProducts] =useState([]);
+  const [electronicsProducts, setelectronicsProducts] = useState([]);
+  const [fashionProducts, setfashionProducts] = useState([]);
+  const [beautyProducts, setbeautyProducts] = useState([]);
+  const [otherProducts, setotherProducts] = useState([]);
 
   // useeffect hook  to manage fetchproduct function  while api call
   useEffect(() => {
@@ -35,16 +38,41 @@ const Home = () => {
         status,
         data: { products = [] },
       } = response || {};
-      if (status == 200) {
-        const electronices = products.filter((product)=>{
-          product?.category == "mobile-accessories",
-          product?.category == "smartphones",
-          product?.category == "laptops"
+      if (status === 200) {
+        const electronices = products.filter(
+          (product) =>
+            product?.category == "mobile-accessories" ||
+            product?.category == "smartphones" ||
+            product?.category == "laptops"
+        );
+        setelectronicsProducts(electronices);
 
-        })
+        const fashion = products.filter(
+          (product) =>
+            product?.category == "womens-dresses" ||
+            product?.category == "mens-shirts" ||
+            product?.category == "mens-shoes" ||
+            product?.category == "womens-shoes"
+        );
+        setfashionProducts(fashion);
 
-        setelectronicesProducts(electronices);
-        
+        const beauty = products.filter(
+          (product) =>
+            product?.category == "beauty" ||
+            product?.category == "ragrances" ||
+            product?.category == "skin-care" ||
+            product?.category == "groceries"
+        );
+
+        setbeautyProducts(beauty);
+
+        const moreProduct = products.filter((product)=>
+        product?.category == "furniture" ||
+        product?.category == "home-decoration" ||
+        product?.category == "kitchen-accessories" 
+        )
+
+        setotherProducts(moreProduct);
       }
     } catch (error) {
       console.log("error while fetching product api", error);
@@ -56,10 +84,17 @@ const Home = () => {
       <Header />
       <Suggestions />
       <Banner />
-      <ProductSuggestions title="Best of Electronices" product={electronicesProducts} />
-      <ProductSuggestions title="Beauty, Food, Toys & more" />
-      <ProductSuggestions title="Grooming, Books, Auto & more" />
-      <ProductSuggestions title="fashion Top Deals" />
+      {}
+      <ProductSuggestions
+        title="Best of Electronices"
+        product={electronicsProducts}
+      />
+      <ProductSuggestions title="Fashion Top Deals" product={fashionProducts} />
+      <ProductSuggestions
+        title=" Beauty, Food, Toys & more"
+        product={beautyProducts}
+      />
+      <ProductSuggestions title="More Products" product={otherProducts} />
       <Footer />
     </>
   );

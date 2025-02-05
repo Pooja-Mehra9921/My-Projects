@@ -12,7 +12,7 @@ const Banner =()=>{
     return(
         <>   
          <div style={{margin:"10px 20px"}}>
-      <Carousel  autoPlay={true} showThumbs={false} infiniteLoop={true} interval="2000" ariaLabel="">
+      <Carousel  autoPlay={true} showThumbs={false} infiniteLoop={true} interval="2000" showStatus={false}>
                 <div>
                     <img src={BANNER_IMG_1} />
                 </div>

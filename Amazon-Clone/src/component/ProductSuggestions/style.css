@@ -16,8 +16,8 @@
 }
 
 .Product-suggestion-card{
-    height: 220px;
-    width: 190px;
+    height: 250px;
+    width: 250px !important; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,12 +29,17 @@
 }
 
 .Product-suggestion-images{
-    height: 130px;
-    width: 130px;
+    max-height: 170px;
+    max-width:  170px;
 }
 
 .Product-image-container{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.suggestion-title{
+    text-align: center;
+
 }

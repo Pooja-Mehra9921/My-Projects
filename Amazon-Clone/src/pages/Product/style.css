@@ -1,0 +1,23 @@
+.product-main-container{
+    display: flex;
+    align-items: center ;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.product-container{
+    width: 90%;
+    display: flex;
+    justify-content:space-between ;
+}
+
+.filter-section{
+    width: 20%;
+    background-color: white;
+    margin-right: 10px;
+}
+
+.product-section{
+    background-color: white;
+    width: 80%;
+}
