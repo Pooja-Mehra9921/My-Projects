@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 // import Custom components
 import Header from "../../component/Header";
@@ -16,6 +16,7 @@ import axios from "axios";
 
 const ProductPage =()=>{
 
+    const [allProduct, setallProduct] = useState([]);
 useEffect(()=>{
     fetchProduct()
 },[]);
@@ -28,6 +29,7 @@ useEffect(()=>{
             const {status, data:{products =[]}= {}} =response || {};
             if(status === 200){
                 console.log("Product Page Api", products);
+                setallProduct(products);
             }
         }catch(error){
             console.log("error while fetching product api", error);
@@ -46,7 +48,7 @@ useEffect(()=>{
                 filter section
             </Box>
             <Box className="product-section">
-                <ProductCardGrid/>
+                <ProductCardGrid product={allProduct}/>
             </Box>
          </Box>
         </Box>
