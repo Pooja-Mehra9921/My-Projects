@@ -8,15 +8,20 @@ import {API} from "../../configs/api"
 
 
 // import material ui components
-import { Box, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
+import ViewModuleIcon from '@mui/icons-material/ViewModule';
+import ViewListIcon from '@mui/icons-material/ViewList';
 
 // import styles
 import "./style.css"
 import axios from "axios";
+import ProductCardList from "../../component/ProductCardList";
 
 const ProductPage =()=>{
 
     const [allProduct, setallProduct] = useState([]);
+   const [ ViewOfProduct, setViewOfProduct] = useState(false);
+
 useEffect(()=>{
     fetchProduct()
 },[]);
@@ -39,6 +44,17 @@ useEffect(()=>{
 
     }
 
+const showGridView=()=>{
+    console.log("grid view");
+    <ProductCardGrid product={allProduct}/>
+
+}
+const showListView=()=>{
+    console.log("List view");
+    <ProductCardList/>
+}
+
+
     return(
         <>
 <Header/>
@@ -48,6 +64,20 @@ useEffect(()=>{
                 filter section
             </Box>
             <Box className="product-section">
+                <Box className="view-icon-container">
+                    <IconButton onClick={showGridView}>
+                    <ViewModuleIcon/>
+                    </IconButton>
+                    <IconButton onClick={showListView}>
+                    <ViewListIcon/>
+                    </IconButton>
+                 
+                </Box>
+                    
+ 
+                    
+              
+
                 <ProductCardGrid product={allProduct}/>
             </Box>
          </Box>
