@@ -11,6 +11,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 80%;
 }
 
 .flipkart-plus-image{
@@ -20,7 +21,7 @@
 
 .flipkart-image-style{
     height: 40px;
-    width: 100px;
+    width: 110px;
     background-repeat: no-repeat;
     background-size: cover;
     margin: 5px;
@@ -41,7 +42,7 @@
 }
 
 .search-bar{
-    width: 400px;
+    width: 300px;
     display: flex;
     align-items: center;
     justify-content: start;
@@ -95,4 +96,5 @@
     color: white !important;
     font-size: 20px !important;
     font-weight: 600 !important;
+    margin: -210px !important;
 }
