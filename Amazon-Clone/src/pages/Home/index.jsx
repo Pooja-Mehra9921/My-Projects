@@ -1,4 +1,5 @@
-import React, { use } from "react";
+import React from "react";
+import axios from "axios";
 
 // Import  React hooks
 import { useEffect } from "react";
@@ -12,19 +13,18 @@ import ProductSuggestions from "../../component/ProductSuggestions";
 import Banner from "../../component/Banner";
 import { API } from "../../configs/api";
 
-// Import material-UI Components
-
-import axios from "axios";
+// import styles
 import "./style.css";
+import { Box } from "@mui/material";
 
 const Home = () => {
   // States to manage product details
-  const [electronicsProducts, setelectronicsProducts] = useState([]);
-  const [fashionProducts, setfashionProducts] = useState([]);
-  const [beautyProducts, setbeautyProducts] = useState([]);
-  const [otherProducts, setotherProducts] = useState([]);
+  const [electronicsProducts, setelectronicsProducts] = useState([]); // store all products related to electronices
+  const [fashionProducts, setfashionProducts] = useState([]); // store all products related to Fashion
+  const [beautyProducts, setbeautyProducts] = useState([]); // store all products related to beauty
+  const [otherProducts, setotherProducts] = useState([]); // store all products related to all other products
 
-  // useeffect hook  to manage fetchproduct function  while api call
+  // useeffect hook  to manage (fetchproduct function)  while api call
   useEffect(() => {
     fetchProduct();
   }, []);
@@ -32,7 +32,7 @@ const Home = () => {
   // function to handle api
   const fetchProduct = async () => {
     try {
-      const response = await axios.get(API.PRODUCTS_API);
+      const response = await axios.get(API.PRODUCTS_API); // fetch product api
       console.log("responseeeee----", response.data);
       const {
         status,
@@ -40,6 +40,7 @@ const Home = () => {
       } = response || {};
       if (status === 200) {
         const electronices = products.filter(
+          // filter electronics products
           (product) =>
             product?.category == "mobile-accessories" ||
             product?.category == "smartphones" ||
@@ -48,6 +49,7 @@ const Home = () => {
         setelectronicsProducts(electronices);
 
         const fashion = products.filter(
+          // filter fashion products
           (product) =>
             product?.category == "womens-dresses" ||
             product?.category == "mens-shirts" ||
@@ -57,6 +59,7 @@ const Home = () => {
         setfashionProducts(fashion);
 
         const beauty = products.filter(
+          // filter beauty products
           (product) =>
             product?.category == "beauty" ||
             product?.category == "ragrances" ||
@@ -66,11 +69,14 @@ const Home = () => {
 
         setbeautyProducts(beauty);
 
-        const moreProduct = products.filter((product)=>
-        product?.category == "furniture" ||
-        product?.category == "home-decoration" ||
-        product?.category == "kitchen-accessories" 
-        )
+        const moreProduct = products.filter(
+          (
+            product // filter others products
+          ) =>
+            product?.category == "furniture" ||
+            product?.category == "home-decoration" ||
+            product?.category == "kitchen-accessories"
+        );
 
         setotherProducts(moreProduct);
       }
@@ -82,9 +88,9 @@ const Home = () => {
   return (
     <>
       <Header />
+      <Box className="Home-main-container">
       <Suggestions />
       <Banner />
-      {}
       <ProductSuggestions
         title="Best of Electronices"
         product={electronicsProducts}
@@ -95,6 +101,7 @@ const Home = () => {
         product={beautyProducts}
       />
       <ProductSuggestions title="More Products" product={otherProducts} />
+      </Box> 
       <Footer />
     </>
   );

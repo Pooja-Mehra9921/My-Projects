@@ -1,6 +1,10 @@
 import React from "react";
+
+// import material ui components
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+
+// import assents
 import appliances from "../../assents/suggestions/appliances.png";
 import electronics from "../../assents/suggestions/electronics.png";
 import fashion from "../../assents/suggestions/fashion.png";
@@ -11,9 +15,11 @@ import toys from "../../assents/suggestions/toys.png";
 import travel from "../../assents/suggestions/travel.png";
 import twowheeler from "../../assents/suggestions/twowheeler.png";
 
+// import styles
 import "./style.css";
 
 const Suggestions = () => {
+  // array of suggestions
   const suggestions = [
     { id: "1", img: appliances, title: "Appliances", hasData: false },
     { id: "2", img: electronics, title: "Electronics", hasData: false },

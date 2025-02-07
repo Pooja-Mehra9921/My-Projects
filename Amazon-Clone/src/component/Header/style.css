@@ -1,5 +1,5 @@
 .header-main-container{
-    background-color: white;
+    background-color: #2874f0;;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -7,7 +7,7 @@
 }
 
 .header-container{
-    width: 90%;
+    width: auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -30,6 +30,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #2874f0;
 }
 .search-container{
     height: 30px;
@@ -40,12 +41,14 @@
 }
 
 .search-bar{
+    width: 400px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     border: 1px solid grey;
     padding: 5px;
     border-radius: 5px;
+    background-color: #ffffff;
 }
 
 .login-btn{
@@ -86,4 +89,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.menus{
+    color: white !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
 }

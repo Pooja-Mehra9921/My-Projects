@@ -1,33 +1,34 @@
-.suggestion-main-container{
+.suggestion-main-container {
     background-color: white;
     margin: 10px 20px;
     padding: 15px;
 }
 
-.suggestion-container{
-   
-   display: flex;
-   align-items: center;
-   justify-content: center;
-    
+.suggestion-container {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
 
-.suggestion-card{
-    height: 240px;
+.suggestion-card {
+    height: 190px;
     width: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 12px auto;
-   
+    margin: 5px;
+    cursor: pointer;
+
 }
 
-.suggestion-images{
-    height: 160px;
-    width: 150px;
+.suggestion-images {
+    height: 100px;
+    width: 100px;
 }
 
-.image-container{
+.image-container {
     display: flex;
     align-items: center;
     justify-content: center;

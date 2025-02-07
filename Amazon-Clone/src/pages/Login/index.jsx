@@ -18,7 +18,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 
-// import components
+// import custom components
 import BackdropLoader from "../../component/BackdropLoader";
 import Notifications from "../../component/Notifications";
 import { API } from "../../configs/api";
@@ -26,8 +26,12 @@ import { API } from "../../configs/api";
 // style sheet
 import "./style.css";
 
-const Login = () => {
+ // Login Page components
+  const Login = () => {
+
   const navigate = useNavigate();
+ 
+ // states
   const [hidePassword, sethidePassword] = useState(false); // state to set hide icon in the password input field
   const [loginData, setloginData] = useState({ username: "", password: "" }); // state to store login data enter from the user
   const [isSubmit, setisSubmit] = useState(false); // state to check user is submit the form or not
@@ -47,23 +51,23 @@ const Login = () => {
    */
   const handleSubmitbtn = async () => {
     try {
-      setisLoading(true);
+      setisLoading(true); // start loader
       if (loginData.username.length < 5 || loginData.password.length < 6)
         return;
 
       setisSubmit(true);
       console.log("---login data", loginData);
 
-      const { status, data } = await axios.post(API.LOGIN_API, {
-        username: loginData.username,
+      const { status, data } = await axios.post(API.LOGIN_API, {           // fetch api
+        username: loginData.username, 
         password: loginData.password,
         expiresInMins: 30,
       });
 
       if (status == 200) {
-        setisLoading(false);
-        setisOpen(true);
-        localStorage.setItem("userdata", JSON.stringify(data));
+        setisLoading(false); // stop loader
+        setisOpen(true);   // show succus message
+        localStorage.setItem("userdata", JSON.stringify(data)); // store data in local storage
         navigate("/home");
       }
     } catch (error) {
@@ -76,7 +80,7 @@ const Login = () => {
   /** @description to get user value from username and password input enter by user  */
 
   const handlechange = (type) => (event) => {
-    setloginData({ ...loginData, [type]: event.target.value });
+    setloginData({ ...loginData, [type]: event.target.value });     // get value from inputs enter by user
   };
 
   /** @description error validations  */

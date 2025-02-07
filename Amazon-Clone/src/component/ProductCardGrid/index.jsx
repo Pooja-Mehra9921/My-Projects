@@ -2,13 +2,13 @@ import React from "react";
 
 // import Material UI Component
 import Box from "@mui/material/Box";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
 import Rating from "@mui/material/Rating";
 import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 // import assents
 import dummy from "../../assents/suggestions/dummy.png";
@@ -17,7 +17,6 @@ import dummy from "../../assents/suggestions/dummy.png";
 import "./style.css";
 
 const ProductCardGrid = ({ product = [] }) => {
-  console.log("-----------------------------------------", product);
   return (
     <>
       <Box className="product-grid-container">
@@ -46,29 +45,29 @@ const ProductCardGrid = ({ product = [] }) => {
             >
               {item?.title || "no title"}
             </Typography>
-<Tooltip title={item?.description} arrow>
-<Typography
-            className="card-description"
-              style={{
-                margin: "auto 15px",
-                fontWeight: "400",
-                textAlign: "justify",
-              }}
-            >
-              {item?.description}
-            </Typography>
-</Tooltip>
-          <Box style={{display:"flex"}}>
-          <Typography style={{ margin: "auto 15px", fontWeight: "600" }}>
-              ${item?.price}
-            </Typography>
-            <Typography style={{ margin: "auto 15px", color: "green" }}>
-              {item?.availabilityStatus}
-            </Typography>
+            <Tooltip title={item?.description} arrow>
+              <Typography
+                className="card-description"
+                style={{
+                  margin: "auto 15px",
+                  fontWeight: "400",
+                  textAlign: "justify",
+                }}
+              >
+                {item?.description}
+              </Typography>
+            </Tooltip>
+            <Box style={{ display: "flex" }}>
+              <Typography style={{ margin: "auto 15px", fontWeight: "600" }}>
+                ${item?.price}
+              </Typography>
+              <Typography style={{ margin: "auto 15px", color: "green" }}>
+                {item?.availabilityStatus}
+              </Typography>
             </Box>
-            
+
             <Typography style={{ margin: "auto 15px" }}>
-            <Rating name="read-only" value={item?.rating} readOnly />
+              <Rating name="read-only" value={item?.rating} readOnly />
             </Typography>
 
             <Box className="btn-container">

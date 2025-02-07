@@ -1,42 +1,50 @@
-import React, { useState } from "react";
+import React from "react";
+
+// import Hooks
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
+// import Material Ui components
 import Box from "@mui/material/Box";
+import Fade from "@mui/material/Fade";
+import { Badge } from "@mui/material";
+import Menu from "@mui/material/Menu";
+import Avatar from "@mui/material/Avatar";
+import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import Fade from "@mui/material/Fade";
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import Menu from "@mui/material/Menu";
+import Logout from "@mui/icons-material/Logout";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
-import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import Avatar from "@mui/material/Avatar";
 import SearchIcon from "@mui/icons-material/Search";
-import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
-import Logout from "@mui/icons-material/Logout";
+import IconButton from "@mui/material/IconButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import PersonAdd from "@mui/icons-material/PersonAdd";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import LaptopChromebookIcon from "@mui/icons-material/LaptopChromebook";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import CountertopsIcon from "@mui/icons-material/Countertops";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import LaptopChromebookIcon from "@mui/icons-material/LaptopChromebook";
 
+// import custom components
 import FLIPKART_PLUS_IMAGE from "../../assents/images/flipkart_plus.png";
 
+// import styles
 import "./style.css";
-import { Badge } from "@mui/material";
 
 const Header = () => {
-  const navigate = useNavigate();
-  const userData = JSON.parse(localStorage.getItem("userdata"));
-  const [anchorEl, setanchorEl] = useState(null);
-  const [QuichSearchAnchor, setQuichSearchAnchor] = useState(null);
+  // states
+  const [anchorEl, setanchorEl] = useState(null); // state to manage profile menus
+  const [QuichSearchAnchor, setQuichSearchAnchor] = useState(null); // state to manage quick search menus
 
-  const isOpen = Boolean(anchorEl);
-  const isQuichSearch = Boolean(QuichSearchAnchor);
+  const navigate = useNavigate();
+  const userData = JSON.parse(localStorage.getItem("userdata")); // get user data from local storage
+
+  const isOpen = Boolean(anchorEl); // to open profile menus
+  const isQuichSearch = Boolean(QuichSearchAnchor); // to open quick search menus
 
   const redirectToLogin = () => {
     navigate("/login");
@@ -46,9 +54,9 @@ const Header = () => {
     navigate("/home");
   };
 
-  const redirectToProductPage =()=>{
+  const redirectToProductPage = () => {
     navigate("/product");
-  }
+  };
 
   /**
    * @description to open profile menus
@@ -94,35 +102,40 @@ const Header = () => {
     setQuichSearchAnchor(null);
   };
 
-  const isUserLoggedIn = Boolean(userData?.refreshToken);
+  const isUserLoggedIn = Boolean(userData?.refreshToken); // to check user is login or not
 
   return (
     <>
       <Box className="header-main-container">
         <Box className="header-container">
-          <Box className="flipkart-plus-image">{
-            isUserLoggedIn ? (
+          <Box className="flipkart-plus-image">
+            {isUserLoggedIn ? (
               <img
-              onClick={redirectToHome}
-              className="flipkart-image-style"
-              src={FLIPKART_PLUS_IMAGE}
-              alt="flipkart image "
-            />
-            ):
-            <img
-              onClick={handleLogout}
-              className="flipkart-image-style"
-              src={FLIPKART_PLUS_IMAGE}
-              alt="flipkart image "
-            />
-          }
+                onClick={redirectToHome}
+                className="flipkart-image-style"
+                src={FLIPKART_PLUS_IMAGE}
+                alt="flipkart image "
+              />
+            ) : (
+              <img
+                onClick={handleLogout}
+                className="flipkart-image-style"
+                src={FLIPKART_PLUS_IMAGE}
+                alt="flipkart image "
+              />
+            )}
           </Box>
           <Box className="menu-container">
-            <Button onClick={redirectToHome} variant="text">Home</Button>
-            <Button onClick={redirectToProductPage} variant="text">Product</Button>
-            <Button variant="text">About</Button>
-            <Button variant="text">Contact</Button>
+            <Button className="menus" onClick={redirectToHome} variant="text">
+              Home
+            </Button>
+            <Button className="menus" onClick={redirectToProductPage} variant="text">
+              Product
+            </Button>
+            <Button className="menus" variant="text">About</Button>
+            <Button className="menus" variant="text">Contact</Button>
             <Button
+            className="menus"
               style={{ width: "130px" }}
               id="fade-button"
               aria-haspopup="true"
@@ -180,9 +193,6 @@ const Header = () => {
                 InputProps={{ disableUnderline: true }}
               />
             </Box>
-
-
-
 
             {isUserLoggedIn ? (
               <>
@@ -254,33 +264,30 @@ const Header = () => {
           </Box>
           <Box className="add-to-cart">
             {isUserLoggedIn && (
- <IconButton
- size="large"
- aria-label="show 17 new notifications"
- color="inherit"
->
- <Badge badgeContent={17} color="error">
-   <NotificationsIcon />
- </Badge>
-</IconButton>
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
+                <Badge badgeContent={17} color="error">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
             )}
-           
-           {
-            isUserLoggedIn ? (
-<IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={isUserLoggedIn && 17} color="error">
-                <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
-            ):(
+
+            {isUserLoggedIn ? (
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
+                <Badge badgeContent={isUserLoggedIn && 17} color="error">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            ) : (
               <ShoppingCartIcon />
-            )
-           }
-            
+            )}
           </Box>
         </Box>
       </Box>

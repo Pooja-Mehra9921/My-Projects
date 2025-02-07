@@ -1,5 +1,8 @@
-import { Alert, Snackbar } from "@mui/material";
 import React from "react";
+
+// import material ui components
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
 
 const Notifications = ({ isOpen = false }) => {
   return (
