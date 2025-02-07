@@ -2,21 +2,21 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  padding: 20px;
+  padding: 0px 10px;
 }
 
 .main-grid-container {
-  box-shadow: 0px 0px 5px grey;
+  box-shadow: 0px 0px 5px rgb(223, 223, 223);
 
   height: auto;
-  width: 300px;
+  width: 280px;
   border-radius: 5px;
   cursor: pointer;
-  margin: 5px;
+  margin: 5px auto;
 }
 
 .main-grid-container:hover {
-  box-shadow: 0px 0px 10px grey;
+  box-shadow: 0px 0px 10px rgb(181, 181, 181);
 }
 
 .heart-icon {
@@ -34,8 +34,8 @@
 }
 
 .product-image {
-  width: 300px;
-  height: 300px;
+  width: 280px;
+  height: 250px;
 }
 
 .card-description{
@@ -44,3 +44,26 @@
   text-overflow: ellipsis;
 }
 
+.btn-container{
+  margin-top: 5px;
+}
+
+.price-section{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto 20px;
+}
+
+.orignal-price{
+  font-weight: 800;
+}
+
+.product-price{
+  text-decoration: line-through;
+  color: grey;
+}
+
+.discout{
+  color: green;
+}

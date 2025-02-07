@@ -10,6 +10,7 @@ import Header from "../../component/Header";
 import Footer from "../../component/Footer";
 import ProductCardGrid from "../../component/ProductCardGrid";
 import ProductCardList from "../../component/ProductCardList";
+import BackdropLoader from "../../component/BackdropLoader"
 
 import { API } from "../../configs/api";
 
@@ -26,7 +27,8 @@ import "./style.css";
 const ProductPage = () => {
   // states to manages data
   const [allProduct, setallProduct] = useState([]);
-  const [ViewOfProduct, setViewOfProduct] = useState(false);
+  const [ViewOfProduct, setViewOfProduct] = useState(true);
+  const [isLoading, setisLoading] = useState(false);
 
   useEffect(() => {
     fetchProduct();
@@ -34,11 +36,14 @@ const ProductPage = () => {
 
   const fetchProduct = async () => {
     try {
+      setisLoading(true);
       const response = await axios.get(API.PRODUCTS_API);
       console.log("product page apill call", response.data);
 
       const { status, data: { products = [] } = {} } = response || {};
       if (status === 200) {
+      setisLoading(false);
+
         console.log("Product Page Api", products);
         setallProduct(products);
       }
@@ -57,6 +62,7 @@ const ProductPage = () => {
   return (
     <>
       <Header />
+      <BackdropLoader isLoading={isLoading}/>
       <Box className="product-main-container">
         <Box className="product-container">
           <Box className="filter-section">filter section</Box>
@@ -69,10 +75,12 @@ const ProductPage = () => {
                 <ViewListIcon />
               </IconButton>
             </Box>
-            {ViewOfProduct ? (
-              <ProductCardGrid product={allProduct} />
-            ) : (
+            {!ViewOfProduct ? (
               <ProductCardList product={allProduct} />
+
+            ) : (
+              <ProductCardGrid product={allProduct} />
+
             )}
           </Box>
         </Box>

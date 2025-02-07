@@ -8,10 +8,13 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import FlashOnIcon from '@mui/icons-material/FlashOn';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 // import assents
 import dummy from "../../assents/suggestions/dummy.png";
+import { DollerToIndianPrice } from "../../utility";
 
 // import styles
 import "./style.css";
@@ -57,12 +60,15 @@ const ProductCardGrid = ({ product = [] }) => {
                 {item?.description}
               </Typography>
             </Tooltip>
-            <Box style={{ display: "flex" }}>
-              <Typography style={{ margin: "auto 15px", fontWeight: "600" }}>
-                ${item?.price}
+            <Box className="price-section" style={{ display: "flex", }}>
+              <Typography className="orignal-price">
+                {DollerToIndianPrice(item?.price)}
               </Typography>
-              <Typography style={{ margin: "auto 15px", color: "green" }}>
-                {item?.availabilityStatus}
+              <Typography className="product-price">
+                orignal price
+              </Typography>
+              <Typography className="discout" >
+                discout
               </Typography>
             </Box>
 
@@ -72,19 +78,23 @@ const ProductCardGrid = ({ product = [] }) => {
 
             <Box className="btn-container">
               <Button
-                variant="outlined"
+                variant="contained  "
                 style={{
-                  border: "1px solid grey",
-                  color: "grey",
+                  color:"white",
                   margin: "5px",
+                  backgroundColor:"#ff9f00",
+                  border:"none",
+                  
                 }}
               >
+                <ShoppingCartIcon />
                 Add to Cart
               </Button>
               <Button
                 variant="contained"
                 style={{ backgroundColor: "#fb641b", margin: "5px" }}
               >
+                <FlashOnIcon/>
                 Buy Now
               </Button>
             </Box>

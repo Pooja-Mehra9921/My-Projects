@@ -7,7 +7,7 @@ import { useState } from "react";
 // import Material Ui components
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
-import { Badge } from "@mui/material";
+import { Badge, ButtonGroup } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
@@ -125,18 +125,14 @@ const Header = () => {
               />
             )}
           </Box>
+
           <Box className="menu-container">
-            <Button className="menus" onClick={redirectToHome} variant="text">
-              Home
-            </Button>
-            <Button className="menus" onClick={redirectToProductPage} variant="text">
-              Product
-            </Button>
-            <Button className="menus" variant="text">About</Button>
-            <Button className="menus" variant="text">Contact</Button>
+            <Button style={{color:"white", margin:"5px"}} onClick={redirectToHome} variant="text">Home</Button>
+            <Button style={{color:"white", margin:"5px"}}  onClick={redirectToProductPage} variant="text">Product</Button>
+            <Button style={{color:"white", margin:"5px"}}  variant="text">About</Button>
+            <Button style={{color:"white", margin:"5px"}}  variant="text">Contact</Button>
             <Button
-            className="menus"
-              style={{ width: "130px" }}
+            style={{color:"white", margin:"0px", width:"130px"}}
               id="fade-button"
               aria-haspopup="true"
               onClick={handleQuickSearch}
@@ -179,7 +175,7 @@ const Header = () => {
                 Kitchen
               </MenuItem>
             </Menu>
-          </Box>
+          </Box> 
           <Box className="search-container">
             <Box className="search-bar">
               <Box className="search-icon">

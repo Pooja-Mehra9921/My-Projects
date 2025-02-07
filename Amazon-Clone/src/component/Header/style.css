@@ -1,100 +1,105 @@
-.header-main-container{
-    background-color: #2874f0;;
+.header-main-container {
+    background-color: #2874f0;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
+    padding: 10px 0;
+
 }
 
-.header-container{
-    width: auto;
+.header-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 80%;
+    width: 100%;
+    margin: auto 30px;
 }
 
-.flipkart-plus-image{
+.flipkart-plus-image {
     height: auto;
     cursor: pointer;
 }
 
-.flipkart-image-style{
+.flipkart-image-style {
     height: 40px;
     width: 110px;
     background-repeat: no-repeat;
     background-size: cover;
     margin: 5px;
 }
-/* search bar*/
-.search-icon{
+
+/* Search Bar */
+.search-container {
+    height: 40px;
+    padding: 5px 15px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #2874f0;
-}
-.search-container{
-    height: 30px;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-grow: 1;
 }
 
-.search-bar{
-    width: 300px;
+.search-bar {
+    width: 100%;
+    max-width: 400px;
     display: flex;
     align-items: center;
-    justify-content: start;
     border: 1px solid grey;
     padding: 5px;
     border-radius: 5px;
     background-color: #ffffff;
 }
 
-.login-btn{
+.search-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2874f0;
+}
+
+/* Login Button */
+.login-btn {
     height: 40px;
-    margin-left: 10px !important;
-    border-color: grey !important;
-    color: rgb(46, 46, 46) !important;
+    margin-left: 10px;
+    border-color: grey;
+    color: rgb(46, 46, 46);
 }
 
-.add-to-cart{
-   height: 40px;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   cursor: pointer;
-}
-
-.cart{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 25px !important;
-}
-
-.user-profile{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-        width: 100%;
-    margin: 20px auto;
-}
-
-.user-image{
-    height: 50px;
-}
-
-.menu-container{
+/* Menu Buttons */
+.menu-container {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.menus{
+.menus {
     color: white !important;
-    font-size: 20px !important;
+    font-size: 12px !important;
     font-weight: 600 !important;
-    margin: -210px !important;
+    gap: 0 !important;
+    margin-left: -10 !important;
+
+}
+
+/* Cart and Notifications */
+.add-to-cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    gap: 10px;
+}
+
+/* User Profile */
+.user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.user-image {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
 }
