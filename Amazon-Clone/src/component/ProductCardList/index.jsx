@@ -47,6 +47,29 @@ const ProductCardList = ({ product = [] }) => {
                   {item?.availabilityStatus}
                 </Typography>
               </Box>
+
+            </Box>
+            <Box className="btn-container">
+              <Button
+                variant="contained  "
+                style={{
+                  color:"white",
+                  margin: "5px",
+                  backgroundColor:"#ff9f00",
+                  border:"none",
+                  
+                }}
+              >
+                <ShoppingCartIcon />
+                Add to Cart
+              </Button>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "#fb641b", margin: "5px" }}
+              >
+                <FlashOnIcon/>
+                Buy Now
+              </Button>
             </Box>
             </Box>
            
