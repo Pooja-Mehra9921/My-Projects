@@ -65,10 +65,11 @@ const ProductCardGrid = ({ product = [] }) => {
                 {DollerToIndianPrice(item?.price)}
               </Typography>
               <Typography className="product-price">
-                orignal price
+ffffffffffffff
               </Typography>
               <Typography className="discout" >
-                discout
+                
+               {item?.discountPercentage} % off
               </Typography>
             </Box>
 

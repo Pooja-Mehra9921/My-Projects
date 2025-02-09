@@ -59,6 +59,7 @@ const ProductPage = () => {
     setViewOfProduct(false);
   };
 
+
   return (
     <>
       <Header />
@@ -75,13 +76,18 @@ const ProductPage = () => {
                 <ViewListIcon />
               </IconButton>
             </Box>
-            {!ViewOfProduct ? (
-              <ProductCardList product={allProduct} />
+            {!ViewOfProduct ? 
+              (
+                allProduct.map((item, index)=>
+                  <ProductCardList key={index} product={item} />
+                )
+              )
 
-            ) : (
+             : (
               <ProductCardGrid product={allProduct} />
 
             )}
+
           </Box>
         </Box>
       </Box>

@@ -1,37 +1,18 @@
 .product-list-container{
-  background-color: red;
-  padding: 10px;
-
-}
-
-.list-card-container{
-  background-color: green;
-  margin: 20px;
-  width: 100%;
-}
-
-.list-card{
+  margin: auto 10px;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(211, 211, 211);
+}
+
+.fav-icon{
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.product-list-image{
+  height: 200px;
   width: 200px;
-  height: 300px;
-}
-
-.image-section{
-  width: 80%;
-  background-color: antiquewhite;
-}
-.detail-section{
-  background-color: gainsboro;
-  width: 80%;
-}
-
-.list-card-title{
-  overflow: hidden;
-  
-}
-
-.list-card-description{
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
 }
