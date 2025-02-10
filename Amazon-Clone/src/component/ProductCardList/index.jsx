@@ -30,7 +30,12 @@ const ProductCardList = ({product}) => {
       
       <img className="product-list-image" src={product?.thumbnail || dummy} alt={product?.title} />
     </Box>
-    <Box className="detail-section">{product?.title || "no title"}</Box>
+      <Typography>
+      {product?.title || "no title"}
+
+      </Typography>
+      
+      </Box>
     <Box className="price-section">{product?.price}</Box>
     
     </Box>
