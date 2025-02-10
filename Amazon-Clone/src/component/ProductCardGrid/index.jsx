@@ -14,7 +14,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 // import assents
 import dummy from "../../assents/suggestions/dummy.png";
-import { DollarToIndianPrice, DollerToIndianPrice } from "../../utility";
+import { DollarToIndianPrice, DollerToIndianPrice, GetDiscountFromPrice } from "../../utility";
 
 // import styles
 import "./style.css";
@@ -62,14 +62,14 @@ const ProductCardGrid = ({ product = [] }) => {
             </Tooltip>
             <Box className="price-section" style={{ display: "flex", }}>
               <Typography className="grid-orignal-price">
-                {DollarToIndianPrice(item?.price)}
+                &#8377;{DollarToIndianPrice(item?.price)}
               </Typography>
               <Typography className="product-price">
-784
+&#8377;{GetDiscountFromPrice(item?.price, item?.discountPercentage)}
               </Typography>
               <Typography className="grid-discout" >
                 
-               {item?.discountPercentage} % off
+              {`${item?.discountPercentag || ""} % off`}
               </Typography>
             </Box>
 
