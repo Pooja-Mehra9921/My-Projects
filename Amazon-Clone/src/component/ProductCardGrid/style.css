@@ -55,7 +55,7 @@
   margin: auto 20px;
 }
 
-.orignal-price{
+.grid-orignal-price{
   font-weight: 800;
 }
 
@@ -64,6 +64,6 @@
   color: grey;
 }
 
-.discout{
+.grid-discout{
   color: green;
 }
