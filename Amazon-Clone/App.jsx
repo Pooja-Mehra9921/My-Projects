@@ -11,10 +11,10 @@ const App =()=>{
         <BrowserRouter>
         <Routes>
             <Route exact path="/" element={<HomePage />}/>
-            <Route  path="home" element={<HomePage />}/>
-            <Route path="login" element={<LoginPage />}/>
-            <Route path="product" element={<ProductPage />}/>
-            <Route path="product-detail" element={<SingleProductDetail />}/>
+            <Route  path="/home" element={<HomePage />}/>
+            <Route path="/login" element={<LoginPage />}/>
+            <Route path="/product" element={<ProductPage />}/>
+            <Route path="/product-detail/:id" element={<SingleProductDetail />}/>
         </Routes>
         </BrowserRouter>
         </>
