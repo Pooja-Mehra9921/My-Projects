@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // import Material UI Component
 import Box from "@mui/material/Box";
@@ -8,100 +8,105 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import FlashOnIcon from '@mui/icons-material/FlashOn';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FlashOnIcon from "@mui/icons-material/FlashOn";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 // import assents
 import dummy from "../../assents/suggestions/dummy.png";
-import { DollarToIndianPrice, DollerToIndianPrice, GetDiscountFromPrice } from "../../utility";
+import { DollarToIndianPrice, GetDiscountFromPrice } from "../../utility";
 
 // import styles
 import "./style.css";
 
-const ProductCardGrid = ({ product = [] }) => {
+const ProductCardGrid = ({ product }) => {
+  const [isWhishlist, setisWhishlist] = useState(false);  // state to manage whishlist 
+
+const handleSelectedProduct= ()=>{
+  console.log("product selected", product);
+  
+}
+
+
+  /**
+   * @description function to manage whishlist
+   */
+  const handleWhishlistBtn = () => {
+    setisWhishlist(!isWhishlist);
+  };
+
   return (
     <>
-      <Box className="product-grid-container">
-        {product.map((item, index) => (
-          <Box key={index} className="main-grid-container">
-            <IconButton className="heart-icon">
-              <FavoriteIcon />
-              <FavoriteBorderIcon />
-            </IconButton>
-            <Box className="image-container">
-              <img
-                className="product-image"
-                src={item?.thumbnail || dummy}
-                alt="dummy image"
-              />
-            </Box>
+        <Box className="main-grid-container" onClick={()=>handleSelectedProduct(product)}>
+          <IconButton className="heart-icon" onClick={handleWhishlistBtn}>
+            {isWhishlist ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          </IconButton>
+          <Box className="image-container">
+            <img
+              className="product-image"
+              src={product?.thumbnail || dummy}
+              alt="dummy image"
+            />
+          </Box>
+          <Typography
+          className="grid-title">
+            {product?.title || "no title"}
+          </Typography>
+          <Tooltip title={product?.description} arrow>
             <Typography
+              className="card-description"
               style={{
                 margin: "auto 15px",
-                marginTop: "10px",
-                textAlign: "left",
-                fontWeight: "600",
-                fontSize: "16px",
-                color: "grey",
+                fontWeight: "400",
+                textAlign: "justify",
               }}
             >
-              {item?.title || "no title"}
+              {product?.description}
             </Typography>
-            <Tooltip title={item?.description} arrow>
-              <Typography
-                className="card-description"
-                style={{
-                  margin: "auto 15px",
-                  fontWeight: "400",
-                  textAlign: "justify",
-                }}
-              >
-                {item?.description}
-              </Typography>
-            </Tooltip>
-            <Box className="price-section" style={{ display: "flex", }}>
-              <Typography className="grid-orignal-price">
-                &#8377;{DollarToIndianPrice(item?.price)}
-              </Typography>
-              <Typography className="product-price">
-&#8377;{GetDiscountFromPrice(item?.price, item?.discountPercentage)}
-              </Typography>
-              <Typography className="grid-discout" >
-                
-              {`${item?.discountPercentag || ""} % off`}
-              </Typography>
-            </Box>
-
-            <Typography style={{ margin: "auto 15px" }}>
-              <Rating name="read-only" value={item?.rating} readOnly />
+          </Tooltip>
+          <Box className="price-section" style={{ display: "flex" }}>
+            <Typography className="grid-orignal-price">
+              &#8377;{DollarToIndianPrice(product?.price)}
             </Typography>
-
-            <Box className="btn-container">
-              <Button
-                variant="contained  "
-                style={{
-                  color:"white",
-                  margin: "5px",
-                  backgroundColor:"#ff9f00",
-                  border:"none",
-                  
-                }}
-              >
-                <ShoppingCartIcon />
-                Add to Cart
-              </Button>
-              <Button
-                variant="contained"
-                style={{ backgroundColor: "#fb641b", margin: "5px" }}
-              >
-                <FlashOnIcon/>
-                Buy Now
-              </Button>
-            </Box>
+            <Typography className="product-price">
+              &#8377;
+              {GetDiscountFromPrice(
+                product?.price,
+                product?.discountPercentage
+              )}
+            </Typography>
+            <Typography className="grid-discout">
+              {`${product?.discountPercentage || ""} % off`}
+            </Typography>
           </Box>
-        ))}
-      </Box>
+
+          <Typography style={{ margin: "auto 15px" }}>
+            <Rating name="read-only" value={product?.rating} readOnly />
+          </Typography>
+
+          <Box className="btn-container">
+            <Button
+              variant="contained  "
+              style={{
+                color: "white",
+                margin: "5px",
+                backgroundColor: "#ff9f00",
+                border: "none",
+              }}
+            >
+              <ShoppingCartIcon />
+              Add to Cart
+            </Button>
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "#fb641b", margin: "5px" }}
+            >
+              <FlashOnIcon />
+              Buy Now
+            </Button>
+          </Box>
+        </Box>
+   
     </>
   );
 };

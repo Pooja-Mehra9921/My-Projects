@@ -1,34 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-// import react Hooks
-import { useEffect } from "react";
-import { useState } from "react";
-
-// import Custom components
+// Import Custom Components
 import Header from "../../component/Header";
 import Footer from "../../component/Footer";
 import ProductCardGrid from "../../component/ProductCardGrid";
 import ProductCardList from "../../component/ProductCardList";
-import BackdropLoader from "../../component/BackdropLoader"
+import BackdropLoader from "../../component/BackdropLoader";
 
 import { API } from "../../configs/api";
 
-// import material ui components
+// Import Material UI Components
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import ViewListIcon from "@mui/icons-material/ViewList";
-import ViewListIcon from "@mui/icons-material/ViewList";
 
-// import styles
+// Import Styles
 import "./style.css";
 
 const ProductPage = () => {
-  // states to manages data
-  const [allProduct, setallProduct] = useState([]);
-  const [ViewOfProduct, setViewOfProduct] = useState(true);
-  const [isLoading, setisLoading] = useState(false);
+  // State Management
+  const [allProduct, setAllProduct] = useState([]);
+  const [ViewOfProduct, setViewOfProduct] = useState("grid"); // Default to 'grid'
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchProduct();
@@ -36,58 +31,55 @@ const ProductPage = () => {
 
   const fetchProduct = async () => {
     try {
-      setisLoading(true);
+      setIsLoading(true);
       const response = await axios.get(API.PRODUCTS_API);
-      console.log("product page apill call", response.data);
+      console.log("Product Page API call", response.data);
 
       const { status, data: { products = [] } = {} } = response || {};
       if (status === 200) {
-      setisLoading(false);
-
-        console.log("Product Page Api", products);
-        setallProduct(products);
+        setIsLoading(false);
+        console.log("Product Page API", products);
+        setAllProduct(products);
       }
     } catch (error) {
-      console.log("error while fetching product api", error);
+      console.log("Error while fetching product API", error);
+      setIsLoading(false);
     }
   };
 
-  const showGridView = () => {
-    setViewOfProduct(true);
+  const handleViewOfProduct = (type) => {
+    setViewOfProduct(type);
   };
-  const showListView = () => {
-    setViewOfProduct(false);
-  };
-
 
   return (
     <>
       <Header />
-      <BackdropLoader isLoading={isLoading}/>
+      <BackdropLoader isLoading={isLoading} />
       <Box className="product-main-container">
         <Box className="product-container">
-          <Box className="filter-section">filter section</Box>
+          <Box className="filter-section">Filter Section</Box>
           <Box className="product-section">
             <Box className="view-icon-container">
-              <IconButton onClick={showGridView}>
+              <IconButton onClick={() => handleViewOfProduct("grid")}>
                 <ViewModuleIcon />
               </IconButton>
-              <IconButton onClick={showListView}>
+              <IconButton onClick={() => handleViewOfProduct("list")}>
                 <ViewListIcon />
               </IconButton>
             </Box>
-            {!ViewOfProduct ? 
-              (
-                allProduct.map((item, index)=>
-                  <ProductCardList key={index} product={item} />
-                )
-              )
 
-             : (
-              <ProductCardGrid product={allProduct} />
+            {ViewOfProduct === "list" &&
+              allProduct.map((item) => (
+                <ProductCardList key={item.id} product={item} />
+              ))}
 
+            {ViewOfProduct === "grid" && (
+              <Box className="product-grid-container">
+                {allProduct.map((item) => (
+                  <ProductCardGrid key={item.id} product={item} />
+                ))}
+              </Box>
             )}
-
           </Box>
         </Box>
       </Box>

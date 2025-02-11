@@ -30,3 +30,12 @@
     margin: 0px 10px;
     cursor: pointer;
 }
+
+.product-grid-container{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 0px 10px;
+    margin: 10px;
+}

@@ -13,7 +13,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin: auto 30px;
+    margin: auto 60px;
 }
 
 .flipkart-plus-image {
@@ -60,9 +60,10 @@
 /* Login Button */
 .login-btn {
     height: 40px;
-    margin-left: 10px;
-    border-color: grey;
-    color: rgb(46, 46, 46);
+    margin-left: 15px !important;
+    border-color: rgb(255, 255, 255) !important;
+    color: rgb(255, 255, 255) !important;
+    
 }
 
 /* Menu Buttons */

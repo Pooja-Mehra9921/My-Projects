@@ -85,7 +85,7 @@ import "./style.css";
 
   /** @description error validations  */
 
-  const emailerror = isSubmit && loginData.username.length <= 5;
+  const emailerror = isSubmit && loginData.username.length <= 5  ;
   const passworderror = isSubmit && loginData.password.length <= 6;
 
   return (
@@ -160,7 +160,7 @@ import "./style.css";
               <Box className="btn-container">
                 <Tooltip
                   title={
-                    (loginData.username < 5 && "please enter valid Username") ||
+                    (loginData.username < 5 && loginData.username != "emilys" && "please enter valid Username") ||
                     (loginData.password < 6 && "please enter valid password")
                   }
                 >

@@ -1,15 +1,8 @@
-.product-grid-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  padding: 0px 10px;
-}
-
 .main-grid-container {
   box-shadow: 0px 0px 5px rgb(223, 223, 223);
 
   height: auto;
-  width: 280px;
+  width: 300px;
   border-radius: 5px;
   cursor: pointer;
   margin: 5px auto;
@@ -38,32 +31,50 @@
   height: 250px;
 }
 
-.card-description{
-  white-space: nowrap;
+.card-description {
+  text-align: justify;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
-  text-overflow: ellipsis;
+  margin: 10px 15px !important;
+  line-height: 18px !important;
+  letter-spacing: normal !important;
+
 }
 
-.btn-container{
+.grid-title {
+  text-align: justify;
+ 
+  
+  margin: auto 15px !important;
+  margin-top: 10px !important;
+  text-align: left !important;
+  font-Weight: 600 !important;
+  font-size: 16px !important;
+  color: grey !important;
+}
+
+.btn-container {
   margin-top: 5px;
 }
 
-.price-section{
+.price-section {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: auto 20px;
 }
 
-.grid-orignal-price{
+.grid-orignal-price {
   font-weight: 800;
 }
 
-.product-price{
+.product-price {
   text-decoration: line-through;
   color: grey;
 }
 
-.grid-discout{
+.grid-discout {
   color: green;
 }
