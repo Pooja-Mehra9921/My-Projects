@@ -12,11 +12,14 @@ const SingleProductDetail = ()=>{
         <Header/>
         <Box className="pro-detail-container">
             <Box className="pro-image-section">
-                image
+
+              <Box>    
+              </Box>
             </Box>
             <Box className="pro-detail-section">
                 detail
-            </Box>
+            </Box>  
+
 
         </Box>
         </>
