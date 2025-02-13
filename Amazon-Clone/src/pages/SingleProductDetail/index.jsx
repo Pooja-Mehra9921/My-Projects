@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 // import custom components
 import Header from "../../component/Header";
 import Footer from "../../component/Footer";
+import UserRating from "../../component/UserRating";
 
 // import material ui component
 import { Box, Button, Typography } from "@mui/material";
@@ -121,7 +122,7 @@ const SingleProductDetail = () => {
 
         <Box className="pro-detail-section">
           <Typography variant="h5">{dataFromStore.title}</Typography>
-          <Typography variant="body1">{dataFromStore.description}</Typography>
+          <Typography variant="body1" style={{textAlign:"justify"}}>{dataFromStore.description}</Typography>
           {/*Price section*/}
           <Box className="selected-price-section">
             <Box style={{ display: "flex", margin: "10px auto" }}>
@@ -159,15 +160,20 @@ const SingleProductDetail = () => {
             >
               {dataFromStore?.availabilityStatus}
             </Typography>
-            <Typography>{dataFromStore?.warrantyInformation}</Typography>
-            <Typography>{dataFromStore?.returnPolicy}</Typography>
-            <Typography>{dataFromStore?.shippingInformation}</Typography>
-            <Typography>{dataFromStore?.stock}</Typography>
-            <Typography>{dataFromStore?.warrantyInformation}</Typography>
+            <Typography variant="body1">Warranty: <strong>{dataFromStore?.warrantyInformation}</strong></Typography>
+            <Typography variant="body1">Return Policy: <strong>{dataFromStore?.returnPolicy}</strong></Typography>
+            <Typography variant="body1">Shipping : <strong>{dataFromStore?.shippingInformation}</strong></Typography>
+            <Typography variant="body1">Available Stock: <strong>{dataFromStore?.stock}</strong></Typography>
+            <Typography variant="body1">Return Policy: <strong>{dataFromStore?.warrantyInformation}</strong></Typography>
+            <Typography variant="body1">Dimentions:</Typography>
+            <Typography variant="body1">Depth: <strong>{dataFromStore?.dimensions?.depth}</strong></Typography>
+            <Typography variant="body1">Height: <strong>{dataFromStore?.dimensions?.height}</strong></Typography>
+            <Typography variant="body1">Width: <strong>{dataFromStore?.dimensions?.width}</strong></Typography>
           </Box>
 
           <Box className="review-rating-section">
-            <Typography variant="h5">Ratings & Reviews</Typography>
+            <Typography variant="h5">Review and Rating</Typography>
+            <UserRating/>
             <Box className="review-left-section">
 
             </Box>

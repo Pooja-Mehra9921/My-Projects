@@ -7,6 +7,9 @@ import StarIcon from "@mui/icons-material/Star";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import StarIcon from "@mui/icons-material/Star";
+import FlashOnIcon from "@mui/icons-material/FlashOn";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 // import assents
@@ -56,10 +59,15 @@ console.log("listttttttttttttt products", product)
               style={{ color: "grey" }}
             >{`${product?.rating} Ratings & ${(product?.reviews).length} Reviews`}</Typography>
           </Box>
-          <Typography
-            className="list-description"
-          >
+          <Typography className="list-description">
             {product?.description}
+          </Typography>
+          <Typography className="list-description">
+            
+            Brand: <strong>{product?.brand}</strong>
+          </Typography>
+          <Typography className="list-description">
+            Category: <strong>{product?.category}</strong>
           </Typography>
         </Box>
 
@@ -86,6 +94,28 @@ console.log("listttttttttttttt products", product)
           </Typography>
 
           <Typography>{product?.warrantyInformation}</Typography>
+          <Box className="list-btn-container">
+            <Button
+              variant="contained"
+              className="add-to-cart-btn"
+              style={{
+                color: "white",
+                margin: "5px",
+                backgroundColor: "#ff9f00",
+                border: "none",
+              }}
+            >
+              <ShoppingCartIcon />
+              Add to Cart
+            </Button> 
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "#fb641b", margin: "5px" }}
+            >
+              <FlashOnIcon />
+              Buy Now
+            </Button>
+          </Box>
         </Box>
       </Box>
     </>
