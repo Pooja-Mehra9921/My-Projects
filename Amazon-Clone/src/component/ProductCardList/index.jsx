@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 // import Material UI Component
 import Box from "@mui/material/Box";
@@ -18,12 +19,18 @@ import dummy from "../../assents/suggestions/dummy.png";
 // import styles
 import "./style.css";
 import { DollarToIndianPrice, GetDiscountFromPrice } from "../../utility";
+import { setSelectedProducts } from "../../redux/appReducer/appReducer";
+import { useNavigate } from "react-router-dom";
 
 const ProductCardList = ({ product }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
    const [isWhishlist, setisWhishlist] = useState(false);
 
    const handleListproducts=(product)=>{
-console.log("listttttttttttttt products", product)
+dispatch(setSelectedProducts(product));
+navigate(`/product-detail/${product?.id}`)
+
    }
   
     const handleWhishlistBtn = () => {

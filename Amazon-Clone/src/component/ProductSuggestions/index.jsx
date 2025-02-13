@@ -1,4 +1,5 @@
 import React from "react";
+import {useDispatch} from "react-redux";
 
 // import material ui components
 import Box from "@mui/material/Box";
@@ -9,8 +10,19 @@ import DummyImage from "../../assents/suggestions/dummy.png";
 
 // import styles
 import "./style.css";
+import { useNavigate } from "react-router-dom";
+import { setSelectedProducts } from "../../redux/appReducer/appReducer";
 
 const ProductSuggestions = ({ title = "abc", product = [] }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+
+  const handleProductSuggestionCard=(item)=>{
+    console.log("carddd click", item);
+    dispatch(setSelectedProducts(item));
+    navigate(`/product-detail/${item?.id}`);
+  }
   return (
     <>
       <Box className="Product-suggestion-main-container">
@@ -24,7 +36,7 @@ const ProductSuggestions = ({ title = "abc", product = [] }) => {
             </Typography>
           ) : (
             product.map((item, index) => (
-              <Box key={index} className="Product-suggestion-card">
+              <Box key={index} className="Product-suggestion-card" onClick={()=>handleProductSuggestionCard(item)}>
                 <Box>
                   <Box className="image-container">
                     <img

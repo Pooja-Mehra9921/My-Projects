@@ -28,6 +28,11 @@
    
 }
 
+.Product-suggestion-card:hover{
+    box-shadow: 0px 0px 3px rgb(220, 220, 220);
+    cursor: pointer;
+}
+
 .Product-suggestion-images{
     max-height: 170px;
     max-width:  170px;
