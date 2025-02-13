@@ -173,7 +173,10 @@ const SingleProductDetail = () => {
 
           <Box className="review-rating-section">
             <Typography variant="h5">Review and Rating</Typography>
-            <UserRating/>
+            {dataFromStore.reviews.map((reviews, index)=>{
+              return  <UserRating key={index} review={reviews}/>
+            })}
+           
             <Box className="review-left-section">
 
             </Box>
