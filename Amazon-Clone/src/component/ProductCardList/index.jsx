@@ -1,44 +1,58 @@
-import React, { useState } from "react";
+import React from "react";
+
+// import Hooks
+import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 // import Material UI Component
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import StarIcon from "@mui/icons-material/Star";
+import StarIcon from "@mui/icons-material/Star";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import FlashOnIcon from "@mui/icons-material/FlashOn";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import StarIcon from "@mui/icons-material/Star";
-import FlashOnIcon from "@mui/icons-material/FlashOn";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 // import assents
 import dummy from "../../assents/suggestions/dummy.png";
 
+// import custom hooks
+import { setSelectedProducts } from "../../redux/appReducer/appReducer";
+import { DollarToIndianPrice, GetDiscountFromPrice } from "../../utility";
+
 // import styles
 import "./style.css";
-import { DollarToIndianPrice, GetDiscountFromPrice } from "../../utility";
-import { setSelectedProducts } from "../../redux/appReducer/appReducer";
-import { useNavigate } from "react-router-dom";
 
 const ProductCardList = ({ product }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // to store data in redux
   const navigate = useNavigate();
-   const [isWhishlist, setisWhishlist] = useState(false);
+  const [isWhishlist, setisWhishlist] = useState(false); // to handle whishlist icon on product card
 
-   const handleListproducts=(product)=>{
-dispatch(setSelectedProducts(product));
-navigate(`/product-detail/${product?.id}`)
+  /**
+   * @description handle selected product and redirect to single product detail page
+   */
 
-   }
-  
-    const handleWhishlistBtn = () => {
-      setisWhishlist(!isWhishlist);
-    };
+  const handleListproducts = (product) => {
+    dispatch(setSelectedProducts(product));
+    navigate(`/product-detail/${product?.id}`);
+  };
+
+  /**
+   * @description to handle whishlist icon
+   */
+  const handleWhishlistBtn = () => {
+    setisWhishlist(!isWhishlist);
+  };
   return (
     <>
-      <Box className="product-list-container" onClick={()=>handleListproducts(product)}>
+      <Box
+        className="product-list-container"
+        onClick={() => handleListproducts(product)}
+      >
         <Box className="image-section">
           <img
             className="product-list-image"
@@ -46,9 +60,9 @@ navigate(`/product-detail/${product?.id}`)
             alt={product?.title}
           />
           <Box className="fav-icon">
-          <IconButton className="heart-icon" onClick={handleWhishlistBtn}>
-            {isWhishlist ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-          </IconButton>
+            <IconButton className="heart-icon" onClick={handleWhishlistBtn}>
+              {isWhishlist ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+            </IconButton>
           </Box>
         </Box>
 
@@ -57,7 +71,7 @@ navigate(`/product-detail/${product?.id}`)
           <Typography className="list-title">
             {product?.title || "no title"}
           </Typography>
-          <Box style={{ display: "flex", margin:"10px auto" }}>
+          <Box style={{ display: "flex", margin: "10px auto" }}>
             <Button className="rating-btn" variant="contained">
               {Number(product?.rating).toFixed(1)}
               <StarIcon style={{ fontSize: "16px", marginTop: "-3px" }} />
@@ -70,7 +84,6 @@ navigate(`/product-detail/${product?.id}`)
             {product?.description}
           </Typography>
           <Typography className="list-description">
-            
             Brand: <strong>{product?.brand}</strong>
           </Typography>
           <Typography className="list-description">
@@ -83,12 +96,15 @@ navigate(`/product-detail/${product?.id}`)
           <Typography className="list-price">
             &#8377;{DollarToIndianPrice(product?.price)}
           </Typography>
-          <Box style={{display:"flex"}}>
-          <Typography className="list-orignal-price">
-            &#8377;
-            {GetDiscountFromPrice(product?.price, product?.discountPercentage)}
-          </Typography>
-          <Typography className="list-discount-price">{`${product?.discountPercentage} % off`}</Typography>
+          <Box style={{ display: "flex" }}>
+            <Typography className="list-orignal-price">
+              &#8377;
+              {GetDiscountFromPrice(
+                product?.price,
+                product?.discountPercentage
+              )}
+            </Typography>
+            <Typography className="list-discount-price">{`${product?.discountPercentage} % off`}</Typography>
           </Box>
 
           <Typography
@@ -114,7 +130,7 @@ navigate(`/product-detail/${product?.id}`)
             >
               <ShoppingCartIcon />
               Add to Cart
-            </Button> 
+            </Button>
             <Button
               variant="contained"
               style={{ backgroundColor: "#fb641b", margin: "5px" }}

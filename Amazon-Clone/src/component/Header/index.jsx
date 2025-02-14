@@ -7,7 +7,7 @@ import { useState } from "react";
 // import Material Ui components
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
-import { Badge, ButtonGroup } from "@mui/material";
+import { Badge } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
@@ -46,7 +46,14 @@ const Header = () => {
   const isOpen = Boolean(anchorEl); // to open profile menus
   const isQuichSearch = Boolean(QuichSearchAnchor); // to open quick search menus
 
-  const redirectToLogin = () => {
+ const handleredirectPages=(type)=>{
+if(type == "home" ) navigate("/home");
+if(type == "product")navigate("/product");
+if(type == "about")navigate("/about");
+if(type == "login") navigate("/login");
+ }
+
+{/*  const redirectToLogin = () => {
     navigate("/login");
   };
 
@@ -58,6 +65,9 @@ const Header = () => {
     navigate("/product");
   };
 
+  const redirectToAboutPage = () => {
+    navigate("/about");
+  };*/}
   /**
    * @description to open profile menus
    */
@@ -111,7 +121,7 @@ const Header = () => {
           <Box className="flipkart-plus-image">
             {isUserLoggedIn ? (
               <img
-                onClick={redirectToHome}
+                onClick={()=>handleredirectPages("home")}
                 className="flipkart-image-style"
                 src={FLIPKART_PLUS_IMAGE}
                 alt="flipkart image "
@@ -127,12 +137,28 @@ const Header = () => {
           </Box>
 
           <Box className="menu-container">
-            <Button style={{color:"white", margin:"5px"}} onClick={redirectToHome} variant="text">Home</Button>
-            <Button style={{color:"white", margin:"5px"}}  onClick={redirectToProductPage} variant="text">Product</Button>
-            <Button style={{color:"white", margin:"5px"}}  variant="text">About</Button>
-            <Button style={{color:"white", margin:"5px"}}  variant="text">Contact</Button>
             <Button
-            style={{color:"white", margin:"0px", width:"130px"}}
+              style={{ color: "white", margin: "5px" }}
+              onClick={()=>handleredirectPages("home")}
+              variant="text"
+            >
+              Home
+            </Button>
+            <Button
+              style={{ color: "white", margin: "5px" }}
+              onClick={()=>handleredirectPages("product")}
+              variant="text"
+            >
+              Product
+            </Button>
+            <Button style={{ color: "white", margin: "5px" }} variant="text" onClick={()=>handleredirectPages("about")}>
+              About
+            </Button>
+            <Button style={{ color: "white", margin: "5px" }} variant="text">
+              Contact
+            </Button>
+            <Button
+              style={{ color: "white", margin: "0px", width: "130px" }}
               id="fade-button"
               aria-haspopup="true"
               onClick={handleQuickSearch}
@@ -175,7 +201,7 @@ const Header = () => {
                 Kitchen
               </MenuItem>
             </Menu>
-          </Box> 
+          </Box>
           <Box className="search-container">
             <Box className="search-bar">
               <Box className="search-icon">
@@ -252,7 +278,7 @@ const Header = () => {
               <Button
                 className="login-btn"
                 variant="outlined"
-                onClick={redirectToLogin}
+                onClick={handleredirectPages("login")}
               >
                 Login
               </Button>

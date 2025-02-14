@@ -1,29 +1,29 @@
-.product-main-container{
+.product-main-container {
     display: flex;
-    align-items: center ;
+    align-items: center;
     justify-content: center;
     margin: 20px auto;
 }
 
-.product-container{
+.product-container {
     width: 90%;
     display: flex;
-    justify-content:space-between ;
+    justify-content: space-between;
 }
 
-.filter-section{
+.filter-section {
     width: 20%;
     background-color: white;
     margin-right: 10px;
 }
 
-.product-section{
+.product-section {
     background-color: white;
 
     width: 80%;
 }
 
-.view-icon-container{
+.view-icon-container {
     display: flex;
     justify-content: end;
     align-items: end;
@@ -31,7 +31,7 @@
     cursor: pointer;
 }
 
-.product-grid-container{
+.product-grid-container {
     display: flex;
     align-items: center;
     flex-wrap: wrap;

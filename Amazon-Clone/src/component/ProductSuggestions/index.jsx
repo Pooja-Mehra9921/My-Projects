@@ -1,5 +1,8 @@
 import React from "react";
-import {useDispatch} from "react-redux";
+
+// import hooks
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 // import material ui components
 import Box from "@mui/material/Box";
@@ -8,21 +11,27 @@ import { Typography } from "@mui/material";
 // import assents
 import DummyImage from "../../assents/suggestions/dummy.png";
 
-// import styles
-import "./style.css";
-import { useNavigate } from "react-router-dom";
+// import custom components
 import { setSelectedProducts } from "../../redux/appReducer/appReducer";
 
+// import styles
+import "./style.css";
+
 const ProductSuggestions = ({ title = "abc", product = [] }) => {
-  const dispatch = useDispatch();
+
+  const dispatch = useDispatch(); // hook to store data in redux store
   const navigate = useNavigate();
 
+  /**
+   * @description handle selected product and redirect to single product detail page
+   */
 
-  const handleProductSuggestionCard=(item)=>{
+  const handleProductSuggestionCard = (item) => {
     console.log("carddd click", item);
     dispatch(setSelectedProducts(item));
     navigate(`/product-detail/${item?.id}`);
-  }
+  };
+  
   return (
     <>
       <Box className="Product-suggestion-main-container">
@@ -36,7 +45,11 @@ const ProductSuggestions = ({ title = "abc", product = [] }) => {
             </Typography>
           ) : (
             product.map((item, index) => (
-              <Box key={index} className="Product-suggestion-card" onClick={()=>handleProductSuggestionCard(item)}>
+              <Box
+                key={index}
+                className="Product-suggestion-card"
+                onClick={() => handleProductSuggestionCard(item)}
+              >
                 <Box>
                   <Box className="image-container">
                     <img

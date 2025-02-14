@@ -20,20 +20,20 @@
   margin: 0 !important;
 }
 
-.fk-right-sec{
-    padding-right: 16px;
+.fk-right-sec {
+  padding-right: 16px;
 }
 
-.btn-container{
-    display: flex;
-    width: 90%;
-    justify-content: space-between;
-    align-items: center;
-    margin: 20px auto;
+.btn-container {
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px auto;
 }
 
-.chip-btn{
-    width: 140px !important;
-    cursor: pointer !important;
+.chip-btn {
+  width: 140px !important;
+  cursor: pointer !important;
 
 }

@@ -26,12 +26,11 @@ import { API } from "../../configs/api";
 // style sheet
 import "./style.css";
 
- // Login Page components
-  const Login = () => {
-
+// Login Page components
+const Login = () => {
   const navigate = useNavigate();
- 
- // states
+
+  // states
   const [hidePassword, sethidePassword] = useState(false); // state to set hide icon in the password input field
   const [loginData, setloginData] = useState({ username: "", password: "" }); // state to store login data enter from the user
   const [isSubmit, setisSubmit] = useState(false); // state to check user is submit the form or not
@@ -58,15 +57,16 @@ import "./style.css";
       setisSubmit(true);
       console.log("---login data", loginData);
 
-      const { status, data } = await axios.post(API.LOGIN_API, {           // fetch api
-        username: loginData.username, 
+      const { status, data } = await axios.post(API.LOGIN_API, {
+        // fetch api
+        username: loginData.username,
         password: loginData.password,
         expiresInMins: 30,
       });
 
       if (status == 200) {
         setisLoading(false); // stop loader
-        setisOpen(true);   // show succus message
+        setisOpen(true); // show succus message
         localStorage.setItem("userdata", JSON.stringify(data)); // store data in local storage
         navigate("/home");
       }
@@ -80,12 +80,12 @@ import "./style.css";
   /** @description to get user value from username and password input enter by user  */
 
   const handlechange = (type) => (event) => {
-    setloginData({ ...loginData, [type]: event.target.value });     // get value from inputs enter by user
+    setloginData({ ...loginData, [type]: event.target.value }); // get value from inputs enter by user
   };
 
   /** @description error validations  */
 
-  const emailerror = isSubmit && loginData.username.length <= 5  ;
+  const emailerror = isSubmit && loginData.username.length <= 5;
   const passworderror = isSubmit && loginData.password.length <= 6;
 
   return (
@@ -160,7 +160,9 @@ import "./style.css";
               <Box className="btn-container">
                 <Tooltip
                   title={
-                    (loginData.username < 5 && loginData.username != "emilys" && "please enter valid Username") ||
+                    (loginData.username < 5 &&
+                      loginData.username != "emilys" &&
+                      "please enter valid Username") ||
                     (loginData.password < 6 && "please enter valid password")
                   }
                 >

@@ -1,52 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import ReactImageMagnify from "react-image-magnify";
+
+// import Hooks
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 // import custom components
 import Header from "../../component/Header";
 import Footer from "../../component/Footer";
 import UserRating from "../../component/UserRating";
+import { DollarToIndianPrice, GetDiscountFromPrice } from "../../utility";
 
 // import material ui component
-import { Box, Button, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import FlashOnIcon from "@mui/icons-material/FlashOn";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import StarIcon from "@mui/icons-material/Star";
 
 // import styles
 import "./style.css";
-import ReactImageMagnify from "react-image-magnify";
-import { DollarToIndianPrice, GetDiscountFromPrice } from "../../utility";
-import axios from "axios";
-import { API } from "../../configs/api";
 
 const SingleProductDetail = () => {
-  const dataFromStore = useSelector((store) => store?.app?.selectedproduct);
+  const dataFromStore = useSelector((store) => store?.app?.selectedproduct); // get product data from redux store
+  const [imageToMagnify, setImageToMagnify] = useState(
+    dataFromStore?.thumbnail
+  );
 
-  const [imageToMagnify, setImageToMagnify] = useState(dataFromStore?.thumbnail);
-
-
-  const fetchSelectedProduct =async()=>{
-    const response = await axios.get(API.PRODUCT_BY_ID);
-    console.log("product bt id", response);
-  }
-
-  useEffect(() => {
-    if (dataFromStore) {
-      setImageToMagnify(dataFromStore.thumbnail);
-    fetchSelectedProduct();
-
-    }
-
-  }, [dataFromStore]);
-
-  if (!dataFromStore) {
-    return <p>Loading product details...</p>;
-  }
-
-/**
- * @description function to set product images in image magnify
- * @param {number} image 
- */
+  /**
+   * @description function to set product images in image magnify
+   * @param {number} image
+   */
 
   const handleMainImageChange = (image) => {
     setImageToMagnify(image);
@@ -122,7 +107,9 @@ const SingleProductDetail = () => {
 
         <Box className="pro-detail-section">
           <Typography variant="h5">{dataFromStore.title}</Typography>
-          <Typography variant="body1" style={{textAlign:"justify"}}>{dataFromStore.description}</Typography>
+          <Typography variant="body1" style={{ textAlign: "justify" }}>
+            {dataFromStore.description}
+          </Typography>
           {/*Price section*/}
           <Box className="selected-price-section">
             <Box style={{ display: "flex", margin: "10px auto" }}>
@@ -160,28 +147,42 @@ const SingleProductDetail = () => {
             >
               {dataFromStore?.availabilityStatus}
             </Typography>
-            <Typography variant="body1">Warranty: <strong>{dataFromStore?.warrantyInformation}</strong></Typography>
-            <Typography variant="body1">Return Policy: <strong>{dataFromStore?.returnPolicy}</strong></Typography>
-            <Typography variant="body1">Shipping : <strong>{dataFromStore?.shippingInformation}</strong></Typography>
-            <Typography variant="body1">Available Stock: <strong>{dataFromStore?.stock}</strong></Typography>
-            <Typography variant="body1">Return Policy: <strong>{dataFromStore?.warrantyInformation}</strong></Typography>
+            <Typography variant="body1">
+              Warranty: <strong>{dataFromStore?.warrantyInformation}</strong>
+            </Typography>
+            <Typography variant="body1">
+              Return Policy: <strong>{dataFromStore?.returnPolicy}</strong>
+            </Typography>
+            <Typography variant="body1">
+              Shipping : <strong>{dataFromStore?.shippingInformation}</strong>
+            </Typography>
+            <Typography variant="body1">
+              Available Stock: <strong>{dataFromStore?.stock}</strong>
+            </Typography>
+            <Typography variant="body1">
+              Return Policy:{" "}
+              <strong>{dataFromStore?.warrantyInformation}</strong>
+            </Typography>
             <Typography variant="body1">Dimentions:</Typography>
-            <Typography variant="body1">Depth: <strong>{dataFromStore?.dimensions?.depth}</strong></Typography>
-            <Typography variant="body1">Height: <strong>{dataFromStore?.dimensions?.height}</strong></Typography>
-            <Typography variant="body1">Width: <strong>{dataFromStore?.dimensions?.width}</strong></Typography>
+            <Typography variant="body1">
+              Depth: <strong>{dataFromStore?.dimensions?.depth}</strong>
+            </Typography>
+            <Typography variant="body1">
+              Height: <strong>{dataFromStore?.dimensions?.height}</strong>
+            </Typography>
+            <Typography variant="body1">
+              Width: <strong>{dataFromStore?.dimensions?.width}</strong>
+            </Typography>
           </Box>
 
           <Box className="review-rating-section">
             <Typography variant="h5">Review and Rating</Typography>
-            {dataFromStore.reviews.map((reviews, index)=>{
-              return  <UserRating key={index} review={reviews}/>
+            {dataFromStore.reviews.map((reviews, index) => {
+              return <UserRating key={index} review={reviews} />;
             })}
-           
-            <Box className="review-left-section">
 
-            </Box>
+            <Box className="review-left-section"></Box>
             <Box className="review-right-section"></Box>
-
           </Box>
         </Box>
       </Box>

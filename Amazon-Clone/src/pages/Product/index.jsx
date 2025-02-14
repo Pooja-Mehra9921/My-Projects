@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from "axios";
 
+// import hooks
+import { useState } from "react";
+import { useEffect } from "react";
+
 // Import Custom Components
+import { API } from "../../configs/api";
 import Header from "../../component/Header";
 import Footer from "../../component/Footer";
+import BackdropLoader from "../../component/BackdropLoader";
 import ProductCardGrid from "../../component/ProductCardGrid";
 import ProductCardList from "../../component/ProductCardList";
-import BackdropLoader from "../../component/BackdropLoader";
-
-import { API } from "../../configs/api";
 
 // Import Material UI Components
 import Box from "@mui/material/Box";
@@ -47,6 +50,10 @@ const ProductPage = () => {
     }
   };
 
+  /**
+   * @description to change view of product to list view and grid view
+   * @param {string} type
+   */
   const handleViewOfProduct = (type) => {
     setViewOfProduct(type);
   };
