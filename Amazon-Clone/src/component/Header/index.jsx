@@ -34,6 +34,7 @@ import FLIPKART_PLUS_IMAGE from "../../assents/images/flipkart_plus.png";
 
 // import styles
 import "./style.css";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   // states
@@ -42,6 +43,7 @@ const Header = () => {
 
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem("userdata")); // get user data from local storage
+  const cartItems = useSelector(store=>store.app.cartItem);
 
   const isOpen = Boolean(anchorEl); // to open profile menus
   const isQuichSearch = Boolean(QuichSearchAnchor); // to open quick search menus
@@ -51,6 +53,7 @@ if(type == "home" ) navigate("/home");
 if(type == "product")navigate("/product");
 if(type == "about")navigate("/about");
 if(type == "login") navigate("/login");
+if(type == "cart") navigate("/cart");
  }
 
 {/*  const redirectToLogin = () => {
@@ -299,11 +302,12 @@ if(type == "login") navigate("/login");
 
             {isUserLoggedIn ? (
               <IconButton
+              onClick={()=>handleredirectPages("cart")}
                 size="large"
                 aria-label="show 17 new notifications"
                 color="inherit"
               >
-                <Badge badgeContent={isUserLoggedIn && 17} color="error">
+                <Badge className="cart-btn" badgeContent={cartItems.length} color="error">
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>

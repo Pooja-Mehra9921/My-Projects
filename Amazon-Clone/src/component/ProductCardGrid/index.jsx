@@ -18,7 +18,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 // import custom components
-import { setSelectedProducts } from "../../redux/appReducer/appReducer";
+import { setCartItem, setSelectedProducts } from "../../redux/appReducer/appReducer";
 import { DollarToIndianPrice, GetDiscountFromPrice } from "../../utility";
 
 // import assents
@@ -50,14 +50,22 @@ const ProductCardGrid = ({ product }) => {
     setisWhishlist(!isWhishlist);
   };
 
+  /**
+   * @description handle for add to cart items
+   */
+
+  const handleAddToCart =(product)=>{
+    console.log("add to cart", product);
+    dispatch(setCartItem(product));
+  }
+
   return (
     <>
-    <Box>
+    <Box className="main-grid-container">
     <IconButton className="heart-icon" onClick={handleWhishlistBtn}>
           {isWhishlist ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
       <Box
-        className="main-grid-container"
         onClick={() => handleSelectedProduct(product)}
       >
         <Box className="image-container">
@@ -98,9 +106,10 @@ const ProductCardGrid = ({ product }) => {
         <Typography style={{ margin: "auto 15px" }}>
           <Rating name="read-only" value={product?.rating} readOnly />
         </Typography>
-
-        <Box className="btn-container">
+      </Box>
+      <Box className="btn-container">
           <Button
+          onClick={()=>handleAddToCart(product)}
             variant="contained  "
             style={{
               color: "white",
@@ -120,7 +129,6 @@ const ProductCardGrid = ({ product }) => {
             Buy Now
           </Button>
         </Box>
-      </Box>
       </Box>
     </>
   );

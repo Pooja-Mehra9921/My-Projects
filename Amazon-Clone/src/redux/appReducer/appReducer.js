@@ -7,6 +7,7 @@ const appSlice = createSlice({
     products: [],
     selectedproduct: {},
     selectedCategory: null,
+    cartItem: [],
   },
 
   reducers: {
@@ -24,10 +25,13 @@ const appSlice = createSlice({
     setSelectedCategory: (state, action) => {
       state.selectedCategory = action.payload;
     },
+    setCartItem: (state, action) => {
+      state.cartItem =  action.payload;
+    }
   },
 });
 
-export const { setUserData, setProducts, setSelectedProducts,setSelectedCategory } =
+export const { setUserData, setProducts, setSelectedProducts,setSelectedCategory, setCartItem } =
   appSlice.actions;
 
 export default appSlice.reducer;
