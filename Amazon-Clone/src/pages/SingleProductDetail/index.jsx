@@ -2,7 +2,7 @@ import React from "react";
 import ReactImageMagnify from "react-image-magnify";
 
 // import Hooks
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
 // import custom components
@@ -21,12 +21,19 @@ import StarIcon from "@mui/icons-material/Star";
 
 // import styles
 import "./style.css";
+import { setCartItems } from "../../redux/appReducer/appReducer";
 
 const SingleProductDetail = () => {
+  const dispatch = useDispatch();
   const dataFromStore = useSelector((store) => store?.app?.selectedproduct); // get product data from redux store
+  const cartItems = useSelector((store)=> store?.app?.cartItems || []);
+      const isProductMatched = cartItems.filter((cart)=>cart.id === dataFromStore.id);
+      console.log("product machhhh", isProductMatched);
+      const [isAdded, setisAdded] = useState(isProductMatched.length > 0);
   const [imageToMagnify, setImageToMagnify] = useState(
     dataFromStore?.thumbnail
   );
+
 
   /**
    * @description function to set product images in image magnify
@@ -36,6 +43,20 @@ const SingleProductDetail = () => {
   const handleMainImageChange = (image) => {
     setImageToMagnify(image);
   };
+ const handleAddToCart = (dataFromStore) => {
+     if (!dataFromStore) {
+       console.error("No product to add to cart!");
+       return;
+     }
+   
+     console.log("add to cart", dataFromStore);
+   
+     // Ensure cartItems is always an array before spreading
+   
+     dispatch(setCartItems(dataFromStore));
+     setisAdded(true);
+     
+   };
 
   return (
     <>
@@ -80,18 +101,21 @@ const SingleProductDetail = () => {
               />
             </Box>
             <Box className="btn-container">
-              <Button
-                variant="contained  "
-                style={{
-                  color: "white",
-                  margin: "5px",
-                  backgroundColor: "#ff9f00",
-                  border: "none",
-                }}
-              >
-                <ShoppingCartIcon />
-                Add to Cart
-              </Button>
+            <Button
+  onClick={() => handleAddToCart(product)}
+  variant="contained"
+  className="add-to-cart-btn"
+  style={{
+    color: "white",
+    margin: "5px",
+    backgroundColor: isAdded ? "grey" : "#ff9f00",
+    border: "none",
+  }}
+  disabled={isAdded} // Prevent multiple additions
+>
+  <ShoppingCartIcon />
+  {isAdded ? "Added to Cart" : "Add to Cart"}
+</Button>
               <Button
                 variant="contained"
                 style={{ backgroundColor: "#fb641b", margin: "5px" }}
@@ -180,9 +204,6 @@ const SingleProductDetail = () => {
             {dataFromStore.reviews.map((reviews, index) => {
               return <UserRating key={index} review={reviews} />;
             })}
-
-            <Box className="review-left-section"></Box>
-            <Box className="review-right-section"></Box>
           </Box>
         </Box>
       </Box>

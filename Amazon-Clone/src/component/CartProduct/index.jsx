@@ -8,10 +8,10 @@ import { useDispatch } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { setSelectedProducts } from "../../redux/appReducer/appReducer";
 
-const CartProduct = ({ product = {} }) => {
+const CartProduct = ({ product = {}, onProductQuantityUpdate }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-const [quentity, setQuentity] = useState(1);
+const [quantity, setQuantity] = useState(1);
 
 const handleProductCart =(product)=>{
     dispatch(setSelectedProducts(product));
@@ -19,10 +19,40 @@ const handleProductCart =(product)=>{
 
 };
 
-  const handleChangeQuantity =(e)=>{
-    const inputValue = e.target.value;
-setQuentity(inputValue);
-  }
+const handleChangeQuantity = (event) => {
+  if (isNaN(Number(event?.target?.value))) return quantity;
+  setQuantity(Number(event?.target?.value));
+
+  const updatedQuantity = {
+    ...product,
+    quantity: Number(event?.target?.value),
+  };
+  onProductQuantityUpdate(updatedQuantity);
+};
+
+/* @description Adding/Removing quantity
+* @param {String} type
+* @returns
+*/
+const handleQuantityIncDec = (type) => () => {
+ //
+ if (type == "inc") {
+   if (quantity == product?.stock) return quantity;
+
+   const updatedQuantity = { ...product, quantity: quantity + 1 };
+   onProductQuantityUpdate(updatedQuantity);
+   setQuantity(quantity + 1);
+ }
+
+ if (type == "dec") {
+   if (quantity == product?.minimumOrderQuantity) return quantity;
+
+   const updatedQuantity = { ...product, quantity: quantity - 1 };
+   onProductQuantityUpdate(updatedQuantity);
+
+   setQuantity(quantity - 1);
+ }
+};
 
   return (
     <>
@@ -59,20 +89,23 @@ setQuentity(inputValue);
       <Box style={{display:"flex", alignItem:"center", justifyContent:"space-between"}}>
       <Box className="quent-btn-section">
             <Box className="quent-btn-container">
-                <IconButton onClick={()=>
-                    quentity<2 ? quentity === 1:setQuentity(quentity-1)}><RemoveCircleOutlineIcon/></IconButton>
+                <IconButton 
+                disabled={quantity === 0}
+                onClick={handleQuantityIncDec("dec")}><RemoveCircleOutlineIcon/></IconButton>
                 <TextField 
-                value={quentity}
+                value={quantity}
                 onChange={handleChangeQuantity}
                 sx={{width:"50px"}}
                 size="small"
                 ></TextField>
-                <IconButton onClick={()=>setQuentity(quentity+1)}><AddCircleOutlineIcon/></IconButton>
+                <IconButton 
+                disabled={quantity === product?.stock}
+                onClick={handleQuantityIncDec("inc")}><AddCircleOutlineIcon/></IconButton>
             </Box>
           </Box>
       <Box className="add-to-cart-btn-container">
             <Button style={{marginRight:"10px"}} variant="outlined">Save for Later</Button>
-            <Button variant="contained">Remove</Button>
+            <Button style={{marginRight:"10px"}} variant="contained">Remove</Button>
           </Box>
       </Box>
       <Divider style={{margin:"10px auto"}} />

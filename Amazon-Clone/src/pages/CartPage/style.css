@@ -1,23 +1,36 @@
-.addcart-container{
-    margin: 1% auto;
-    width: 80%;
-    display: flex;
-    gap: 4;
+.addcart-container {
+  margin: 1% auto;
+  width: 80%;
+  display: flex;
+  gap: 10;
 }
 
-.add-product-section{
-    width: 600px;
-    padding: 10px;
-    border: 1px solid black;
+.cart-product-section {
+  height: 90vh;
+  overflow: auto;
+  overflow-x: hidden;
+  margin: 10px auto;
+}
+.add-product-section {
+  width: 600px;
+  padding: auto 10px;
 }
 
-.user-pincode{
-    padding: 10px;
-    display: flex;
+.user-pincode {
+  padding: 10px;
+  display: flex;
 }
 
-.Billing-section{
-    border: 1px solid black;
-    width: 300px;
+.Billing-section {
+  width: 300px;
+  padding: 10px;
+  height: 270px;
+}
 
+.add-to-cart-price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: grey;
+  margin: 10px auto;
 }

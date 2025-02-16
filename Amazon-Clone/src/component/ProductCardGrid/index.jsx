@@ -30,7 +30,7 @@ import "./style.css";
 const ProductCardGrid = ({ product }) => {
   const dispatch = useDispatch(); // to store data in redux store
   const navigate = useNavigate(); // to navigate to another component
-  const cartItems = useSelector((store)=> store?.app?.cartItemss || []);
+  const cartItems = useSelector((store)=> store?.app?.cartItems || []);
   const isProductMatched = cartItems.filter((cart)=>cart?.id === product?.id);
   const [isWhishlist, setisWhishlist] = useState(false); // state to manage whishlist
   const [isAdded, setisAdded] = useState(isProductMatched.length > 0);
@@ -122,34 +122,21 @@ const ProductCardGrid = ({ product }) => {
         </Typography>
       </Box>
       <Box className="btn-container">
-        {!isAdded ? <Button
-          onClick={()=>handleAddToCart(product)}
-            variant="contained  "
-            style={{
-              color: "white",
-              margin: "5px",
-              backgroundColor: "#ff9f00",
-              border: "none",
-            }}
-          >
-            <ShoppingCartIcon />
-            Add to Cart
-          </Button>:
-          <Button
-          disabled
-          onClick={()=>handleAddToCart(product)}
-            variant="contained"
-            style={{
-              color: "white",
-              margin: "5px",
-              backgroundColor: "grey",
-              border: "none",
-            }}
-          >
-            <ShoppingCartIcon />
-            Add to Cart
-          </Button>
-          }
+      <Button
+  onClick={() => handleAddToCart(product)}
+  variant="contained"
+  className="add-to-cart-btn"
+  style={{
+    color: "white",
+    margin: "5px",
+    backgroundColor: isAdded ? "grey" : "#ff9f00",
+    border: "none",
+  }}
+  disabled={isAdded} // Prevent multiple additions
+>
+  <ShoppingCartIcon />
+  {isAdded ? "Added to Cart" : "Add to Cart"}
+</Button>
           <Button
             variant="contained"
             style={{ backgroundColor: "#fb641b", margin: "5px" }}

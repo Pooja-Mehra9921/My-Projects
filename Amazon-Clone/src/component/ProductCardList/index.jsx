@@ -2,13 +2,12 @@ import React from "react";
 
 // import Hooks
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 // import Material UI Component
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import StarIcon from "@mui/icons-material/Star";
 import StarIcon from "@mui/icons-material/Star";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -21,7 +20,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import dummy from "../../assents/suggestions/dummy.png";
 
 // import custom hooks
-import { setSelectedProducts } from "../../redux/appReducer/appReducer";
+import { setCartItems, setSelectedProducts } from "../../redux/appReducer/appReducer";
 import { DollarToIndianPrice, GetDiscountFromPrice } from "../../utility";
 
 // import styles
@@ -30,7 +29,12 @@ import "./style.css";
 const ProductCardList = ({ product }) => {
   const dispatch = useDispatch(); // to store data in redux
   const navigate = useNavigate();
-  const [isWhishlist, setisWhishlist] = useState(false); // to handle whishlist icon on product card
+  const cartItems = useSelector((store)=> store?.app?.cartItems || []);
+    const isProductMatched = cartItems.filter((cart)=>cart.id === product.id);
+    console.log("product machhhh", isProductMatched);
+    const [isWhishlist, setisWhishlist] = useState(false); // state to manage whishlist
+    const [isAdded, setisAdded] = useState(isProductMatched.length > 0);
+
 
   /**
    * @description handle selected product and redirect to single product detail page
@@ -47,14 +51,28 @@ const ProductCardList = ({ product }) => {
   const handleWhishlistBtn = () => {
     setisWhishlist(!isWhishlist);
   };
+
+ const handleAddToCart = (product) => {
+     if (!product) {
+       console.error("No product to add to cart!");
+       return;
+     }
+   
+     console.log("add to cart", product);
+   
+     // Ensure cartItems is always an array before spreading
+   
+     dispatch(setCartItems(product));
+     setisAdded(true);
+     
+   };
   return (
     <>
       <Box
         className="product-list-container"
-        onClick={() => handleListproducts(product)}
       >
         <Box className="image-section">
-          <img
+          <img  onClick={() => handleListproducts(product)}
             className="product-list-image"
             src={product?.thumbnail || dummy}
             alt={product?.title}
@@ -67,7 +85,7 @@ const ProductCardList = ({ product }) => {
         </Box>
 
         {/*Detail section*/}
-        <Box className="detail-section">
+        <Box className="detail-section"  onClick={() => handleListproducts(product)}>
           <Typography className="list-title">
             {product?.title || "no title"}
           </Typography>
@@ -93,6 +111,7 @@ const ProductCardList = ({ product }) => {
 
         {/*Price section*/}
         <Box className="list-price-section">
+          <Box  onClick={() => handleListproducts(product)}>
           <Typography className="list-price">
             &#8377;{DollarToIndianPrice(product?.price)}
           </Typography>
@@ -117,20 +136,23 @@ const ProductCardList = ({ product }) => {
           </Typography>
 
           <Typography>{product?.warrantyInformation}</Typography>
+          </Box>
           <Box className="list-btn-container">
-            <Button
-              variant="contained"
-              className="add-to-cart-btn"
-              style={{
-                color: "white",
-                margin: "5px",
-                backgroundColor: "#ff9f00",
-                border: "none",
-              }}
-            >
-              <ShoppingCartIcon />
-              Add to Cart
-            </Button>
+          <Button
+  onClick={() => handleAddToCart(product)}
+  variant="contained"
+  className="add-to-cart-btn"
+  style={{
+    color: "white",
+    margin: "5px",
+    backgroundColor: isAdded ? "grey" : "#ff9f00",
+    border: "none",
+  }}
+  disabled={isAdded} // Prevent multiple additions
+>
+  <ShoppingCartIcon />
+  {isAdded ? "Added to Cart" : "Add to Cart"}
+</Button>
             <Button
               variant="contained"
               style={{ backgroundColor: "#fb641b", margin: "5px" }}
