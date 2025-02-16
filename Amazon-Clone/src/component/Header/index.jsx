@@ -43,7 +43,7 @@ const Header = () => {
 
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem("userdata")); // get user data from local storage
-  const cartItems = useSelector(store=>store.app.cartItem);
+  const cartItems = useSelector(store=>store.app.cartItems);
 
   const isOpen = Boolean(anchorEl); // to open profile menus
   const isQuichSearch = Boolean(QuichSearchAnchor); // to open quick search menus

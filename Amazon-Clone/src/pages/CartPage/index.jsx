@@ -1,18 +1,26 @@
 import React, { useState } from "react";
 import Header from "../../component/Header";
 import Footer from "../../component/Footer";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, Paper, TextField } from "@mui/material";
 import CartProduct from "../../component/CartProduct";
 import axios from "axios";
 import { API } from "../../configs/api";
 import BackdropLoader from "../../component/BackdropLoader";
 import { useSelector } from "react-redux";
+import "./style.css";
 
 const CartPage = () => {
+  const cartItems = useSelector((store) => store.app.cartItems) || [];
+  console.log("cart items", cartItems);
+  const productWithQuantity = cartItems.map((cart) => ({
+    ...cart,
+    quantity: cartItems?.minimumOrderQuantity ? cartItems?.minimumOrderQuantity :  1,
+  }));
+  const [updatedCartProduct, setUpdatedCartProduct] =
+    useState(productWithQuantity);
   const [isLoading, setisLoading] = useState(false);
   const [pincode, setPincode] = useState("1111");
-  const cartItems = useSelector(store=> store.app.cartItem);
-  console.log("cart items", cartItems); 
+  console.log("----------------", cartItems, updatedCartProduct);
 
   const getPinCode = async () => {
     try {
@@ -34,9 +42,9 @@ const CartPage = () => {
     <>
       <BackdropLoader isLoading={isLoading} />
       <Header />
-      <Box className="cart-container">
-        <Box className="product-section">
-          <Box className="user-pincode">
+      <Box className="addcart-container">
+        <Paper className="add-product-section">
+          <Paper className="user-pincode">
             <TextField
               id="outlined-error-helper-text"
               label="Change Pin Code"
@@ -49,12 +57,18 @@ const CartPage = () => {
               onChange={handlePinCode}
             ></TextField>
             <Button onClick={getPinCode}>Change</Button>
-          </Box>
+          </Paper>
           <Box className="cart-product-section">
-            <CartProduct />
+            {updatedCartProduct.map((item, index) => {
+              return (
+                <>
+                  <CartProduct key={index} product={item} />
+                </>
+              );
+            })}
           </Box>
-        </Box>
-        <Box className="Billing-section"></Box>
+        </Paper>
+        <Paper className="Billing-section">billing section</Paper>
       </Box>
       <Footer />
     </>

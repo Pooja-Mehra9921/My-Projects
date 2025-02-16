@@ -1,0 +1,31 @@
+.add-to-cart-product{
+    display: flex;
+}
+.add-to-cart-product:hover{
+    cursor: pointer;
+}
+
+.add-to-cart-image{
+    height: 120px;
+}
+
+.add-to-cart-deatil{
+    width: 100%;
+}
+
+.add-to-cart-image-sec, .add-to-cart-deatil{
+    padding: 10px;
+}
+
+.title-shipping{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+}
+
+.quent-btn-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

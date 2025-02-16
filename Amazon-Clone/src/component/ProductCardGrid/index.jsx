@@ -2,7 +2,7 @@ import React from "react";
 
 // import Hooks
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 // import Material UI Component
@@ -18,7 +18,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 // import custom components
-import { setCartItem, setSelectedProducts } from "../../redux/appReducer/appReducer";
+import { setCartItem, setCartItems, setSelectedProducts } from "../../redux/appReducer/appReducer";
 import { DollarToIndianPrice, GetDiscountFromPrice } from "../../utility";
 
 // import assents
@@ -30,7 +30,10 @@ import "./style.css";
 const ProductCardGrid = ({ product }) => {
   const dispatch = useDispatch(); // to store data in redux store
   const navigate = useNavigate(); // to navigate to another component
+  const cartItems = useSelector((store)=> store?.app?.cartItemss || []);
+  const isProductMatched = cartItems.filter((cart)=>cart?.id === product?.id);
   const [isWhishlist, setisWhishlist] = useState(false); // state to manage whishlist
+  const [isAdded, setisAdded] = useState(isProductMatched.length > 0);
 
   /**
    * @description To click on product card to store product card in redux store and open selected product detail page
@@ -54,10 +57,21 @@ const ProductCardGrid = ({ product }) => {
    * @description handle for add to cart items
    */
 
-  const handleAddToCart =(product)=>{
+  const handleAddToCart = (product) => {
+    if (!product) {
+      console.error("No product to add to cart!");
+      return;
+    }
+  
     console.log("add to cart", product);
-    dispatch(setCartItem(product));
-  }
+  
+    // Ensure cartItems is always an array before spreading
+  
+    dispatch(setCartItems(product));
+    setisAdded(true);
+    
+  };
+  
 
   return (
     <>
@@ -108,7 +122,7 @@ const ProductCardGrid = ({ product }) => {
         </Typography>
       </Box>
       <Box className="btn-container">
-          <Button
+        {!isAdded ? <Button
           onClick={()=>handleAddToCart(product)}
             variant="contained  "
             style={{
@@ -120,7 +134,22 @@ const ProductCardGrid = ({ product }) => {
           >
             <ShoppingCartIcon />
             Add to Cart
+          </Button>:
+          <Button
+          disabled
+          onClick={()=>handleAddToCart(product)}
+            variant="contained"
+            style={{
+              color: "white",
+              margin: "5px",
+              backgroundColor: "grey",
+              border: "none",
+            }}
+          >
+            <ShoppingCartIcon />
+            Add to Cart
           </Button>
+          }
           <Button
             variant="contained"
             style={{ backgroundColor: "#fb641b", margin: "5px" }}
