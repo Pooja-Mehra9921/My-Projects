@@ -1,19 +1,35 @@
-import React from "react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-// import material ui components
-import Alert from "@mui/material/Alert";
-import Snackbar from "@mui/material/Snackbar";
-
-const Notifications = ({ isOpen = false }) => {
-  return (
-    <>
-      <Snackbar open={isOpen} autoHideDuration={10000}>
-        <Alert variant="contained" severity="success" sx={{color:"green"}}>
-          You are Login sucussfully
-        </Alert>
-      </Snackbar>
-    </>
-  );
+// Initialize Toasts (use this in your App.js or index.js)
+export const initToast = () => {
+  toast.configure({
+    position: 'slide',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: 0,
+  });
 };
 
-export default Notifications;
+// Success Toast
+export const showSuccessToast = (message) => {
+  toast.success(message);
+};
+
+// Error Toast
+export const showErrorToast = (message) => {
+  toast.error(message);
+};
+
+// Info Toast
+export const showInfoToast = (message) => {
+  toast.info(message);
+};
+
+// Warning Toast
+export const showWarningToast = (message) => {
+  toast.warn(message);
+};

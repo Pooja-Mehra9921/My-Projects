@@ -18,8 +18,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 // import custom components
-import { setCartItem, setCartItems, setSelectedProducts } from "../../redux/appReducer/appReducer";
-import { DollarToIndianPrice, GetDiscountFromPrice } from "../../utility";
+import { setCartItems, setSelectedProducts, setWishListItems } from "../../redux/appReducer/appReducer";
+import { DollarToIndianPrice, GetDiscountFromPrice } from "../../helper";
 
 // import assents
 import dummy from "../../assents/suggestions/dummy.png";
@@ -32,8 +32,14 @@ const ProductCardGrid = ({ product }) => {
   const navigate = useNavigate(); // to navigate to another component
   const cartItems = useSelector((store)=> store?.app?.cartItems || []);
   const isProductMatched = cartItems.filter((cart)=>cart?.id === product?.id);
-  const [isWhishlist, setisWhishlist] = useState(false); // state to manage whishlist
   const [isAdded, setisAdded] = useState(isProductMatched.length > 0);
+
+  const wishListItems = useSelector((store)=> store?.app?.wishListItems || []);
+  const isWishListProductMatched = wishListItems.filter((wishlist)=> wishlist?.id === wishListItems?.id);
+  const [isWhishlist, setisWhishlist] = useState(isWishListProductMatched.length >0); // state to manage whishlist
+
+  console.log("whishlist items", wishListItems);
+
 
   /**
    * @description To click on product card to store product card in redux store and open selected product detail page
@@ -44,13 +50,6 @@ const ProductCardGrid = ({ product }) => {
     console.log("product selected", product);
     dispatch(setSelectedProducts(product));
     navigate(`/product-detail/${product?.id}`);
-  };
-
-  /**
-   * @description function to manage whishlist
-   */
-  const handleWhishlistBtn = () => {
-    setisWhishlist(!isWhishlist);
   };
 
   /**
@@ -72,11 +71,22 @@ const ProductCardGrid = ({ product }) => {
     
   };
   
+  const handleWishListCart = (product)=>{
+    if(!product){
+      console.log("no product "); return
+    }
+console.log("whish list product", product);
+setisWhishlist(true);
+dispatch(setWishListItems(product));
+
+  }
 
   return (
     <>
     <Box className="main-grid-container">
-    <IconButton className="heart-icon" onClick={handleWhishlistBtn}>
+    <IconButton 
+    disabled={isWhishlist}
+    className="heart-icon" onClick={()=>handleWishListCart(product)}>
           {isWhishlist ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
       <Box

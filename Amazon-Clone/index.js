@@ -2,6 +2,8 @@ import React from "react";
 import ReactDom from "react-dom/client";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/es/integration/react";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // import custom components
 import App from "./App";
@@ -21,6 +23,18 @@ root.render(
       <Provider store={store}>
         <PersistGate loading={<BackdropLoader />} persistor={persistor}>
           <ThemeProvider theme={theme}>
+          <ToastContainer
+position="top-right"
+autoClose={4000}
+hideProgressBar
+newestOnTop={false}
+closeOnClick={false}
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
             <App />
           </ThemeProvider>
         </PersistGate>

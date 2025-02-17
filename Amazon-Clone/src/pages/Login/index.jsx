@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 // Import necessary React hooks
 import { useState } from "react";
@@ -20,7 +21,7 @@ import Box from "@mui/material/Box";
 
 // import custom components
 import BackdropLoader from "../../component/BackdropLoader";
-import Notifications from "../../component/Notifications";
+import Notifications, { showErrorToast, showSuccessToast } from "../../component/Notifications";
 import { API } from "../../configs/api";
 
 // style sheet
@@ -35,7 +36,6 @@ const Login = () => {
   const [loginData, setloginData] = useState({ username: "", password: "" }); // state to store login data enter from the user
   const [isSubmit, setisSubmit] = useState(false); // state to check user is submit the form or not
   const [isLoading, setisLoading] = useState(false); // state for show lodaing when we submit the form
-  const [isOpen, setisOpen] = useState(false); // to show succuss messages
 
   /**
    * @description show and hidePassword password
@@ -66,13 +66,13 @@ const Login = () => {
 
       if (status == 200) {
         setisLoading(false); // stop loader
-        setisOpen(true); // show succus message
         localStorage.setItem("userdata", JSON.stringify(data)); // store data in local storage
         navigate("/home");
+        showSuccessToast("You are login successfully");
       }
     } catch (error) {
       setisLoading(false);
-      setisOpen(false);
+      showErrorToast(error?.response?.data?.message);
       console.log("sometning went wrong while fetching api", error);
     }
   };
@@ -91,7 +91,6 @@ const Login = () => {
   return (
     <>
       <BackdropLoader isLoading={isLoading} />
-      <Notifications isOpen={isOpen} />
       <Box className="login-container">
         <Paper elevation={4} className="login-paper">
           <Grid container spacing={2}>

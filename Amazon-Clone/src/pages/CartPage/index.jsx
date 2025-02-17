@@ -8,7 +8,7 @@ import { API } from "../../configs/api";
 import BackdropLoader from "../../component/BackdropLoader";
 import { useSelector } from "react-redux";
 import "./style.css";
-import { GetDiscountFromPrice } from "../../utility";
+import { GetDiscountFromPrice } from "../../helper";
 
 const CartPage = () => {
   const cartItems = useSelector((store) => store.app.cartItems) || [];

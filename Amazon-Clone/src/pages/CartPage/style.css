@@ -1,8 +1,11 @@
 .addcart-container {
-  margin: 1% auto;
+  gap: 10px;
   width: 80%;
+  margin: 1% auto;
   display: flex;
-  gap: 10;
+  align-items: baseline;
+  justify-content: center;
+
 }
 
 .cart-product-section {

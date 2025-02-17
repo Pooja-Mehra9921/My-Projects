@@ -9,7 +9,7 @@ import { useState } from "react";
 import Header from "../../component/Header";
 import Footer from "../../component/Footer";
 import UserRating from "../../component/UserRating";
-import { DollarToIndianPrice, GetDiscountFromPrice } from "../../utility";
+import { DollarToIndianPrice, GetDiscountFromPrice } from "../../helper";
 
 // import material ui component
 import Box from "@mui/material/Box";

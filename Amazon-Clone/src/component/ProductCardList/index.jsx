@@ -21,7 +21,7 @@ import dummy from "../../assents/suggestions/dummy.png";
 
 // import custom hooks
 import { setCartItems, setSelectedProducts } from "../../redux/appReducer/appReducer";
-import { DollarToIndianPrice, GetDiscountFromPrice } from "../../utility";
+import { DollarToIndianPrice, GetDiscountFromPrice } from "../../helper";
 
 // import styles
 import "./style.css";

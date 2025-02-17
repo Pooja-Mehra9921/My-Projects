@@ -10,22 +10,23 @@ import Fade from "@mui/material/Fade";
 import { Badge } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
-import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
 import Divider from "@mui/material/Divider";
-import Logout from "@mui/icons-material/Logout";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
+import Logout from "@mui/icons-material/Logout";
+import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import SearchIcon from "@mui/icons-material/Search";
 import Settings from "@mui/icons-material/Settings";
-import IconButton from "@mui/material/IconButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import PersonAdd from "@mui/icons-material/PersonAdd";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import CountertopsIcon from "@mui/icons-material/Countertops";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import CountertopsIcon from "@mui/icons-material/Countertops";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import LaptopChromebookIcon from "@mui/icons-material/LaptopChromebook";
 
@@ -44,6 +45,7 @@ const Header = () => {
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem("userdata")); // get user data from local storage
   const cartItems = useSelector(store=>store.app.cartItems);
+  const wishListItems = useSelector(store=>store.app.wishListItems);
 
   const isOpen = Boolean(anchorEl); // to open profile menus
   const isQuichSearch = Boolean(QuichSearchAnchor); // to open quick search menus
@@ -54,6 +56,7 @@ if(type == "product")navigate("/product");
 if(type == "about")navigate("/about");
 if(type == "login") navigate("/login");
 if(type == "cart") navigate("/cart");
+if(type == "wishlist") navigate("/wishlist");
  }
 
 {/*  const redirectToLogin = () => {
@@ -290,12 +293,13 @@ if(type == "cart") navigate("/cart");
           <Box className="add-to-cart">
             {isUserLoggedIn && (
               <IconButton
+              onClick={()=>handleredirectPages("wishlist")}
                 size="large"
                 aria-label="show 17 new notifications"
                 color="inherit"
               >
-                <Badge badgeContent={17} color="error">
-                  <NotificationsIcon />
+                <Badge className="whishlist-btn" badgeContent={wishListItems.length} color="error">
+                  <FavoriteIcon/>
                 </Badge>
               </IconButton>
             )}
