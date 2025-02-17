@@ -9,6 +9,7 @@ import BackdropLoader from "../../component/BackdropLoader";
 import { useSelector } from "react-redux";
 import "./style.css";
 import { GetDiscountFromPrice } from "../../helper";
+import AddAddress from "../../component/AddAddress";
 
 const CartPage = () => {
   const cartItems = useSelector((store) => store.app.cartItems) || [];
@@ -20,19 +21,10 @@ const productWithQuantity = cartItems.map((cart) => ({
 const [updatedCartProduct, setUpdatedCartProduct] = useState(productWithQuantity);
 const [isLoading, setisLoading] = useState(false);
 const [pincode, setPincode] = useState("1111");
+const [openAddress, setOpenAddress] = useState(false);
 
 
-  const getPinCode = async () => {
-    try {
-      setisLoading(true);
-      const api = API.GET_PINCODE.replace("#PINCODE#", pincode);
-      const response = await axios(api);
-      console.log("pincode", response);
-    } catch (error) {
-      setisLoading(false);
-      console.log("error while fetching pincode api", error);
-    }
-  };
+
 
   const handlePinCode = (e) => {
     setPincode(e.target.value);
@@ -82,9 +74,17 @@ const [pincode, setPincode] = useState("1111");
     (Number(totalDiscountPrice) + Number(coupon) + Number(deliveryCharges))
   ).toFixed(2);
 
+
+const handleAddress =()=>{
+  setOpenAddress(true);
+}
+const handleClose =()=>{
+  setOpenAddress(false);
+}
   return (
     <>
       <BackdropLoader isLoading={isLoading} />
+      {openAddress && <AddAddress openAddress={openAddress} onClose={handleClose}/>}
       <Header />
       <Box className="addcart-container">
         <Box className="add-product-section">
@@ -100,7 +100,7 @@ const [pincode, setPincode] = useState("1111");
               value={pincode}
               onChange={handlePinCode}
             ></TextField>
-            <Button onClick={getPinCode}>Change</Button>
+            <Button onClick={handleAddress}>Change</Button>
           </Paper>
           <Paper className="cart-product-section">
           {updatedCartProduct.map((product, index) => {
