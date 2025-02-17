@@ -18,7 +18,11 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 // import custom components
-import { setCartItems, setSelectedProducts, setWishListItems } from "../../redux/appReducer/appReducer";
+import {
+  setCartItems,
+  setSelectedProducts,
+  setWishListItems,
+} from "../../redux/appReducer/appReducer";
 import { DollarToIndianPrice, GetDiscountFromPrice } from "../../helper";
 
 // import assents
@@ -30,16 +34,14 @@ import "./style.css";
 const ProductCardGrid = ({ product }) => {
   const dispatch = useDispatch(); // to store data in redux store
   const navigate = useNavigate(); // to navigate to another component
-  const cartItems = useSelector((store)=> store?.app?.cartItems || []);
-  const isProductMatched = cartItems.filter((cart)=>cart?.id === product?.id);
+  const cartItems = useSelector((store) => store?.app?.cartItems || []);
+  const isProductMatched = cartItems.filter((cart) => cart?.id === product?.id);
   const [isAdded, setisAdded] = useState(isProductMatched.length > 0);
 
-  const wishListItems = useSelector((store)=> store?.app?.wishListItems || []);
-  const isWishListProductMatched = wishListItems.filter((wishlist)=> wishlist?.id === wishListItems?.id);
-  const [isWhishlist, setisWhishlist] = useState(isWishListProductMatched.length >0); // state to manage whishlist
-
+  const wishListItems = useSelector((store) => store?.app?.wishListItems || []);
+  const isWishListProductMatched = wishListItems.filter((wishlist) => wishlist?.id === product?.id);
+  const [isWhishlist, setisWhishlist] = useState(isWishListProductMatched.length > 0); // state to manage whishlist
   console.log("whishlist items", wishListItems);
-
 
   /**
    * @description To click on product card to store product card in redux store and open selected product detail page
@@ -61,92 +63,97 @@ const ProductCardGrid = ({ product }) => {
       console.error("No product to add to cart!");
       return;
     }
-  
+
     console.log("add to cart", product);
-  
+
     // Ensure cartItems is always an array before spreading
-  
+
     dispatch(setCartItems(product));
     setisAdded(true);
-    
   };
-  
-  const handleWishListCart = (product)=>{
-    if(!product){
-      console.log("no product "); return
-    }
-console.log("whish list product", product);
-setisWhishlist(true);
-dispatch(setWishListItems(product));
 
-  }
+  const handleWishListCart = (product) => {
+    if (!product) {
+      console.log("no product ");
+      return;
+    }
+    setisWhishlist(true);
+    dispatch(setWishListItems(product));
+  };
 
   return (
     <>
-    <Box className="main-grid-container">
-    <IconButton 
-    disabled={isWhishlist}
-    className="heart-icon" onClick={()=>handleWishListCart(product)}>
-          {isWhishlist ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+      <Box className="main-grid-container">
+        <IconButton
+          disabled={isWhishlist}
+          className="heart-icon"
+          onClick={() => handleWishListCart(product)}
+        >
+          {isWhishlist ? (
+            <FavoriteIcon disabled={isWhishlist} />
+          ) : (
+            <FavoriteBorderIcon disabled={isWhishlist} />
+          )}
         </IconButton>
-      <Box
-        onClick={() => handleSelectedProduct(product)}
-      >
-        <Box className="image-container">
-          <img
-            className="product-image"
-            src={product?.thumbnail || dummy}
-            alt="dummy image"
-          />
-        </Box>
-        <Typography className="grid-title">
-          {product?.title || "no title"}
-        </Typography>
-        <Tooltip title={product?.description} arrow>
-          <Typography
-            className="card-description"
-            style={{
-              margin: "auto 15px",
-              fontWeight: "400",
-              textAlign: "justify",
-            }}
-          >
-            {product?.description}
+        <Box onClick={() => handleSelectedProduct(product)}>
+          <Box className="image-container">
+            <img
+              className="product-image"
+              src={product?.thumbnail || dummy}
+              alt="dummy image"
+            />
+          </Box>
+          <Typography className="grid-title">
+            {product?.title || "no title"}
           </Typography>
-        </Tooltip>
-        <Box className="price-section" style={{ display: "flex" }}>
-          <Typography className="grid-orignal-price">
-            &#8377;{DollarToIndianPrice(product?.price)}
-          </Typography>
-          <Typography className="product-price">
-            &#8377;
-            {GetDiscountFromPrice(product?.price, product?.discountPercentage)}
-          </Typography>
-          <Typography className="grid-discout">
-            {`${product?.discountPercentage || ""} % off`}
-          </Typography>
-        </Box>
+          <Tooltip title={product?.description} arrow>
+            <Typography
+              className="card-description"
+              style={{
+                margin: "auto 15px",
+                fontWeight: "400",
+                textAlign: "justify",
+              }}
+            >
+              {product?.description}
+            </Typography>
+          </Tooltip>
+          <Box className="price-section" style={{ display: "flex" }}>
+            <Typography className="grid-orignal-price">
+              &#8377;{DollarToIndianPrice(product?.price)}
+            </Typography>
+            <Typography className="product-price">
+              &#8377;
+              {GetDiscountFromPrice(
+                product?.price,
+                product?.discountPercentage
+              )}
+            </Typography>
+            <Typography className="grid-discout">
+              {`${product?.discountPercentage || ""} % off`}
+            </Typography>
+          </Box>
 
-        <Typography style={{ margin: "auto 15px" }}>
-          <Rating name="read-only" value={product?.rating} readOnly />
-        </Typography>
-      </Box>
-      <Box className="btn-container">
-      <Button
-  onClick={() => handleAddToCart(product)}
-  variant="contained"
-  className="add-to-cart-btn"
-  style={{
-    color: "white",
-    margin: "5px",
-    backgroundColor: isAdded ? "grey" : "#ff9f00",
-    border: "none",
-  }}
-  disabled={isAdded} // Prevent multiple additions
->
-  <ShoppingCartIcon />
-  {isAdded ? "Added to Cart" : "Add to Cart"}
-</Button>
+          <Typography style={{ margin: "auto 15px" }}>
+            <Rating name="read-only" value={product?.rating} readOnly />
+          </Typography>
+        </Box>
+        <Box className="btn-container">
+          <Button
+            onClick={() => handleAddToCart(product)}
+            variant="contained"
+            className="add-to-cart-btn"
+            style={{
+              color: "white",
+              margin: "5px",
+              backgroundColor: isAdded ? "grey" : "#ff9f00",
+              border: "none",
+            }}
+            disabled={isAdded} // Prevent multiple additions
+          >
+            <ShoppingCartIcon />
+            {isAdded ? "Added to Cart" : "Add to Cart"}
+          </Button>
           <Button
             variant="contained"
             style={{ backgroundColor: "#fb641b", margin: "5px" }}

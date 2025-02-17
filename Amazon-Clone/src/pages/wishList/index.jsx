@@ -2,34 +2,30 @@ import React from "react";
 import Header from "../../component/Header";
 import Footer from "../../component/Footer";
 import { Box, Divider, IconButton, Typography } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
 
 // import style sheet
-import "./style.css"
+import "./style.css";
+import { useSelector } from "react-redux";
+import WishListCart from "../../component/WishListCart";
 
-const WishListPage = ()=>{
-    return(
-        <>
-        <Header/>
-        <Box className="wishlist-main-container">
-<Typography>My WishList(12)</Typography>
-<Divider/>
-<Box className="whishlist-cart">
-    <Box>
-        <Box>
-<Typography>titile</Typography>
-<Typography>price</Typography>
-        </Box>
-    </Box>
-<IconButton>
-    <DeleteIcon/>
-</IconButton>
+const WishListPage = () => {
+  const WishListItems = useSelector((store) => store.app.wishListItems);
+  console.log("whislist item", WishListItems);
 
-</Box>
-        </Box>
-        <Footer/>
-        </>
-    )
+  return (
+    <>
+      <Header />
+      <Box className="whislist-page-container">
+        <Typography>My WishList(12)</Typography>
+        <Divider />
+
+        {WishListItems.map((item, index) => {
+          return <WishListCart key={index} product={item} />;
+        })}
+      </Box>
+      <Footer />
+    </>
+  );
 };
 
 export default WishListPage;
