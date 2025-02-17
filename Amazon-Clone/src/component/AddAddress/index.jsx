@@ -211,7 +211,13 @@ const [pincode, setPincode] = React.useState(false);
                 </FormControl>
               </Grid>
             </Typography>
+            <Box sx={{display:"flex", alignItems:"center", justifyContent:"end"}}>
+            <Button variant="contained" >Save</Button>
+
+            </Box>
+
           </Box>
+
         </Fade>
       </Modal>
     </div>

@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import "./style.css";
 import { GetDiscountFromPrice } from "../../helper";
 import AddAddress from "../../component/AddAddress";
+import SelectAddress from "../../component/SelectAddress";
 
 const CartPage = () => {
   const cartItems = useSelector((store) => store.app.cartItems) || [];
@@ -84,7 +85,8 @@ const handleClose =()=>{
   return (
     <>
       <BackdropLoader isLoading={isLoading} />
-      {openAddress && <AddAddress openAddress={openAddress} onClose={handleClose}/>}
+      {/*openAddress && <AddAddress openAddress={openAddress} onClose={handleClose}/>*/}
+      {openAddress && <SelectAddress openAddress={openAddress} onClose={handleClose} />}
       <Header />
       <Box className="addcart-container">
         <Box className="add-product-section">
