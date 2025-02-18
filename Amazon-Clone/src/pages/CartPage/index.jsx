@@ -2,7 +2,7 @@ import React from "react";
 
 // import Hooks
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // import Material ui component
 import  Box  from "@mui/material/Box";
@@ -21,8 +21,10 @@ import CartProduct from "../../component/CartProduct";
 
 // import style sheet
 import "./style.css";
+import { setCartItems } from "../../redux/appReducer/appReducer";
 
 const CartPage = () => {
+  const dispatch = useDispatch();
   const cartItems = useSelector((store) => store.app.cartItems) || [];
   const productWithQuantity = cartItems.map((cart) => ({   // adding a quantity key in the cart 
     ...cart,
@@ -87,7 +89,10 @@ const CartPage = () => {
   const handleClose = () => {
     setOpenAddress(false);
   };
-
+const handleRemoveFromCart =(product)=>{
+const updatedproduct= updatedCartProduct.filter((cart)=>cart?.id != product?.id);
+setUpdatedCartProduct(updatedproduct);
+}
 
   return (
     <>
@@ -112,6 +117,7 @@ const CartPage = () => {
               return (
                 <>
                   <CartProduct
+                  onRemoveCart={handleRemoveFromCart}
                     key={index}
                     product={product}
                     onProductQuantityUpdate={handleProductQuantityUpdate}

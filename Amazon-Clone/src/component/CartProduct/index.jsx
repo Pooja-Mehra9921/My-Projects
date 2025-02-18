@@ -12,13 +12,14 @@ import "./style.css";
 import { DollarToIndianPrice } from "../../helper";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
-import { setSelectedProducts } from "../../redux/appReducer/appReducer";
+import { setCartItems, setSelectedProducts } from "../../redux/appReducer/appReducer";
 
-const CartProduct = ({ product = {}, onProductQuantityUpdate }) => {
+const CartProduct = ({ product = {}, onProductQuantityUpdate , onRemoveCart}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const cartItems = useSelector((store)=> store.app.cartItems);
   const [quantity, setQuantity] = useState(1);
 
   const handleProductCart = (product) => {
@@ -66,8 +67,8 @@ const CartProduct = ({ product = {}, onProductQuantityUpdate }) => {
    */
 
   const handleRemoveCart = () => {
-    console.log("remove cart");
-  };
+onRemoveCart(product);
+}
 
   return (
     <>
