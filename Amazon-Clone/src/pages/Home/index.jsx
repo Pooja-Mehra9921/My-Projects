@@ -27,10 +27,10 @@ const Home = () => {
   const moreProductsRef = useRef(null);
 
   useEffect(() => {
-    fetchProduct();
+    fetchAllProduct();
   }, []);
 
-  const fetchProduct = async () => {
+  const fetchAllProduct = async () => {
     try {
       const response = await axios.get(API.PRODUCTS_API);
       getallproducts(response.data);
@@ -41,9 +41,7 @@ const Home = () => {
       } = response || {};
       if (status === 200) {
         const electronices = products.filter((product) =>
-          ["mobile-accessories", "laptops"].includes(
-            product?.category
-          )
+          ["mobile-accessories", "laptops"].includes(product?.category)
         );
         setelectronicsProducts(electronices);
 
@@ -72,15 +70,13 @@ const Home = () => {
         );
         setgrocerie(grocerie);
 
-        const sports = products.filter((product)=>
-        ["sports-accessories"].includes(product?.category)
+        const sports = products.filter((product) =>
+          ["sports-accessories"].includes(product?.category)
         );
         setSports(sports);
 
         const mobile = products.filter((product) =>
-          ["smartphones"].includes(
-            product?.category
-          )
+          ["smartphones"].includes(product?.category)
         );
         setMobiles(mobile);
       }
@@ -110,8 +106,8 @@ const Home = () => {
       case "sports-accessories":
         sportseRef.current?.scrollIntoView({ behavior: "smooth" });
         break;
-        case "beauty":
-          beautyRef.current?.scrollIntoView({ behavior: "smooth" });
+      case "beauty":
+        beautyRef.current?.scrollIntoView({ behavior: "smooth" });
         break;
       default:
         console.log("No matching category to scroll");

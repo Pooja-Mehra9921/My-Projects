@@ -7,6 +7,7 @@ import SingleProductDetail from "./src/pages/SingleProductDetail";
 import AboutPage from "./src/pages/About";
 import CartPage from "./src/pages/CartPage";
 import WishListPage from "./src/pages/wishList";
+import PageNotFound from "./src/pages/NotFound";
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/home" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/product" element={<ProductPage />} />
+          <Route path="/product/:category" element={<ProductPage />} />
           <Route path="/product-detail/:id" element={<SingleProductDetail />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/cart" element={<CartPage />} />

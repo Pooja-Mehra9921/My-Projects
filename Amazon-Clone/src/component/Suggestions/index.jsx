@@ -19,12 +19,12 @@ import "./style.css";
 
 const Suggestions = ({ product, onCategorySelect }) => {
   const suggestions = [
-    { id: "electronics", img: electronics, title: "Electronics" },
-    { id: "fashion", img: fashion, title: "Fashion" },
-    { id: "furniture", img: furniture, title: "Furniture" },
-    { id: "groceries", img: grocery, title: "Grocery" },
-    { id: "smartphones", img: mobiles, title: "Mobiles" },
-    { id: "sports-accessories", img: sports, title: "Sports" },
+    { id: "electronics", img: electronics, title: "Electronics", category:"laptops" },
+    { id: "fashion", img: fashion, title: "Fashion", category:"womens-dresses" },
+    { id: "furniture", img: furniture, title: "Furniture" , category:"furniture"},
+    { id: "groceries", img: grocery, title: "Grocery", category:"groceries" },
+    { id: "smartphones", img: mobiles, title: "Mobiles", category:"smartphones" },
+    { id: "sports-accessories", img: sports, title: "Sports", category:"sports-accessories" },
     { id: "beauty", img: beauty, title: "Beauty" },
   ];
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import axios from "axios";
 
 // import hooks
@@ -21,32 +21,53 @@ import ViewListIcon from "@mui/icons-material/ViewList";
 
 // Import Styles
 import "./style.css";
+import { useParams } from "react-router-dom";
+import PageNotFound from "../NotFound";
+import { Margin } from "@mui/icons-material";
 
 const ProductPage = () => {
   // State Management
+  const params = useParams();
+
   const [allProduct, setAllProduct] = useState([]);
   const [ViewOfProduct, setViewOfProduct] = useState("grid"); // Default to 'grid'
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchProduct();
-  }, []);
+    if (params.category == "all") {
+      fetchAllProducts();
+    } else {
+      fetchCategoryProducts(params.category);
+    }
+  }, [params.category]);
 
-  const fetchProduct = async () => {
+  const fetchAllProducts = useCallback(async () => {
     try {
-      setIsLoading(true);
+      setLoading(true);
       const response = await axios.get(API.PRODUCTS_API);
-      console.log("Product Page API call", response.data);
-
-      const { status, data: { products = [] } = {} } = response || {};
-      if (status === 200) {
-        setIsLoading(false);
-        console.log("Product Page API", products);
-        setAllProduct(products);
+      if (response.status === 200) {
+        setAllProduct(response.data.products);
       }
     } catch (error) {
-      console.log("Error while fetching product API", error);
-      setIsLoading(false);
+      console.error("Error fetching products:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+  const fetchCategoryProducts = async (category) => {
+    try {
+      setLoading(true);
+
+      const api = API.PRODUCT_BY_CATEGORY.replace("#CATEGORY#", category);
+      const { status, data: { products = [] } = {} } = await axios(api);
+
+      if (status == 200) {
+        setProductData(products);
+        setLoading(false);
+      }
+    } catch (err) {
+      console.error("--error while fetching category Api--", err);
+      setLoading(false);
     }
   };
 
@@ -75,16 +96,29 @@ const ProductPage = () => {
               </IconButton>
             </Box>
 
-            {ViewOfProduct === "list" &&
-              allProduct.map((item) => (
-                <ProductCardList key={item.id} product={item} />
-              ))}
+            {ViewOfProduct === "list" && (
+
+              <Box >
+                <Box className="product-list-con">
+
+                {allProduct == 0 && <PageNotFound/>}
+
+                </Box>
+
+                
+                {allProduct.map((item, index) => {
+                  return <ProductCardList key={index} product={item} />;
+                })}
+              </Box>
+            )}
 
             {ViewOfProduct === "grid" && (
               <Box className="product-grid-container">
-                {allProduct.map((item) => (
-                  <ProductCardGrid key={item.id} product={item} />
-                ))}
+                {allProduct == 0 && <PageNotFound/>}
+
+                {allProduct.map((item, index) => {
+                  return <ProductCardGrid key={index} product={item} />;
+                })}
               </Box>
             )}
           </Box>

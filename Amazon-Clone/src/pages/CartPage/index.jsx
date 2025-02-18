@@ -97,10 +97,15 @@ const CartPage = () => {
         <Box className="add-product-section">
           <Paper className="user-pincode">
             <Box className="address-section">
-              <Typography>Deliver to : <strong>{(userAddAddres?.name).toUpperCase()}, {userAddAddres?.pincode}</strong></Typography>
-              <Typography style={{color:"grey"}}>{userAddAddres?.address1}, {userAddAddres?.address2}, {userAddAddres?.district}, {userAddAddres?.state}</Typography>
+              <Typography>Deliver to : <strong>{userAddAddres?.name  || "Guest"}, {userAddAddres?.pincode}</strong></Typography>
+              {!userAddAddres?.pincode ? 
+<Typography>Please Add New Address</Typography>
+              
+              :
+              <Typography style={{color:"grey"}}>{`${userAddAddres?.address1}, ${userAddAddres?.address2}, ${userAddAddres?.district}, ${userAddAddres?.state}`} </Typography>
+              }
             </Box>
-            <Button onClick={handleAddress}>Change</Button>
+            <Button variant="contained" onClick={handleAddress}>Change</Button>
           </Paper>
           <Paper className="cart-product-section">
             {updatedCartProduct.map((product, index) => {

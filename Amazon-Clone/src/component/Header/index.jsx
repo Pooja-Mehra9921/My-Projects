@@ -35,7 +35,8 @@ import FLIPKART_PLUS_IMAGE from "../../assents/images/flipkart_plus.png";
 
 // import styles
 import "./style.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedCategory } from "../../redux/appReducer/appReducer";
 
 const Header = () => {
   // states
@@ -43,37 +44,25 @@ const Header = () => {
   const [QuichSearchAnchor, setQuichSearchAnchor] = useState(null); // state to manage quick search menus
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const userData = JSON.parse(localStorage.getItem("userdata")); // get user data from local storage
   const cartItems = useSelector(store=>store.app.cartItems);
   const wishListItems = useSelector(store=>store.app.wishListItems);
 
   const isOpen = Boolean(anchorEl); // to open profile menus
   const isQuichSearch = Boolean(QuichSearchAnchor); // to open quick search menus
+  const [search, setSearch] = useState("");
 
  const handleredirectPages=(type)=>{
-if(type == "home" ) navigate("/home");
-if(type == "product")navigate("/product");
-if(type == "about")navigate("/about");
-if(type == "login") navigate("/login");
-if(type == "cart") navigate("/cart");
-if(type == "wishlist") navigate("/wishlist");
+ if(type === "product"){
+   navigate(`/${type}/all`);
+ }else{
+   navigate(`/${type}`);
+
  }
+ 
+ };
 
-{/*  const redirectToLogin = () => {
-    navigate("/login");
-  };
-
-  const redirectToHome = () => {
-    navigate("/home");
-  };
-
-  const redirectToProductPage = () => {
-    navigate("/product");
-  };
-
-  const redirectToAboutPage = () => {
-    navigate("/about");
-  };*/}
   /**
    * @description to open profile menus
    */
@@ -120,6 +109,19 @@ if(type == "wishlist") navigate("/wishlist");
 
   const isUserLoggedIn = Boolean(userData?.refreshToken); // to check user is login or not
 
+  const handleMenuQuick =(categoryType)=>()=>{
+    navigate(`/product/${categoryType}`)
+  }
+
+  const handleSearch =(event)=>{
+    setSearch(event.target.value);
+  }
+
+  const handleSearchBar =()=>{
+
+    navigate(`/product/${search}`)
+
+  }
   return (
     <>
       <Box className="header-main-container">
@@ -182,44 +184,49 @@ if(type == "wishlist") navigate("/wishlist");
               onClose={handleCloseQuickSearch}
               TransitionComponent={Fade}
             >
-              <MenuItem onClick={handleCloseQuickSearch}>
+              <MenuItem onClick={handleMenuQuick("laptops")}>
                 <ListItemIcon>
                   <LaptopChromebookIcon fontSize="small" />
                 </ListItemIcon>
                 Laptop
               </MenuItem>
-              <MenuItem onClick={handleCloseQuickSearch}>
+              <MenuItem onClick={handleMenuQuick("smartphones")}>
                 <ListItemIcon>
                   <PhoneAndroidIcon fontSize="small" />
                 </ListItemIcon>
                 Mobile
               </MenuItem>
-              <MenuItem onClick={handleCloseQuickSearch}>
+              <MenuItem onClick={handleMenuQuick("beauty")}>
                 <ListItemIcon>
                   <LibraryBooksIcon fontSize="small" />
                 </ListItemIcon>
-                Books
+                Beauty
               </MenuItem>
-              <MenuItem onClick={handleCloseQuickSearch}>
+              <MenuItem onClick={handleMenuQuick("furniture")}>
                 <ListItemIcon>
                   <CountertopsIcon fontSize="small" />
                 </ListItemIcon>
-                Kitchen
+                furniture
               </MenuItem>
             </Menu>
           </Box>
           <Box className="search-container">
             <Box className="search-bar">
-              <Box className="search-icon">
-                <SearchIcon style={{ margin: "2px" }} />
-              </Box>
               <TextField
-                style={{ width: "300px" }}
+              value={search}
+              onChange={handleSearch}
+                style={{ width: "300px", marginLeft:"10px" }}
                 placeholder="Search for Products, Brands and More"
                 variant="standard"
                 size="normal"
                 InputProps={{ disableUnderline: true }}
               />
+              <Box className="search-icon">
+                <IconButton onClick={handleSearchBar}>
+                <SearchIcon style={{ margin: "2px" }} />
+
+                </IconButton>
+              </Box>
             </Box>
 
             {isUserLoggedIn ? (
@@ -326,3 +333,6 @@ if(type == "wishlist") navigate("/wishlist");
 };
 
 export default Header;
+
+
+
