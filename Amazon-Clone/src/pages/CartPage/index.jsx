@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 
 // import Hooks
 import { useState } from "react";
@@ -10,7 +9,6 @@ import  Box  from "@mui/material/Box";
 import  Button  from "@mui/material/Button";
 import  Divider  from "@mui/material/Divider";
 import  Paper  from "@mui/material/Paper";
-import  TextField  from "@mui/material/TextField";
 import  Typography  from "@mui/material/Typography";
 
 // import Custom Components
@@ -21,8 +19,6 @@ import Footer from "../../component/Footer";
 import { GetDiscountFromPrice } from "../../helper";
 import AddAddress from "../../component/AddAddress";
 import CartProduct from "../../component/CartProduct";
-import SelectAddress from "../../component/SelectAddress";
-import BackdropLoader from "../../component/BackdropLoader";
 
 // import style sheet
 import "./style.css";
@@ -36,13 +32,9 @@ const CartPage = () => {
 
   const [updatedCartProduct, setUpdatedCartProduct] =
     useState(productWithQuantity);
-  const [isLoading, setisLoading] = useState(false);
-  const [pincode, setPincode] = useState("1111");
   const [openAddress, setOpenAddress] = useState(false);
 
-  const handlePinCode = (e) => {
-    setPincode(e.target.value);
-  };
+
 
   const coupon = (Math.random() * 100).toFixed(1);
   const deliveryCharges = (Math.random() * 100).toFixed(1);
@@ -94,25 +86,16 @@ const CartPage = () => {
   const handleClose = () => {
     setOpenAddress(false);
   };
+
+
   return (
     <>
-      <BackdropLoader isLoading={isLoading} />
       {openAddress && <AddAddress openAddress={openAddress} onClose={handleClose}/>}
       <Header />
       <Box className="addcart-container">
         <Box className="add-product-section">
           <Paper className="user-pincode">
-            <TextField
-              id="outlined-error-helper-text"
-              label="Change Pin Code"
-              type={"number"}
-              variant="outlined"
-              size="small"
-              fullWidth
-              margin="dense"
-              value={pincode}
-              onChange={handlePinCode}
-            ></TextField>
+            
             <Button onClick={handleAddress}>Change</Button>
           </Paper>
           <Paper className="cart-product-section">

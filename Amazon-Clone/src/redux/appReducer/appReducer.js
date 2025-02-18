@@ -9,6 +9,7 @@ const appSlice = createSlice({
     wishListItems:[],
     selectedproduct: {},
     selectedCategory: null,
+    userAddAddres:{},
   },
 
   reducers: {
@@ -32,10 +33,13 @@ const appSlice = createSlice({
     setWishListItems: (state, action) => {
       state.wishListItems.push(action.payload);
     },
+    setAddUserAddress: (state, action) => {
+      state.userAddAddres = action.payload;
+    },
   },
 });
 
-export const { setUserData, setProducts, setSelectedProducts,setSelectedCategory, setCartItems, setWishListItems} =
+export const { setUserData, setProducts, setSelectedProducts,setSelectedCategory, setCartItems, setWishListItems, setAddUserAddress} =
   appSlice.actions;
 
 export default appSlice.reducer;
