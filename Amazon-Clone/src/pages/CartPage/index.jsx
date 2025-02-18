@@ -13,7 +13,6 @@ import  Typography  from "@mui/material/Typography";
 
 // import Custom Components
 
-import { API } from "../../configs/api";
 import Header from "../../component/Header";
 import Footer from "../../component/Footer";
 import { GetDiscountFromPrice } from "../../helper";
@@ -33,6 +32,8 @@ const CartPage = () => {
   const [updatedCartProduct, setUpdatedCartProduct] =
     useState(productWithQuantity);
   const [openAddress, setOpenAddress] = useState(false);
+
+  const userAddAddres = useSelector((store)=> store?.app?.userAddAddres);
 
 
 
@@ -95,7 +96,10 @@ const CartPage = () => {
       <Box className="addcart-container">
         <Box className="add-product-section">
           <Paper className="user-pincode">
-            
+            <Box className="address-section">
+              <Typography>Deliver to : <strong>{(userAddAddres?.name).toUpperCase()}, {userAddAddres?.pincode}</strong></Typography>
+              <Typography style={{color:"grey"}}>{userAddAddres?.address1}, {userAddAddres?.address2}, {userAddAddres?.district}, {userAddAddres?.state}</Typography>
+            </Box>
             <Button onClick={handleAddress}>Change</Button>
           </Paper>
           <Paper className="cart-product-section">
