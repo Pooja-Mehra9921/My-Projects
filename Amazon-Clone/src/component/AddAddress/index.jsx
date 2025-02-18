@@ -1,14 +1,21 @@
-import * as React from "react";
-import Backdrop from "@mui/material/Backdrop";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import Fade from "@mui/material/Fade";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import {FormControl, FormControlLabel, FormLabel, Grid,  IconButton,  Radio, RadioGroup, TextField} from "@mui/material";
-import CloseIcon from '@mui/icons-material/Close';
-import "./style.css";
-import { API } from "../../configs/api";
+import React, { useState } from "react";
+import {
+  Backdrop,
+  Box,
+  Modal,
+  Fade,
+  Button,
+  Typography,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Grid,
+  IconButton,
+  Radio,
+  RadioGroup,
+  TextField,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 const style = {
   position: "absolute",
@@ -22,205 +29,118 @@ const style = {
   p: 4,
 };
 
-const AddAddress = ({openAddress = false, onClose}) => {
-  const [open, setOpen] = React.useState(openAddress);
-  //const handleOpen = () => setOpen(true);
+const AddAddress = ({ openAddress = false, onClose }) => {
+  const [userAddress, setUserAddress] = useState({
+    name: "",
+    address1: "",
+    address2: "",
+    pincode: "",
+    postoffice: "",
+    district: "",
+    state: "",
+    phone: "",
+    addressType: "",
+  });
+console.log("user address", userAddress);
+  const [open, setOpen] = useState(openAddress);
+
   const handleClose = () => {
-    setOpen(false)
+    setOpen(false);
     onClose();
   };
-/**
- *  @description getting pincode details from api
- */
 
-  const getPinCode = async () => {
-const [pincode, setPincode] = React.useState(false);
-
-    try {
-   //   setisLoading(true);
-      const api = API.GET_PINCODE.replace("#PINCODE#", pincode);
-      const response = await axios(api);
-      console.log("pincode", response);
-    } catch (error) {
-      setisLoading(false);
-      console.log("error while fetching pincode api", error);
-    }
+  const handleAddress = (type) => (event) => {
+    setUserAddress({ ...userAddress, [type]: event.target.value });
   };
 
   return (
-    <div>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        slots={{ backdrop: Backdrop }}
-        slotProps={{
-          backdrop: {
-            timeout: 500,
-          },
-        }}
-      >
-        <Fade in={open}>
-          <Box sx={style}>
-            <Box sx={{display:"flex", alignItems:"center", justifyContent:"space-between"}}>
-
-            
-            <Typography id="transition-modal-title" variant="h6" component="h2">
+    <Modal
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      open={open}
+      onClose={handleClose}
+      closeAfterTransition
+      slots={{ backdrop: Backdrop }}
+      slotProps={{ backdrop: { timeout: 500 } }}
+    >
+      <Fade in={open}>
+        <Box sx={style}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: 2,
+            }}
+          >
+            <Typography variant="h6" component="h2">
               Address
             </Typography>
             <IconButton onClick={handleClose}>
-            <CloseIcon/>
-
+              <CloseIcon />
             </IconButton>
-            </Box>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <TextField
-                    id="outlined-error-helper-text"
-                    label="Enter Name"
-                    type={"text"}
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    margin="dense"
-                    //  value={pincode}
-                    // onChange={handlePinCode}
-                  ></TextField>
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <TextField
-                    id="outlined-error-helper-text"
-                    label="Enter Address-1"
-                    type={"text"}
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    margin="dense"
-                    //value={pincode}
-                    //onChange={handlePinCode}
-                  ></TextField>
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <TextField
-                    id="outlined-error-helper-text"
-                    label="Enter Address-2"
-                    type={"text"}
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    margin="dense"
-                    //value={pincode}
-                    //onChange={handlePinCode}
-                  ></TextField>
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <TextField
-                    id="outlined-error-helper-text"
-                    label="Enter Pincode"
-                    type={"text"}
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    margin="dense"
-                    //value={pincode}
-                    //onChange={handlePinCode}
-                  ></TextField>
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <TextField
-                    id="outlined-error-helper-text"
-                    label="Enter Post Office"
-                    type={"text"}
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    margin="dense"
-                    //value={pincode}
-                    //onChange={handlePinCode}
-                  ></TextField>
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <TextField
-                    id="outlined-error-helper-text"
-                    label="Enter District"
-                    type={"text"}
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    margin="dense"
-                    //value={pincode}
-                    //onChange={handlePinCode}
-                  ></TextField>
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <TextField
-                    id="outlined-error-helper-text"
-                    label="Enter State"
-                    type={"text"}
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    margin="dense"
-                    //value={pincode}
-                    //onChange={handlePinCode}
-                  ></TextField>
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <TextField
-                    id="outlined-error-helper-text"
-                    label="Enter Phone Number"
-                    type={"text"}
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    margin="dense"
-                    //value={pincode}
-                    //onChange={handlePinCode}
-                  ></TextField>
-                </Grid>
-
-                <FormControl className="radio-btn-container">
-                  <FormLabel id="demo-radio-buttons-group-label">
-                    Address Type
-                  </FormLabel>
-                  <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="Home"
-                    name="radio-buttons-group"
-                    className="radio-btn"
-                  >
-                    <FormControlLabel
-                      value="Home"
-                      control={<Radio />}
-                      label="Home"
-                    />
-                    <FormControlLabel
-                      value="Office"
-                      control={<Radio />}
-                      label="Office"
-                    />
-                    <FormControlLabel
-                      value="other"
-                      control={<Radio />}
-                      label="Other"
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
-            </Typography>
-            <Box sx={{display:"flex", alignItems:"center", justifyContent:"end"}}>
-            <Button variant="contained" >Save</Button>
-
-            </Box>
-
           </Box>
 
-        </Fade>
-      </Modal>
-    </div>
+          <Grid container spacing={2}>
+            {[
+              { label: "Enter Name", type: "name" },
+              { label: "Enter Address-1", type: "address1" },
+              { label: "Enter Address-2", type: "address2" },
+              { label: "Enter Pincode", type: "pincode" },
+              { label: "Enter Post Office", type: "postoffice" },
+              { label: "Enter District", type: "district" },
+              { label: "Enter State", type: "state" },
+              { label: "Enter Phone Number", type: "phone" },
+            ].map((field) => (
+              <Grid item xs={12} sm={6} key={field.type}>
+                <TextField
+                  label={field.label}
+                  type="text"
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  margin="dense"
+                  onChange={handleAddress(field.type)}
+                />
+              </Grid>
+            ))}
+
+            {/* Address Type RadioGroup */}
+            <Grid item xs={12}>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Address Type</FormLabel>
+                <RadioGroup
+                  row
+                  name="addressType"
+                  value={userAddress.addressType}
+                  onChange={handleAddress("addressType")}
+                >
+                  <FormControlLabel
+                    value="Home"
+                    control={<Radio />}
+                    label="Home"
+                  />
+                  <FormControlLabel
+                    value="Office"
+                    control={<Radio />}
+                    label="Office"
+                  />
+                  <FormControlLabel
+                    value="Other"
+                    control={<Radio />}
+                    label="Other"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+          </Grid>
+
+          <Box sx={{ display: "flex", justifyContent: "end", marginTop: 2 }}>
+            <Button variant="contained">Save</Button>
+          </Box>
+        </Box>
+      </Fade>
+    </Modal>
   );
 };
 

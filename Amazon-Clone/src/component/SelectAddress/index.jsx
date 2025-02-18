@@ -15,24 +15,14 @@ const style = {
   };
 
 const SelectAddress =({openAddress = false, onClose})=>{
-    const [addNewAddress, setaddNewAddress] =useState(false);
     const [open, setOpen] = useState(openAddress);
     const handleClose = () => {
         setOpen(false)
         onClose();
       };
 
-      const handleAddToAddress =()=>{
-setaddNewAddress(true);
-setOpen(false);
-      }
-
-      const closeNewAddress =()=>{
-setaddNewAddress(false);
-      }
     return(
         <>
-        <AddAddress openAddress={addNewAddress} onClose={closeNewAddress}/>
         <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -48,7 +38,7 @@ setaddNewAddress(false);
       >
         <Fade in={open}>
           <Box sx={style}>
-            <Button onClick={handleAddToAddress}>Add New Address</Button>
+            <Button>Add New Address</Button>
           </Box>
           </Fade>
           </Modal>
