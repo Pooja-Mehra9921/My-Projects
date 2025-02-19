@@ -53,6 +53,8 @@ const Header = () => {
   const isQuichSearch = Boolean(QuichSearchAnchor); // to open quick search menus
   const [search, setSearch] = useState("");
 
+  console.log("cart items", cartItems);
+
  const handleredirectPages=(type)=>{
  if(type === "product"){
    navigate(`/${type}/all`);

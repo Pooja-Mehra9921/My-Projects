@@ -5,23 +5,36 @@ import { Box, Divider, IconButton, Typography } from "@mui/material";
 
 // import style sheet
 import "./style.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import WishListCart from "../../component/WishListCart";
+import { setCartItems, setWishListItems } from "../../redux/appReducer/appReducer";
 
 const WishListPage = () => {
-  const WishListItems = useSelector((store) => store.app.wishListItems);
-  console.log("whislist item", WishListItems);
+const wishListItems = useSelector((store)=> store.app.wishListItems);
+const dispatch = useDispatch()
+
+  const handleRemovewishlistCart = (productId) => {
+    const updatedWishlist = wishListItems.filter((item) => item.id !== productId);
+    dispatch(setWishListItems(updatedWishlist));
+  };
+
 
   return (
     <>
       <Header />
       <Box className="whislist-page-container">
-        <Typography>My WishList(12)</Typography>
-        <Divider />
+        <Typography variant="h5">My WishList(12)</Typography>
+        <Divider style={{marginTop:"20px"}} />
 
-        {WishListItems.map((item, index) => {
-          return <WishListCart key={index} product={item} />;
-        })}
+        {wishListItems.map((item, index) => {
+  return (
+    <WishListCart
+      key={index}
+      product={item}
+      onRemoveWishlistCart={() => handleRemovewishlistCart(item.id)}
+    />
+  );
+})}
       </Box>
       <Footer />
     </>

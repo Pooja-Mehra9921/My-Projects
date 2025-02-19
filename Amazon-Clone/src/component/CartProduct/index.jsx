@@ -134,9 +134,6 @@ onRemoveCart(product);
           </Box>
         </Box>
         <Box className="add-to-cart-btn-container">
-          <Button style={{ marginRight: "10px" }} variant="outlined">
-            Save for Later
-          </Button>
           <Button
             style={{ marginRight: "10px" }}
             variant="contained"

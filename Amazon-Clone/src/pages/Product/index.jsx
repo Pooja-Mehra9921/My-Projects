@@ -62,7 +62,7 @@ const ProductPage = () => {
       const { status, data: { products = [] } = {} } = await axios(api);
 
       if (status == 200) {
-        setProductData(products);
+        setAllProduct(products);
         setLoading(false);
       }
     } catch (err) {

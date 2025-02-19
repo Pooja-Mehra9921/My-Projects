@@ -10,5 +10,28 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
+    padding: 20px;
 }
+
+.wishlist-detail :hover{
+cursor: pointer;
+}
+.wishlist-price-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px auto; 
+  }
+  
+  .wishlist-orignal-price {
+    font-weight: 800;
+  }
+  
+  .wishlist-price {
+    text-decoration: line-through;
+    color: grey;
+  }
+  
+  .wishlist-discout {
+    color: green;
+  }

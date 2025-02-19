@@ -72,14 +72,30 @@ const ProductCardGrid = ({ product }) => {
     setisAdded(true);
   };
 
-  const handleWishListCart = (product) => {
-    if (!product) {
-      console.log("no product ");
-      return;
-    }
-    setisWhishlist(true);
-    dispatch(setWishListItems(product));
-  };
+    const handleWhishlistBtn = (product) => {
+      if (!product) {
+        console.error("No product to add to wishlist!");
+        return;
+      }
+    
+      const isAlreadyInWishlist = wishListItems.some(
+        (item) => item.id === product.id
+      );
+    
+      let updatedWishlist;
+    
+      if (isAlreadyInWishlist) {
+        updatedWishlist = wishListItems.filter((item) => item.id !== product.id);
+        setisWhishlist(false);
+      } else {
+        updatedWishlist = [...wishListItems, product];
+        setisWhishlist(true);
+      }
+    
+      dispatch(setWishListItems(updatedWishlist));
+    };
+
+
 
   return (
     <>
@@ -87,7 +103,7 @@ const ProductCardGrid = ({ product }) => {
         <IconButton
           disabled={isWhishlist}
           className="heart-icon"
-          onClick={() => handleWishListCart(product)}
+          onClick={()=>handleWhishlistBtn(product)}
         >
           {isWhishlist ? (
             <FavoriteIcon disabled={isWhishlist} />

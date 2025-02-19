@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // import Hooks
 import { useState } from "react";
@@ -21,11 +21,13 @@ import CartProduct from "../../component/CartProduct";
 
 // import style sheet
 import "./style.css";
-import { setCartItems } from "../../redux/appReducer/appReducer";
+import { setCartItems, setWishListItems } from "../../redux/appReducer/appReducer";
 
 const CartPage = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((store) => store.app.cartItems) || [];
+  const wishListItems = useSelector((store) => store.app.wishListItems) || [];
+  console.log("wishlist items", wishListItems);
   const productWithQuantity = cartItems.map((cart) => ({   // adding a quantity key in the cart 
     ...cart,
     quantity: cart.minimumOrderQuantity ? cart.minimumOrderQuantity : 1,
@@ -89,10 +91,24 @@ const CartPage = () => {
   const handleClose = () => {
     setOpenAddress(false);
   };
-const handleRemoveFromCart =(product)=>{
-const updatedproduct= updatedCartProduct.filter((cart)=>cart?.id != product?.id);
-setUpdatedCartProduct(updatedproduct);
-}
+  const handleRemoveFromCart = (product) => {
+    const updatedProduct = updatedCartProduct.filter(
+      (cart) => cart.id !== product.id
+    );
+  
+    dispatch(setCartItems(updatedProduct));
+    setUpdatedCartProduct(updatedProduct);
+  };
+
+
+
+useEffect(() => {
+  const productWithQuantity = cartItems.map((cart) => ({
+    ...cart,
+    quantity: cart.minimumOrderQuantity ? cart.minimumOrderQuantity : 1,
+  }));
+  setUpdatedCartProduct(productWithQuantity);
+}, [cartItems]);
 
   return (
     <>
@@ -117,6 +133,7 @@ setUpdatedCartProduct(updatedproduct);
               return (
                 <>
                   <CartProduct
+                  
                   onRemoveCart={handleRemoveFromCart}
                     key={index}
                     product={product}

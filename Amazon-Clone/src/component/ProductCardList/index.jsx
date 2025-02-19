@@ -20,7 +20,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import dummy from "../../assents/suggestions/dummy.png";
 
 // import custom hooks
-import { setCartItems, setSelectedProducts } from "../../redux/appReducer/appReducer";
+import { setCartItems, setSelectedProducts, setWishListItems } from "../../redux/appReducer/appReducer";
 import { DollarToIndianPrice, GetDiscountFromPrice } from "../../helper";
 
 // import styles
@@ -30,9 +30,11 @@ const ProductCardList = ({ product }) => {
   const dispatch = useDispatch(); // to store data in redux
   const navigate = useNavigate();
   const cartItems = useSelector((store)=> store?.app?.cartItems || []);
+  const wishListItems = useSelector((store)=> store.app.wishListItems);
     const isProductMatched = cartItems.filter((cart)=>cart.id === product.id);
+    const isWishlistProductMatched = wishListItems.filter((cart)=>cart.id === product.id);
     console.log("product machhhh", isProductMatched);
-    const [isWhishlist, setisWhishlist] = useState(false); // state to manage whishlist
+    const [isWhishlist, setisWhishlist] = useState(isWishlistProductMatched.length > 0); // state to manage whishlist
     const [isAdded, setisAdded] = useState(isProductMatched.length > 0);
 
 
@@ -48,13 +50,32 @@ const ProductCardList = ({ product }) => {
   /**
    * @description to handle whishlist icon
    */
-  const handleWhishlistBtn = () => {
-    setisWhishlist(!isWhishlist);
+  const handleWhishlistBtn = (product) => {
+    if (!product) {
+      console.error("No product to add to wishlist!");
+      return;
+    }
+  
+    const isAlreadyInWishlist = wishListItems.some(
+      (item) => item.id === product.id
+    );
+  
+    let updatedWishlist;
+  
+    if (isAlreadyInWishlist) {
+      updatedWishlist = wishListItems.filter((item) => item.id !== product.id);
+      setisWhishlist(false);
+    } else {
+      updatedWishlist = [...wishListItems, product];
+      setisWhishlist(true);
+    }
+  
+    dispatch(setWishListItems(updatedWishlist));
   };
-
  const handleAddToCart = (product) => {
      if (!product) {
-       console.error("No product to add to cart!");
+      console.error("No product to add to cart!");
+
        return;
      }
    
@@ -78,7 +99,7 @@ const ProductCardList = ({ product }) => {
             alt={product?.title}
           />
           <Box className="fav-icon">
-            <IconButton className="heart-icon" onClick={handleWhishlistBtn}>
+            <IconButton className="heart-icon" onClick={()=>handleWhishlistBtn(product)}>
               {isWhishlist ? <FavoriteIcon /> : <FavoriteBorderIcon />}
             </IconButton>
           </Box>

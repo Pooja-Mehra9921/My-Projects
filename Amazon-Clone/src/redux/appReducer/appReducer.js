@@ -28,10 +28,16 @@ const appSlice = createSlice({
       state.selectedCategory = action.payload;
     },
     setCartItems: (state, action) => {
-      state.cartItems.push(action.payload);
+      if(Array.isArray(action.payload)){
+state.cartItems = [];
+state.cartItems = action.payload;
+      }else{
+
+        state.cartItems.push(action.payload);
+      }
     },
     setWishListItems: (state, action) => {
-      state.wishListItems.push(action.payload);
+      state.wishListItems = action.payload;
     },
     setAddUserAddress: (state, action) => {
       state.userAddAddres = action.payload;
