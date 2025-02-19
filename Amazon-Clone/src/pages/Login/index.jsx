@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 // Import necessary material ui components
 import InputAdornment from "@mui/material/InputAdornment";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -72,7 +73,23 @@ const Login = () => {
       }
     } catch (error) {
       setisLoading(false);
-      showErrorToast(error?.response?.data?.message);
+
+      if(loginData.username !== 'emilys'){
+        showErrorToast("please enter valid username");
+      setisLoading(false);
+
+
+      }else if(loginData.password !== 'emilyspass'){
+        showErrorToast("please enter valid password");
+      setisLoading(false);
+
+
+      }else{
+        showErrorToast(showErrorToast(error?.response?.data?.message));
+      setisLoading(false);
+
+
+      }
       console.log("sometning went wrong while fetching api", error);
     }
   };
@@ -98,8 +115,8 @@ const Login = () => {
               <Box className="flipkart-login-image"></Box>
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6} className="fk-right-sec">
-              <Typography variant="h6">Login</Typography>
-              <Typography variant="body1">
+              <Typography variant="h6" className="display-flex-pro"><strong>Login Your Account</strong></Typography>
+              <Typography variant="body2" className="display-flex-pro">
                 Get access to your Orders, Wishlist and Recommendations
               </Typography>
               <TextField
@@ -114,7 +131,7 @@ const Login = () => {
                   input: {
                     endAdornment: (
                       <InputAdornment position="start">
-                        <MailOutlineIcon
+                        <AccountCircleIcon
                           style={{ color: emailerror ? "red" : "grey" }}
                         />
                       </InputAdornment>
@@ -178,10 +195,10 @@ const Login = () => {
                   </span>
                 </Tooltip>
 
-                <Chip className="chip-btn" label="SignUp" variant="outlined" />
+                <Chip className="chip-btn signup-btn" label="SignUp" variant="outlined" />
               </Box>
 
-              <Typography variant="body1" style={{ marginTop: "60px" }}>
+              <Typography variant="body1" style={{ marginTop: "60px", color:"#1b85d3", textAlign:"center"}}>
                 We not longer support login via Social accounts. To recover your
                 old accounts
               </Typography>

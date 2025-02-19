@@ -133,7 +133,7 @@ onRemoveCart(product);
             </IconButton>
           </Box>
         </Box>
-        <Box className="add-to-cart-btn-container">
+        <Box className="add-to-cart-btn-container"> 
           <Button
             style={{ marginRight: "10px" }}
             variant="contained"

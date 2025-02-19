@@ -99,7 +99,7 @@ const ProductCardList = ({ product }) => {
             alt={product?.title}
           />
           <Box className="fav-icon">
-            <IconButton className="heart-icon" onClick={()=>handleWhishlistBtn(product)}>
+            <IconButton className="heart-icon"  >
               {isWhishlist ? <FavoriteIcon /> : <FavoriteBorderIcon />}
             </IconButton>
           </Box>
