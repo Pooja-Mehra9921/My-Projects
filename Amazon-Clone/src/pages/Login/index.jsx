@@ -184,7 +184,7 @@ const Login = () => {
                 >
                   <span>
                     <Chip
-                      className="chip-btn"
+                      className="chip-btn login-btn"
                       label="Login"
                       variant="outlined"
                       onClick={handleSubmitbtn}

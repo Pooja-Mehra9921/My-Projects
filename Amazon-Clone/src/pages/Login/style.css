@@ -34,6 +34,7 @@
 .chip-btn {
   width: 140px !important;
   cursor: pointer !important;
+  margin: auto 10px;
 
 }
 
@@ -54,4 +55,11 @@
 
 .chip-btn:hover{
 box-shadow: 0px 0px 10px #1b85d3;
+}
+
+.login-btn{
+  color: #1b85d3 !important;
+  font-size: 16px !important;
+
+  border: 1px solid #1b85d3 !important;
 }
