@@ -2,7 +2,7 @@
   box-shadow: 0px 0px 5px rgb(223, 223, 223);
 
   height: auto;
-  width: 300px;
+  width: 350px;
   border-radius: 5px;
   cursor: pointer;
   margin: 5px auto;
@@ -77,4 +77,8 @@
 
 .grid-discout {
   color: green;
+}
+
+.add-to-cart-btn{
+  width: auto !important;
 }

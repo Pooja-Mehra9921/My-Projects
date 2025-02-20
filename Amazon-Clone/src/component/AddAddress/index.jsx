@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 
+
 // import hooks
 import { useEffect } from "react";
 import { useState } from "react";
@@ -32,6 +33,8 @@ import { setAddUserAddress } from "../../redux/appReducer/appReducer";
 
 // style sheet
 import "./style.css";
+import { toast } from "react-toastify";
+import { showSuccessToast } from "../Notifications";
 
 const style = {
   position: "absolute",
@@ -50,6 +53,8 @@ const AddAddress = ({ openAddress = false, onClose }) => {
   const [isLoading, setisLoading] = useState(false);
   const [isPincodeData, setisPincodeData] = useState(false);
   const [open, setOpen] = React.useState(openAddress);
+  const [error, setError] = useState(false);
+  const [helperText, setHelperText] = useState(false);
   const [userAddress, setUserAddress] = useState({
     name: "",
     address1: "",
@@ -136,6 +141,14 @@ const AddAddress = ({ openAddress = false, onClose }) => {
         return;
       case "phone":
         setUserAddress({ ...userAddress, phone: event.target.value });
+        if(!/^\d{10}$/.test(event.target.value)){
+          setError(true);
+          setHelperText("Phone number must be exactly 10 digits")
+        }else{
+          setError(false);
+          setHelperText("");
+
+        }
         return;
       case "addressType":
         setUserAddress({ ...userAddress, addressType: event.target.value });
@@ -147,9 +160,17 @@ const AddAddress = ({ openAddress = false, onClose }) => {
   };
 
   const handleSaveAddress = (userAddress) => {
-    dispatch(setAddUserAddress(userAddress));
-    onClose(handleClose);
-    console.log("user save data", userAddress);
+    if(userAddress.name=="" || userAddress.address1=="" || userAddress.address2=="" || userAddress.phone =="" || userAddress.district == "" || userAddress.state ==""){
+      toast.error("all fields are required"); 
+    }else{
+
+      dispatch(setAddUserAddress(userAddress));
+      onClose(handleClose);
+      console.log("user save data", userAddress);
+      showSuccessToast("Address Save Succussfully");
+
+    }
+   
   };
 
   return (
@@ -297,9 +318,10 @@ const AddAddress = ({ openAddress = false, onClose }) => {
                   <TextField
                     id="outlined-error-helper-text"
                     label="Enter Phone Number"
-                    type={"text"}
                     variant="outlined"
                     size="small"
+                    error={error}
+                    helperText={helperText}
                     fullWidth
                     margin="dense"
                     value={userAddress.phone}

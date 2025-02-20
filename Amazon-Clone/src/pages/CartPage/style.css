@@ -9,7 +9,7 @@
 }
 
 .cart-product-section {
-  height: 90vh;
+  height: 65vh;
   overflow: auto;
   overflow-x: hidden;
   margin: 10px auto;
@@ -19,6 +19,10 @@
   padding: auto 10px;
 }
 
+
+.address-section{
+  margin-top: 0px !important;
+}
 .user-pincode {
   padding: 10px;
   display: flex;

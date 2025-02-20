@@ -15,7 +15,7 @@ import  Typography  from "@mui/material/Typography";
 
 import Header from "../../component/Header";
 import Footer from "../../component/Footer";
-import { GetDiscountFromPrice } from "../../helper";
+import { DollarToIndianPrice, GetDiscountFromPrice } from "../../helper";
 import AddAddress from "../../component/AddAddress";
 import CartProduct from "../../component/CartProduct";
 
@@ -51,23 +51,19 @@ const CartPage = () => {
    * @description fetching values for billing
    */
   updatedCartProduct.forEach((cart) => {
-    let price = (cart.price * cart.quantity).toFixed(2);
-
-    let priceBeforeDiscount = GetDiscountFromPrice(
-      price,
-      cart?.discountPercentage
-    );
-
-    originalPrice = (
-      Number(originalPrice) + Number(priceBeforeDiscount)
-    ).toFixed(2);
-
-    const discountPriceOfSingleProduct = Number(priceBeforeDiscount) - price;
-
-    totalDiscountPrice = (
-      Number(totalDiscountPrice) + Number(discountPriceOfSingleProduct)
-    ).toFixed(2);
+    let priceInUSD = cart.price * cart.quantity;
+    let priceInINR = DollarToIndianPrice(priceInUSD);
+    
+  
+    let discountedPriceInINR = GetDiscountFromPrice(priceInUSD, cart.discountPercentage);
+  
+    originalPrice += priceInINR;
+  
+    const discountAmountForProduct = priceInINR - discountedPriceInINR;
+  
+    totalDiscountPrice += discountAmountForProduct;
   });
+  
   const handleProductQuantityUpdate = (productFromChild) => {
     const updatedQuantity = updatedCartProduct.map((product) => {
       if (product?.id == productFromChild?.id) {
@@ -82,7 +78,9 @@ const CartPage = () => {
 
   const total = (
     Number(originalPrice) -
-    (Number(totalDiscountPrice) + Number(coupon) + Number(deliveryCharges))
+    Number(totalDiscountPrice) -
+    Number(coupon) +
+    Number(deliveryCharges)
   ).toFixed(2);
 
   const handleAddress = () => {

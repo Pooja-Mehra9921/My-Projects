@@ -43,20 +43,24 @@ const SingleProductDetail = () => {
   const handleMainImageChange = (image) => {
     setImageToMagnify(image);
   };
- const handleAddToCart = (dataFromStore) => {
-     if (!dataFromStore) {
-       console.error("No product to add to cart!");
-       return;
-     }
-   
-     console.log("add to cart", dataFromStore);
-   
-     // Ensure cartItems is always an array before spreading
-   
-     dispatch(setCartItems(dataFromStore));
-     setisAdded(true);
-     
-   };
+  /**
+   * @description handle for add to cart items
+   */
+
+  const handleAddToCart = (product) => {
+    if (!product) {
+      console.error("No product to add to cart!");
+      return;
+    }
+
+    console.log("add to cart", product);
+
+    // Ensure cartItems is always an array before spreading
+
+    dispatch(setCartItems(product));
+    setisAdded(true);
+  };
+
 
   return (
     <>
@@ -102,7 +106,7 @@ const SingleProductDetail = () => {
             </Box>
             <Box className="btn-container">
             <Button
-  onClick={() => handleAddToCart(product)}
+  onClick={() => handleAddToCart(dataFromStore)}
   variant="contained"
   className="add-to-cart-btn"
   style={{

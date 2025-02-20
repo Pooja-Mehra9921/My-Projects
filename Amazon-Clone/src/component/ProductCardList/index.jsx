@@ -100,7 +100,7 @@ const ProductCardList = ({ product }) => {
           />
           <Box className="fav-icon">
             <IconButton className="heart-icon"  >
-              {isWhishlist ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+              {isWhishlist ? <FavoriteIcon style={{color:"#d32f2f"}} /> : <FavoriteBorderIcon />}
             </IconButton>
           </Box>
         </Box>

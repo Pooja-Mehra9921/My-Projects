@@ -85,7 +85,7 @@ const ProductPage = () => {
       <BackdropLoader isLoading={isLoading} />
       <Box className="product-main-container">
         <Box className="product-container">
-          <Box className="filter-section">Filter Section</Box>
+
           <Box className="product-section">
             <Box className="view-icon-container">
               <IconButton onClick={() => handleViewOfProduct("grid")}>
