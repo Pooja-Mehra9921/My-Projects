@@ -1,0 +1,37 @@
+.wishlist-image{
+    height: 130px;
+}
+
+.wishlist-price-sec,.wishlist-detail {
+    display: flex;
+}
+
+.whishlist-cart{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.wishlist-detail :hover{
+cursor: pointer;
+}
+.wishlist-price-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px auto; 
+  }
+  
+  .wishlist-orignal-price {
+    font-weight: 800;
+  }
+  
+  .wishlist-price {
+    text-decoration: line-through;
+    color: grey;
+  }
+  
+  .wishlist-discout {
+    color: green;
+  }

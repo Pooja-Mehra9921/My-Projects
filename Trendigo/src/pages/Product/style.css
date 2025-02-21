@@ -1,0 +1,47 @@
+.product-main-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-container {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter-section {
+    width: 20%;
+    background-color: white;
+    margin-right: 10px;
+}
+
+.product-section {
+    background-color: white;
+
+    width: 90%;
+    margin: 2% auto;
+}
+
+.view-icon-container {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    margin: 0px 10px;
+    cursor: pointer;
+}
+
+.product-grid-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 0px 10px;
+    margin: 10px;
+}
+
+.product-list-con{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
