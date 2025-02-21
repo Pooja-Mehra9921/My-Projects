@@ -1,15 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const appSlice = createSlice({
-  name: "flipkart clone",
+const flipKartClone = createSlice({
+  name: "productCartManagement",
   initialState: {
     userData: {},
     products: [],
     cartItems: [],
-    wishListItems:[],
+    wishListItems: [],
     selectedproduct: {},
     selectedCategory: null,
-    userAddAddres:{},
+    userAddAddres: {},
+    isAuthenticated: false,
   },
 
   reducers: {
@@ -28,11 +29,10 @@ const appSlice = createSlice({
       state.selectedCategory = action.payload;
     },
     setCartItems: (state, action) => {
-      if(Array.isArray(action.payload)){
-state.cartItems = [];
-state.cartItems = action.payload;
-      }else{
-
+      if (Array.isArray(action.payload)) {
+        state.cartItems = [];
+        state.cartItems = action.payload;
+      } else {
         state.cartItems.push(action.payload);
       }
     },
@@ -42,10 +42,25 @@ state.cartItems = action.payload;
     setAddUserAddress: (state, action) => {
       state.userAddAddres = action.payload;
     },
+    login:(state) =>{
+      state.isAuthenticated  = true;
+    },
+    logout:(state) =>{
+      state.isAuthenticated  = false;
+    }
   },
 });
 
-export const { setUserData, setProducts, setSelectedProducts,setSelectedCategory, setCartItems, setWishListItems, setAddUserAddress} =
-  appSlice.actions;
+export const {
+  setUserData,
+  setProducts,
+  setSelectedProducts,
+  setSelectedCategory,
+  setCartItems,
+  setWishListItems,
+  setAddUserAddress,
+  login,
+  logout
+} = flipKartClone.actions;
 
-export default appSlice.reducer;
+export default flipKartClone.reducer;

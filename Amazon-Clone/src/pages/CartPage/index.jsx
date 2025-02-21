@@ -68,9 +68,9 @@ const CartPage = () => {
     const updatedQuantity = updatedCartProduct.map((product) => {
       if (product?.id == productFromChild?.id) {
         return productFromChild;
-      } else {
-        return product;
       }
+      
+        return product;
     });
 
     setUpdatedCartProduct(updatedQuantity);

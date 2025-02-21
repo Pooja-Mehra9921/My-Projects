@@ -22,17 +22,23 @@ import StarIcon from "@mui/icons-material/Star";
 // import styles
 import "./style.css";
 import { setCartItems } from "../../redux/appReducer/appReducer";
+import { useNavigate } from "react-router-dom";
 
 const SingleProductDetail = () => {
   const dispatch = useDispatch();
+  const navigate= useNavigate();
   const dataFromStore = useSelector((store) => store?.app?.selectedproduct); // get product data from redux store
-  const cartItems = useSelector((store)=> store?.app?.cartItems || []);
-      const isProductMatched = cartItems.filter((cart)=>cart.id === dataFromStore.id);
-      console.log("product machhhh", isProductMatched);
-      const [isAdded, setisAdded] = useState(isProductMatched.length > 0);
+  const cartItems = useSelector((store) => store?.app?.cartItems || []);
+  const isProductMatched = cartItems.filter(
+    (cart) => cart.id === dataFromStore.id
+  );
+  console.log("product machhhh", isProductMatched);
+  const [isAdded, setisAdded] = useState(isProductMatched.length > 0);
   const [imageToMagnify, setImageToMagnify] = useState(
     dataFromStore?.thumbnail
   );
+  const userData = JSON.parse(localStorage.getItem("userdata"));
+  const isUserLoggedIn = Boolean(userData?.refreshToken);
 
 
   /**
@@ -48,19 +54,23 @@ const SingleProductDetail = () => {
    */
 
   const handleAddToCart = (product) => {
-    if (!product) {
-      console.error("No product to add to cart!");
-      return;
+    if(isUserLoggedIn){
+      if (!product) {
+        console.error("No product to add to cart!");
+        return;
+      }
+  
+      console.log("add to cart", product);
+  
+      // Ensure cartItems is always an array before spreading
+  
+      dispatch(setCartItems(product));
+      setisAdded(true);
+    }else{
+      navigate("/login");
     }
 
-    console.log("add to cart", product);
-
-    // Ensure cartItems is always an array before spreading
-
-    dispatch(setCartItems(product));
-    setisAdded(true);
   };
-
 
   return (
     <>
@@ -105,21 +115,21 @@ const SingleProductDetail = () => {
               />
             </Box>
             <Box className="btn-container">
-            <Button
-  onClick={() => handleAddToCart(dataFromStore)}
-  variant="contained"
-  className="add-to-cart-btn"
-  style={{
-    color: "white",
-    margin: "5px",
-    backgroundColor: isAdded ? "grey" : "#ff9f00",
-    border: "none",
-  }}
-  disabled={isAdded} // Prevent multiple additions
->
-  <ShoppingCartIcon />
-  {isAdded ? "Added to Cart" : "Add to Cart"}
-</Button>
+              <Button
+                onClick={() => handleAddToCart(dataFromStore)}
+                variant="contained"
+                className="add-to-cart-btn"
+                style={{
+                  color: "white",
+                  margin: "5px",
+                  backgroundColor: isAdded ? "grey" : "#ff9f00",
+                  border: "none",
+                }}
+                disabled={isAdded} // Prevent multiple additions
+              >
+                <ShoppingCartIcon />
+                {isAdded ? "Added to Cart" : "Add to Cart"}
+              </Button>
               <Button
                 variant="contained"
                 style={{ backgroundColor: "#fb641b", margin: "5px" }}

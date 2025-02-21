@@ -39,9 +39,15 @@ const ProductCardGrid = ({ product }) => {
   const [isAdded, setisAdded] = useState(isProductMatched.length > 0);
 
   const wishListItems = useSelector((store) => store?.app?.wishListItems || []);
-  const isWishListProductMatched = wishListItems.filter((wishlist) => wishlist?.id === product?.id);
-  const [isWhishlist, setisWhishlist] = useState(isWishListProductMatched.length > 0); // state to manage whishlist
+  const isWishListProductMatched = wishListItems.filter(
+    (wishlist) => wishlist?.id === product?.id
+  );
+  const [isWhishlist, setisWhishlist] = useState(
+    isWishListProductMatched.length > 0
+  ); // state to manage whishlist
   console.log("whishlist items", wishListItems);
+  const userData = JSON.parse(localStorage.getItem("userdata"));
+  const isUserLoggedIn = Boolean(userData?.refreshToken);
 
   /**
    * @description To click on product card to store product card in redux store and open selected product detail page
@@ -59,43 +65,52 @@ const ProductCardGrid = ({ product }) => {
    */
 
   const handleAddToCart = (product) => {
+    if(isUserLoggedIn){
+      if (!product) {
+        console.error("No product to add to cart!");
+        return;
+      }
+  
+      console.log("add to cart", product);
+  
+      // Ensure cartItems is always an array before spreading
+  
+      dispatch(setCartItems(product));
+      setisAdded(true);
+    }else{
+      navigate("/login");
+    }
+ 
+  };
+
+/**
+ * @description handle whislist products
+ * @param {string} product 
+ * @returns 
+ */
+
+  const handleWhishlistBtn = (product) => {
     if (!product) {
-      console.error("No product to add to cart!");
+      console.error("No product to add to wishlist!");
       return;
     }
 
-    console.log("add to cart", product);
+    const isAlreadyInWishlist = wishListItems.some(
+      (item) => item.id === product.id
+    );
 
-    // Ensure cartItems is always an array before spreading
+    let updatedWishlist;
 
-    dispatch(setCartItems(product));
-    setisAdded(true);
+    if (isAlreadyInWishlist) {
+      updatedWishlist = wishListItems.filter((item) => item.id !== product.id);
+      setisWhishlist(false);
+    } else {
+      updatedWishlist = [...wishListItems, product];
+      setisWhishlist(true);
+    }
+
+    dispatch(setWishListItems(updatedWishlist));
   };
-
-    const handleWhishlistBtn = (product) => {
-      if (!product) {
-        console.error("No product to add to wishlist!");
-        return;
-      }
-    
-      const isAlreadyInWishlist = wishListItems.some(
-        (item) => item.id === product.id
-      );
-    
-      let updatedWishlist;
-    
-      if (isAlreadyInWishlist) {
-        updatedWishlist = wishListItems.filter((item) => item.id !== product.id);
-        setisWhishlist(false);
-      } else {
-        updatedWishlist = [...wishListItems, product];
-        setisWhishlist(true);
-      }
-    
-      dispatch(setWishListItems(updatedWishlist));
-    };
-
-
 
   return (
     <>
@@ -103,10 +118,10 @@ const ProductCardGrid = ({ product }) => {
         <IconButton
           disabled={isWhishlist}
           className="heart-icon"
-          onClick={()=>handleWhishlistBtn(product)}
+          onClick={() => handleWhishlistBtn(product)}
         >
           {isWhishlist ? (
-            <FavoriteIcon style={{color:"#d32f2f"}} disabled={isWhishlist} />
+            <FavoriteIcon style={{ color: "#d32f2f" }} disabled={isWhishlist} />
           ) : (
             <FavoriteBorderIcon disabled={isWhishlist} />
           )}

@@ -1,15 +1,10 @@
 import React from "react";
 import axios from "axios";
-
-
-// import hooks
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 
-
-// import Material ui components
+//Material ui components
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -26,36 +21,24 @@ import RadioGroup from "@mui/material/RadioGroup";
 import TextField from "@mui/material/TextField";
 import CloseIcon from "@mui/icons-material/Close";
 
-// import Custom Components
+//Custom Components
+import { showErrorToast, showSuccessToast } from "../Notifications";
 import BackdropLoader from "../BackdropLoader";
 import { API } from "../../configs/api";
 import { setAddUserAddress } from "../../redux/appReducer/appReducer";
 
 // style sheet
 import "./style.css";
-import { toast } from "react-toastify";
-import { showSuccessToast } from "../Notifications";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
 
 const AddAddress = ({ openAddress = false, onClose }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // to store data in redux store
   const [isLoading, setisLoading] = useState(false);
   const [isPincodeData, setisPincodeData] = useState(false);
   const [open, setOpen] = React.useState(openAddress);
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState(false);
   const [userAddress, setUserAddress] = useState({
+    // state to store user address data
     name: "",
     address1: "",
     address2: "",
@@ -68,7 +51,7 @@ const AddAddress = ({ openAddress = false, onClose }) => {
   });
 
   /**
-   * @description 
+   * @description  to close address modal
    */
   const handleClose = () => {
     setOpen(false);
@@ -80,6 +63,7 @@ const AddAddress = ({ openAddress = false, onClose }) => {
       getPinCode(userAddress.pincode);
     }
   }, [userAddress.pincode]);
+
   /**
    *  @description getting pincode details from api
    */
@@ -105,6 +89,10 @@ const AddAddress = ({ openAddress = false, onClose }) => {
       setisLoading(false);
     }
   };
+
+  /**
+   *  @description set data to useraddress state enter by the user
+   */
 
   const handleAddress = (type) => (event) => {
     switch (type) {
@@ -141,13 +129,13 @@ const AddAddress = ({ openAddress = false, onClose }) => {
         return;
       case "phone":
         setUserAddress({ ...userAddress, phone: event.target.value });
-        if(!/^\d{10}$/.test(event.target.value)){
+        if (!/^\d{10}$/.test(event.target.value)) {
+          // check phone number
           setError(true);
-          setHelperText("Phone number must be exactly 10 digits")
-        }else{
+          setHelperText("Phone number must be exactly 10 digits");
+        } else {
           setError(false);
           setHelperText("");
-
         }
         return;
       case "addressType":
@@ -159,18 +147,26 @@ const AddAddress = ({ openAddress = false, onClose }) => {
     }
   };
 
-  const handleSaveAddress = (userAddress) => {
-    if(userAddress.name=="" || userAddress.address1=="" || userAddress.address2=="" || userAddress.phone =="" || userAddress.district == "" || userAddress.state ==""){
-      toast.error("all fields are required"); 
-    }else{
+  /**
+   * @description check validation when user save the address in the address modal
+   *
+   */
 
+  const handleSaveAddress = (userAddress) => {
+    if (
+      userAddress.name == "" ||
+      userAddress.address1 == "" ||
+      userAddress.address2 == "" ||
+      userAddress.phone == "" ||
+      userAddress.district == "" ||
+      userAddress.state == ""
+    ) {
+      showErrorToast("all fields are required");
+    } else {
       dispatch(setAddUserAddress(userAddress));
       onClose(handleClose);
-      console.log("user save data", userAddress);
       showSuccessToast("Address Save Succussfully");
-
     }
-   
   };
 
   return (
@@ -190,7 +186,7 @@ const AddAddress = ({ openAddress = false, onClose }) => {
         }}
       >
         <Fade in={open}>
-          <Box sx={style}>
+          <Box className="modal-styling">
             <Box
               sx={{
                 display: "flex",

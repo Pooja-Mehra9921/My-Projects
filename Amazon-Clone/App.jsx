@@ -8,7 +8,7 @@ import AboutPage from "./src/pages/About";
 import CartPage from "./src/pages/CartPage";
 import WishListPage from "./src/pages/wishList";
 import PageNotFound from "./src/pages/NotFound";
-
+import ProtectedRoute from "./src/component/ProtectedRoute";
 
 const App = () => {
   return (
@@ -22,7 +22,12 @@ const App = () => {
           <Route path="/product/:category" element={<ProductPage />} />
           <Route path="/product-detail/:id" element={<SingleProductDetail />} />
           <Route path="/about" element={<AboutPage />} />
-          <Route path="/cart" element={<CartPage />} />
+
+          {/* Protected Routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/cart" element={<CartPage />} />
+          </Route>
+
           <Route path="/wishlist" element={<WishListPage />} />
         </Routes>
       </BrowserRouter>

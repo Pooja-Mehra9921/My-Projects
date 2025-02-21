@@ -114,7 +114,7 @@ const Header = () => {
                 <Divider />
                 <MenuItem onClick={handleCloseProfileMenu}><ListItemIcon><PersonAdd fontSize="small" /></ListItemIcon> Add another account</MenuItem>
                 <MenuItem onClick={handleCloseProfileMenu}><ListItemIcon><Settings fontSize="small" /></ListItemIcon> Settings</MenuItem>
-                <MenuItem onClick={handleLogout}><ListItemIcon><Logout fontSize="small" /></ListItemIcon> Logout</MenuItem>
+                <MenuItem className="logout-btn" onClick={handleLogout}><ListItemIcon><Logout fontSize="small" /></ListItemIcon> Logout</MenuItem>
               </Menu>
             </>
           )}

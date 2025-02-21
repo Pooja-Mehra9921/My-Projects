@@ -20,7 +20,11 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import dummy from "../../assents/suggestions/dummy.png";
 
 // import custom hooks
-import { setCartItems, setSelectedProducts, setWishListItems } from "../../redux/appReducer/appReducer";
+import {
+  setCartItems,
+  setSelectedProducts,
+  setWishListItems,
+} from "../../redux/appReducer/appReducer";
 import { DollarToIndianPrice, GetDiscountFromPrice } from "../../helper";
 
 // import styles
@@ -29,14 +33,19 @@ import "./style.css";
 const ProductCardList = ({ product }) => {
   const dispatch = useDispatch(); // to store data in redux
   const navigate = useNavigate();
-  const cartItems = useSelector((store)=> store?.app?.cartItems || []);
-  const wishListItems = useSelector((store)=> store.app.wishListItems);
-    const isProductMatched = cartItems.filter((cart)=>cart.id === product.id);
-    const isWishlistProductMatched = wishListItems.filter((cart)=>cart.id === product.id);
-    console.log("product machhhh", isProductMatched);
-    const [isWhishlist, setisWhishlist] = useState(isWishlistProductMatched.length > 0); // state to manage whishlist
-    const [isAdded, setisAdded] = useState(isProductMatched.length > 0);
-
+  const cartItems = useSelector((store) => store?.app?.cartItems || []);
+  const wishListItems = useSelector((store) => store.app.wishListItems);
+  const isProductMatched = cartItems.filter((cart) => cart.id === product.id);
+  const isWishlistProductMatched = wishListItems.filter(
+    (cart) => cart.id === product.id
+  );
+  console.log("product machhhh", isProductMatched);
+  const [isWhishlist, setisWhishlist] = useState(
+    isWishlistProductMatched.length > 0
+  ); // state to manage whishlist
+  const [isAdded, setisAdded] = useState(isProductMatched.length > 0);
+  const userData = JSON.parse(localStorage.getItem("userdata"));
+  const isUserLoggedIn = Boolean(userData?.refreshToken);
 
   /**
    * @description handle selected product and redirect to single product detail page
@@ -51,62 +60,82 @@ const ProductCardList = ({ product }) => {
    * @description to handle whishlist icon
    */
   const handleWhishlistBtn = (product) => {
-    if (!product) {
-      console.error("No product to add to wishlist!");
-      return;
+    if(isUserLoggedIn){
+      if (!product) {
+        console.error("No product to add to wishlist!");
+        return;
+      }
+  
+      const isAlreadyInWishlist = wishListItems.some(
+        (item) => item.id === product.id
+      );
+  
+      let updatedWishlist;
+  
+      if (isAlreadyInWishlist) {
+        updatedWishlist = wishListItems.filter((item) => item.id !== product.id);
+        setisWhishlist(false);
+      } else {
+        updatedWishlist = [...wishListItems, product];
+        setisWhishlist(true);
+      }
+  
+      dispatch(setWishListItems(updatedWishlist));
+    }else{
+      navigate("/login")
     }
-  
-    const isAlreadyInWishlist = wishListItems.some(
-      (item) => item.id === product.id
-    );
-  
-    let updatedWishlist;
-  
-    if (isAlreadyInWishlist) {
-      updatedWishlist = wishListItems.filter((item) => item.id !== product.id);
-      setisWhishlist(false);
-    } else {
-      updatedWishlist = [...wishListItems, product];
-      setisWhishlist(true);
-    }
-  
-    dispatch(setWishListItems(updatedWishlist));
-  };
- const handleAddToCart = (product) => {
-     if (!product) {
-      console.error("No product to add to cart!");
 
-       return;
-     }
-   
-     console.log("add to cart", product);
-   
-     // Ensure cartItems is always an array before spreading
-   
-     dispatch(setCartItems(product));
-     setisAdded(true);
-     
-   };
+  };
+
+
+
+
+
+  const handleAddToCart = (product) => {
+    if(isUserLoggedIn){
+      if (!product) {
+        console.error("No product to add to cart!");
+  
+        return;
+      }
+  
+      console.log("add to cart", product);
+  
+      // Ensure cartItems is always an array before spreading
+  
+      dispatch(setCartItems(product));
+      setisAdded(true);
+    }else{
+      navigate("/navigate");
+    }
+
+  };
   return (
     <>
-      <Box
-        className="product-list-container"
-      >
+      <Box className="product-list-container">
         <Box className="image-section">
-          <img  onClick={() => handleListproducts(product)}
+          <img
+            onClick={() => handleListproducts(product)}
             className="product-list-image"
             src={product?.thumbnail || dummy}
             alt={product?.title}
           />
           <Box className="fav-icon">
-            <IconButton className="heart-icon"  >
-              {isWhishlist ? <FavoriteIcon style={{color:"#d32f2f"}} /> : <FavoriteBorderIcon />}
+            <IconButton className="heart-icon">
+              {isWhishlist ? (
+                <FavoriteIcon style={{ color: "#d32f2f" }} />
+              ) : (
+                <FavoriteBorderIcon />
+              )}
             </IconButton>
           </Box>
         </Box>
 
         {/*Detail section*/}
-        <Box className="detail-section"  onClick={() => handleListproducts(product)}>
+        <Box
+          className="detail-section"
+          onClick={() => handleListproducts(product)}
+        >
           <Typography className="list-title">
             {product?.title || "no title"}
           </Typography>
@@ -132,48 +161,48 @@ const ProductCardList = ({ product }) => {
 
         {/*Price section*/}
         <Box className="list-price-section">
-          <Box  onClick={() => handleListproducts(product)}>
-          <Typography className="list-price">
-            &#8377;{DollarToIndianPrice(product?.price)}
-          </Typography>
-          <Box style={{ display: "flex" }}>
-            <Typography className="list-orignal-price">
-              &#8377;
-              {GetDiscountFromPrice(
-                product?.price,
-                product?.discountPercentage
-              )}
+          <Box onClick={() => handleListproducts(product)}>
+            <Typography className="list-price">
+              &#8377;{DollarToIndianPrice(product?.price)}
             </Typography>
-            <Typography className="list-discount-price">{`${product?.discountPercentage} % off`}</Typography>
-          </Box>
+            <Box style={{ display: "flex" }}>
+              <Typography className="list-orignal-price">
+                &#8377;
+                {GetDiscountFromPrice(
+                  product?.price,
+                  product?.discountPercentage
+                )}
+              </Typography>
+              <Typography className="list-discount-price">{`${product?.discountPercentage} % off`}</Typography>
+            </Box>
 
-          <Typography
-            sx={{
-              color:
-                product?.availabilityStatus === "In Stock" ? "green" : "red",
-            }}
-          >
-            {product?.availabilityStatus}
-          </Typography>
+            <Typography
+              sx={{
+                color:
+                  product?.availabilityStatus === "In Stock" ? "green" : "red",
+              }}
+            >
+              {product?.availabilityStatus}
+            </Typography>
 
-          <Typography>{product?.warrantyInformation}</Typography>
+            <Typography>{product?.warrantyInformation}</Typography>
           </Box>
           <Box className="list-btn-container">
-          <Button
-  onClick={() => handleAddToCart(product)}
-  variant="contained"
-  className="add-to-cart-btn"
-  style={{
-    color: "white",
-    margin: "5px",
-    backgroundColor: isAdded ? "grey" : "#ff9f00",
-    border: "none",
-  }}
-  disabled={isAdded} // Prevent multiple additions
->
-  <ShoppingCartIcon />
-  {isAdded ? "Added to Cart" : "Add to Cart"}
-</Button>
+            <Button
+              onClick={() => handleAddToCart(product)}
+              variant="contained"
+              className="add-to-cart-btn"
+              style={{
+                color: "white",
+                margin: "5px",
+                backgroundColor: isAdded ? "grey" : "#ff9f00",
+                border: "none",
+              }}
+              disabled={isAdded} // Prevent multiple additions
+            >
+              <ShoppingCartIcon />
+              {isAdded ? "Added to Cart" : "Add to Cart"}
+            </Button>
             <Button
               variant="contained"
               style={{ backgroundColor: "#fb641b", margin: "5px" }}
