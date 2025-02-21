@@ -9,18 +9,10 @@ import Typography from "@mui/material/Typography";
 
 // style sheet
 import "./style.css";
+import { getAvtarName } from "../../helper";
 
 const UserRating = ({ review }) => {
-  /**
-   * @description to get avtar name from user name
-   * @param {string} name
-   * @returns
-   */
-  const getAvtarName = (name) => {
-    const splitName = name.split(" ");
-    const [firstName, lastName] = splitName;
-    return `${firstName[0]} ${lastName[0]}`;
-  };
+
 
   return (
     <>

@@ -33,7 +33,6 @@ import { login } from "../../redux/appReducer/appReducer";
 // Login Page components
 const Login = () => {
   const navigate = useNavigate();
-  const dispatch =useDispatch();
 
   // states
   const [hidePassword, sethidePassword] = useState(false); // state to set hide icon in the password input field
@@ -71,7 +70,6 @@ const Login = () => {
       if (status == 200) {
         setisLoading(false); // stop loader
         localStorage.setItem("userdata", JSON.stringify(data)); // store data in local storage
-        dispatch(login());
         navigate("/home");
         showSuccessToast("You are login successfully");
       }

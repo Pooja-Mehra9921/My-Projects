@@ -10,7 +10,6 @@ const flipKartClone = createSlice({
     selectedproduct: {},
     selectedCategory: null,
     userAddAddres: {},
-    isAuthenticated: false,
   },
 
   reducers: {
@@ -42,12 +41,6 @@ const flipKartClone = createSlice({
     setAddUserAddress: (state, action) => {
       state.userAddAddres = action.payload;
     },
-    login:(state) =>{
-      state.isAuthenticated  = true;
-    },
-    logout:(state) =>{
-      state.isAuthenticated  = false;
-    }
   },
 });
 
@@ -59,8 +52,6 @@ export const {
   setCartItems,
   setWishListItems,
   setAddUserAddress,
-  login,
-  logout
 } = flipKartClone.actions;
 
 export default flipKartClone.reducer;

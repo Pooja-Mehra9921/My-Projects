@@ -1,31 +1,45 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Divider,
-  IconButton,
-  TextField,
-  Typography,
-} from "@mui/material";
 import React, { useState } from "react";
-import "./style.css";
-import { DollarToIndianPrice } from "../../helper";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+// MUI Components
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
-import { setCartItems, setSelectedProducts } from "../../redux/appReducer/appReducer";
 
-const CartProduct = ({ product = {}, onProductQuantityUpdate , onRemoveCart}) => {
-  const dispatch = useDispatch();
+// Custom Component
+import { DollarToIndianPrice } from "../../helper";
+import { setSelectedProducts } from "../../redux/appReducer/appReducer";
+
+// Style Sheet
+import "./style.css";
+
+// Product cart Component
+const CartProduct = ({
+  product = {},
+  onProductQuantityUpdate,
+  onRemoveCart,
+}) => {
+  const dispatch = useDispatch(); // store data in reduc store
   const navigate = useNavigate();
-  const cartItems = useSelector((store)=> store.app.cartItems);
   const [quantity, setQuantity] = useState(1);
 
+  /**
+   *  handle Product cart
+   */
   const handleProductCart = (product) => {
     dispatch(setSelectedProducts(product));
     navigate(`/product-detail/${product?.id}`);
   };
+
+  /**
+   *  handle change quentity when user click on increment and decrement btn
+   */
 
   const handleChangeQuantity = (event) => {
     if (isNaN(Number(event?.target?.value))) return quantity;
@@ -67,8 +81,8 @@ const CartProduct = ({ product = {}, onProductQuantityUpdate , onRemoveCart}) =>
    */
 
   const handleRemoveCart = () => {
-onRemoveCart(product);
-}
+    onRemoveCart(product);
+  };
 
   return (
     <>
@@ -133,7 +147,7 @@ onRemoveCart(product);
             </IconButton>
           </Box>
         </Box>
-        <Box className="add-to-cart-btn-container"> 
+        <Box className="add-to-cart-btn-container">
           <Button
             style={{ marginRight: "10px" }}
             variant="contained"

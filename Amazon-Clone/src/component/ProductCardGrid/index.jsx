@@ -1,11 +1,9 @@
 import React from "react";
-
-// import Hooks
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-// import Material UI Component
+// Material UI Component
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Rating from "@mui/material/Rating";
@@ -17,7 +15,7 @@ import FlashOnIcon from "@mui/icons-material/FlashOn";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
-// import custom components
+// custom components
 import {
   setCartItems,
   setSelectedProducts,
@@ -25,19 +23,19 @@ import {
 } from "../../redux/appReducer/appReducer";
 import { DollarToIndianPrice, GetDiscountFromPrice } from "../../helper";
 
-// import assents
+// assents
 import dummy from "../../assents/suggestions/dummy.png";
 
-// import styles
+// styles
 import "./style.css";
 
 const ProductCardGrid = ({ product }) => {
   const dispatch = useDispatch(); // to store data in redux store
   const navigate = useNavigate(); // to navigate to another component
+  const userData = JSON.parse(localStorage.getItem("userdata"));
   const cartItems = useSelector((store) => store?.app?.cartItems || []);
   const isProductMatched = cartItems.filter((cart) => cart?.id === product?.id);
   const [isAdded, setisAdded] = useState(isProductMatched.length > 0);
-
   const wishListItems = useSelector((store) => store?.app?.wishListItems || []);
   const isWishListProductMatched = wishListItems.filter(
     (wishlist) => wishlist?.id === product?.id
@@ -45,8 +43,6 @@ const ProductCardGrid = ({ product }) => {
   const [isWhishlist, setisWhishlist] = useState(
     isWishListProductMatched.length > 0
   ); // state to manage whishlist
-  console.log("whishlist items", wishListItems);
-  const userData = JSON.parse(localStorage.getItem("userdata"));
   const isUserLoggedIn = Boolean(userData?.refreshToken);
 
   /**
@@ -65,29 +61,35 @@ const ProductCardGrid = ({ product }) => {
    */
 
   const handleAddToCart = (product) => {
-    if(isUserLoggedIn){
+    if (isUserLoggedIn) {
       if (!product) {
         console.error("No product to add to cart!");
         return;
       }
-  
-      console.log("add to cart", product);
-  
-      // Ensure cartItems is always an array before spreading
-  
-      dispatch(setCartItems(product));
-      setisAdded(true);
-    }else{
+      const isAlreadyInAddToCart = cartItems.some(
+        (item) => item.id === product.id
+      );
+
+      let updatedCartItems;
+
+      if(isAlreadyInAddToCart){
+        updatedCartItems = cartItems.filter((item)=> item.id !== product.id);
+        setisAdded(false);
+      }else{
+        updatedCartItems = [...cartItems, product];
+        setisAdded(true);
+      }
+      dispatch(setCartItems(updatedCartItems));
+    } else {
       navigate("/login");
     }
- 
   };
 
-/**
- * @description handle whislist products
- * @param {string} product 
- * @returns 
- */
+  /**
+   * @description handle whislist products
+   * @param {string} product
+   * @returns
+   */
 
   const handleWhishlistBtn = (product) => {
     if (!product) {
@@ -116,7 +118,6 @@ const ProductCardGrid = ({ product }) => {
     <>
       <Box className="main-grid-container">
         <IconButton
-          disabled={isWhishlist}
           className="heart-icon"
           onClick={() => handleWhishlistBtn(product)}
         >
@@ -180,14 +181,15 @@ const ProductCardGrid = ({ product }) => {
               backgroundColor: isAdded ? "grey" : "#ff9f00",
               border: "none",
             }}
-            disabled={isAdded} // Prevent multiple additions
+            
           >
             <ShoppingCartIcon />
             {isAdded ? "Added to Cart" : "Add to Cart"}
           </Button>
           <Button
+          className="buynow-btn"
             variant="contained"
-            style={{ backgroundColor: "#fb641b", margin: "5px" }}
+            style={{ backgroundColor: "#fb641b"}}
           >
             <FlashOnIcon />
             Buy Now

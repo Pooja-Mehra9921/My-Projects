@@ -7,7 +7,6 @@ import SingleProductDetail from "./src/pages/SingleProductDetail";
 import AboutPage from "./src/pages/About";
 import CartPage from "./src/pages/CartPage";
 import WishListPage from "./src/pages/wishList";
-import PageNotFound from "./src/pages/NotFound";
 import ProtectedRoute from "./src/component/ProtectedRoute";
 
 const App = () => {
@@ -15,6 +14,7 @@ const App = () => {
     <>
       <BrowserRouter>
         <Routes>
+        
           <Route exact path="/" element={<HomePage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -26,9 +26,8 @@ const App = () => {
           {/* Protected Routes */}
           <Route element={<ProtectedRoute />}>
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/wishlist" element={<WishListPage />} />
           </Route>
-
-          <Route path="/wishlist" element={<WishListPage />} />
         </Routes>
       </BrowserRouter>
     </>

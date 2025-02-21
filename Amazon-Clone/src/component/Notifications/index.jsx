@@ -1,10 +1,10 @@
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Initialize Toasts (use this in your App.js or index.js)
 export const initToast = () => {
   toast.configure({
-    position: 'slide',
+    position: "slide",
     autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,

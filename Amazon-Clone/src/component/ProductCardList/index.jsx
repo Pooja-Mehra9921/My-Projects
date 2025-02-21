@@ -1,6 +1,4 @@
 import React from "react";
-
-// import Hooks
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -19,12 +17,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 // import assents
 import dummy from "../../assents/suggestions/dummy.png";
 
-// import custom hooks
-import {
-  setCartItems,
-  setSelectedProducts,
-  setWishListItems,
-} from "../../redux/appReducer/appReducer";
+// import custom Components
+import { setCartItems, setSelectedProducts, setWishListItems} from "../../redux/appReducer/appReducer";
 import { DollarToIndianPrice, GetDiscountFromPrice } from "../../helper";
 
 // import styles
@@ -33,18 +27,17 @@ import "./style.css";
 const ProductCardList = ({ product }) => {
   const dispatch = useDispatch(); // to store data in redux
   const navigate = useNavigate();
+  const userData = JSON.parse(localStorage.getItem("userdata"));
   const cartItems = useSelector((store) => store?.app?.cartItems || []);
   const wishListItems = useSelector((store) => store.app.wishListItems);
   const isProductMatched = cartItems.filter((cart) => cart.id === product.id);
   const isWishlistProductMatched = wishListItems.filter(
     (cart) => cart.id === product.id
   );
-  console.log("product machhhh", isProductMatched);
   const [isWhishlist, setisWhishlist] = useState(
     isWishlistProductMatched.length > 0
   ); // state to manage whishlist
   const [isAdded, setisAdded] = useState(isProductMatched.length > 0);
-  const userData = JSON.parse(localStorage.getItem("userdata"));
   const isUserLoggedIn = Boolean(userData?.refreshToken);
 
   /**
@@ -121,7 +114,9 @@ const ProductCardList = ({ product }) => {
             alt={product?.title}
           />
           <Box className="fav-icon">
-            <IconButton className="heart-icon">
+            <IconButton 
+            onClick={()=>handleWhishlistBtn(product)}
+            className="heart-icon">
               {isWhishlist ? (
                 <FavoriteIcon style={{ color: "#d32f2f" }} />
               ) : (

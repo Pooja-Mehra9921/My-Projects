@@ -79,6 +79,11 @@
   color: green;
 }
 
-.add-to-cart-btn{
-  width: auto !important;
+.add-to-cart-btn {
+  width: 185px !important;
+  
+}
+
+.buynow-btn{
+  width: 130px !important;
 }
