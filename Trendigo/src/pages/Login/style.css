@@ -1,11 +1,11 @@
 .login-container .login-paper {
   height: 440px !important;
   width: 700px;
-  margin: 10% auto;
+  margin: 6% auto;
 }
 
 .flipkart-login-image {
-  background-image: url(../../assents/images/login-page-image.jpg);
+  background-image: url(../../assents/images/loginpageimage.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
