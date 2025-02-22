@@ -1,5 +1,6 @@
 .main-grid-container {
   box-shadow: 0px 0px 5px rgb(255, 255, 255);
+  background-color: rgb(64, 64, 64);
 
   height: auto;
   width: 250px;
@@ -31,9 +32,7 @@
   height: 200px;
 }
 
-.product-image:hover{
-transform: scale(1.6);
-}
+
 
 .card-description {
   text-align: justify;
