@@ -20,8 +20,8 @@ const AboutPage = () => {
       <Box className="abt-main">
       <Box className="about-main-container">
         <Box className="about-container">
-          <Typography variant="h4"><strong>FlipKart</strong></Typography>
-          <Typography variant="body1" style={{color:"grey", fontWeight:"600"}}>UI Design</Typography>
+          <Typography variant="h4"><strong>About Trendigo</strong></Typography>
+          <Typography variant="body1" style={{color:"grey", fontWeight:"600"}}>Welcome to Trendigo, your ultimate destination for the latest trends in fashion, beauty, electronics, and more! At Trendigo, we believe shopping should be effortless, enjoyable, and packed with exciting deals.</Typography>
           <br/>
           <Typography variant="body1"><strong>BRIEF</strong></Typography>
           <br/>

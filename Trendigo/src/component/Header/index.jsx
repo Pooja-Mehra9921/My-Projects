@@ -29,7 +29,7 @@ import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import LaptopChromebookIcon from "@mui/icons-material/LaptopChromebook";
 
 // Assents
-import FLIPKART_PLUS_IMAGE from "../../assents/images/flipkart_plus.png";
+import MAIN_LOGO from "../../assents/logos/mainlogo.png";
 
 // Styles
 import "./style.css";
@@ -80,22 +80,21 @@ const Header = () => {
   return (
     <Box className="header-main-container">
       <Box className="header-container">
-        <Box
-          className="flipkart-plus-image"
+        <Box className="trendigo-logo-container"
           onClick={() => handleRedirectPages("home")}
         >
           <img
-            className="flipkart-image-style"
-            src={FLIPKART_PLUS_IMAGE}
-            alt="flipkart logo"
+            className="trendigo-image-style"
+            src={MAIN_LOGO}
+            alt="trendigo logo"
           />
         </Box>
 
         <Box className="menu-container">
           {["home", "product", "about", "contact"].map((item) => (
             <Button
+            className="menu-btn"
               key={item}
-              style={{ color: "white", margin: "5px" }}
               variant="text"
               onClick={() => handleRedirectPages(item)}
             >
@@ -161,7 +160,19 @@ const Header = () => {
             </IconButton>
           </Box>
 
-          {isUserLoggedIn && (
+          {!isUserLoggedIn && (
+            <Button
+              className="login-btn"
+              variant="outlined"
+              onClick={() => handleRedirectPages("login")}
+            >
+              Login
+            </Button>
+          )}
+        </Box>
+
+        <Box className="header-cart-item-container">
+        {isUserLoggedIn && (
             <>
               <IconButton
                 onClick={() => handleRedirectPages("wishlist")}
@@ -179,19 +190,22 @@ const Header = () => {
                   <ShoppingCartIcon sx={{ color: "white" }} />
                 </Badge>
               </IconButton>
-
-              <Tooltip
-                title={`${userData.firstName} ${userData.lastName}`}
+            </>
+          )}
+        </Box>
+        <Box className="header-profile-container">
+        <Tooltip
+                title={`${userData?.firstName} ${userData?.lastName}`}
                 arrow
               >
                 <IconButton onClick={handleProfileClick} size="small">
                   <Box className="user-profile">
                     <img
                       className="user-image"
-                      src={userData.image}
+                      src={userData?.image}
                       alt="user"
                     />
-                    <Typography>{userData.firstName}</Typography>
+                    <Typography sx={{color:"white"}}>{userData?.firstName}</Typography>
                   </Box>
                 </IconButton>
               </Tooltip>
@@ -202,7 +216,7 @@ const Header = () => {
                 onClose={handleCloseProfileMenu}
               >
                 <MenuItem onClick={handleCloseProfileMenu}>
-                  <Avatar>{getAvtarName(userData.firstName)}</Avatar> Profile
+                  <Avatar>{getAvtarName(userData?.firstName)}</Avatar> Profile
                 </MenuItem>
                 <MenuItem onClick={handleCloseProfileMenu}>
                   <Avatar /> My account
@@ -227,19 +241,8 @@ const Header = () => {
                   Logout
                 </MenuItem>
               </Menu>
-            </>
-          )}
-
-          {!isUserLoggedIn && (
-            <Button
-              className="login-btn"
-              variant="outlined"
-              onClick={() => handleRedirectPages("login")}
-            >
-              Login
-            </Button>
-          )}
         </Box>
+       
       </Box>
     </Box>
   );

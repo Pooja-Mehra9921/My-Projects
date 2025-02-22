@@ -23,7 +23,7 @@ const dispatch = useDispatch()
     <>
       <Header />
       <Box className="whislist-page-container">
-        <Typography variant="h5">My WishList(12)</Typography>
+        <Typography variant="h5" sx={{color:"white"}}>My WishList ( {wishListItems.length} )</Typography>
         <Divider style={{marginTop:"20px"}} />
 
         {wishListItems.map((item, index) => {

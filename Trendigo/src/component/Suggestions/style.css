@@ -11,15 +11,23 @@
 }
 
 .suggestion-card {
-  height: 140px;
-  width: 150px;
+  height: 130px;
+  width: 120px;
   margin: 5px;
   cursor: pointer;
 }
 
 .suggestion-images {
-  height: 100px;
-  width: 100px;
+  height: 70px;
+  width: 70px;
+  border: 2px solid rgb(193, 193, 193);
+  border-radius: 60px;
+  padding: 10px;
+}
+
+.suggestion-images:hover{
+ transform: scale(1.2);
+ transition: 0.10;
 }
 
 .image-container {

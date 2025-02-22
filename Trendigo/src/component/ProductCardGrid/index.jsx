@@ -117,22 +117,36 @@ const ProductCardGrid = ({ product }) => {
   return (
     <>
       <Box className="main-grid-container">
-        <IconButton
+      <Box className="price-section" style={{ display: "flex" }}>
+            <Typography className="grid-orignal-price">
+              &#8377;{DollarToIndianPrice(product?.price)}
+            </Typography>
+            <Typography className="product-price">
+              &#8377;
+              {GetDiscountFromPrice(
+                product?.price,
+                product?.discountPercentage
+              )}
+            </Typography>
+            
+            <IconButton
           className="heart-icon"
           onClick={() => handleWhishlistBtn(product)}
         >
           {isWhishlist ? (
-            <FavoriteIcon style={{ color: "#d32f2f" }} disabled={isWhishlist} />
+            <FavoriteIcon style={{ color: "#FFD700" }} disabled={isWhishlist} />
           ) : (
-            <FavoriteBorderIcon disabled={isWhishlist} />
+            <FavoriteBorderIcon style={{ color: "#FFD700" }}   disabled={isWhishlist} />
           )}
         </IconButton>
+          </Box>
+       
         <Box onClick={() => handleSelectedProduct(product)}>
           <Box className="image-container">
             <img
               className="product-image"
               src={product?.thumbnail || dummy}
-              alt="dummy image"
+              alt={product?.title || "No Title"}
             />
           </Box>
           <Typography className="grid-title">
@@ -150,25 +164,7 @@ const ProductCardGrid = ({ product }) => {
               {product?.description}
             </Typography>
           </Tooltip>
-          <Box className="price-section" style={{ display: "flex" }}>
-            <Typography className="grid-orignal-price">
-              &#8377;{DollarToIndianPrice(product?.price)}
-            </Typography>
-            <Typography className="product-price">
-              &#8377;
-              {GetDiscountFromPrice(
-                product?.price,
-                product?.discountPercentage
-              )}
-            </Typography>
-            <Typography className="grid-discout">
-              {`${product?.discountPercentage || ""} % off`}
-            </Typography>
-          </Box>
-
-          <Typography style={{ margin: "auto 15px" }}>
-            <Rating name="read-only" value={product?.rating} readOnly />
-          </Typography>
+         
         </Box>
         <Box className="btn-container">
           <Button
@@ -178,7 +174,7 @@ const ProductCardGrid = ({ product }) => {
             style={{
               color: "white",
               margin: "5px",
-              backgroundColor: isAdded ? "grey" : "#ff9f00",
+              backgroundColor: isAdded ? "grey" : "black",
               border: "none",
             }}
             
@@ -186,7 +182,7 @@ const ProductCardGrid = ({ product }) => {
             <ShoppingCartIcon />
             {isAdded ? "Added to Cart" : "Add to Cart"}
           </Button>
-          <Button
+        { /* <Button
           className="buynow-btn"
             variant="contained"
             style={{ backgroundColor: "#fb641b"}}
@@ -194,6 +190,7 @@ const ProductCardGrid = ({ product }) => {
             <FlashOnIcon />
             Buy Now
           </Button>
+*/}
         </Box>
       </Box>
     </>

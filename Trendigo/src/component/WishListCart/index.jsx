@@ -22,7 +22,7 @@ const WishListCart = ({product = [], onRemoveWishlistCart})=>{
           <Box className="wishlist-detail">
             <img className="wishlist-image" src={product?.thumbnail} alt={product?.title} />
             <Box>
-              <Typography>{product?.title}</Typography>
+              <Typography variant="h6" style={{color:"white"}}>{product?.title}</Typography>
               <Box className="wishlist-price-section" style={{ display: "flex" }}>
                           <Typography className="wishlist-orignal-price">
                             &#8377;{DollarToIndianPrice(product?.price)}
@@ -41,7 +41,7 @@ const WishListCart = ({product = [], onRemoveWishlistCart})=>{
             </Box>
           </Box>
           <IconButton onClick={onRemoveWishlistCart}>
-  <DeleteIcon />
+  <DeleteIcon style={{color:"white"}} />
 </IconButton>
         </Box>
             </Box>

@@ -1,15 +1,15 @@
 .main-grid-container {
-  box-shadow: 0px 0px 5px rgb(223, 223, 223);
+  box-shadow: 0px 0px 5px rgb(255, 255, 255);
 
   height: auto;
-  width: 350px;
+  width: 250px;
   border-radius: 5px;
   cursor: pointer;
-  margin: 5px auto;
+  margin: 15px auto;
 }
 
 .main-grid-container:hover {
-  box-shadow: 0px 0px 10px rgb(181, 181, 181);
+  box-shadow: 0px 0px 10px rgb(255, 255, 255);
 }
 
 .heart-icon {
@@ -27,8 +27,12 @@
 }
 
 .product-image {
-  width: 280px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
+}
+
+.product-image:hover{
+transform: scale(1.6);
 }
 
 .card-description {
@@ -37,22 +41,21 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
-  margin: 10px 15px !important;
+  margin: 5px 15px !important;
   line-height: 18px !important;
   letter-spacing: normal !important;
-
+  font-size: 12px !important;
 }
 
 .grid-title {
   text-align: justify;
 
-
   margin: auto 15px !important;
   margin-top: 10px !important;
   text-align: left !important;
-  font-Weight: 600 !important;
-  font-size: 16px !important;
-  color: grey !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  color: rgb(215, 215, 215) !important;
 }
 
 .btn-container {
@@ -68,11 +71,12 @@
 
 .grid-orignal-price {
   font-weight: 800;
+  color: white;
 }
 
 .product-price {
   text-decoration: line-through;
-  color: grey;
+  color: rgb(213, 213, 213);
 }
 
 .grid-discout {
@@ -81,9 +85,9 @@
 
 .add-to-cart-btn {
   width: 185px !important;
-  
+  font-size: 14px !important;
 }
 
-.buynow-btn{
+.buynow-btn {
   width: 130px !important;
 }

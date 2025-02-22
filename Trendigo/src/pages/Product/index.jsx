@@ -89,10 +89,10 @@ const ProductPage = () => {
           <Box className="product-section">
             <Box className="view-icon-container">
               <IconButton onClick={() => handleViewOfProduct("grid")}>
-                <ViewModuleIcon />
+                <ViewModuleIcon style={{color : ViewOfProduct === "grid" ? "white" : "black"}} />
               </IconButton>
               <IconButton onClick={() => handleViewOfProduct("list")}>
-                <ViewListIcon />
+                <ViewListIcon style={{color : ViewOfProduct === "list" ? "white" : "black"}}  />
               </IconButton>
             </Box>
 
@@ -101,7 +101,7 @@ const ProductPage = () => {
               <Box >
                 <Box className="product-list-con">
 
-                {allProduct == 0 && <PageNotFound/>}
+                {allProduct.length === 0 && <PageNotFound/>}
 
                 </Box>
 
@@ -114,7 +114,8 @@ const ProductPage = () => {
 
             {ViewOfProduct === "grid" && (
               <Box className="product-grid-container">
-                {allProduct == 0 && <PageNotFound/>}
+               
+               {allProduct.length === 0 && <PageNotFound/>}
 
                 {allProduct.map((item, index) => {
                   return <ProductCardGrid key={index} product={item} />;

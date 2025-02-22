@@ -2,7 +2,7 @@ import { Box, Skeleton } from "@mui/material";
 import React from "react";
 
 
-export const ProductPageShimmer =()=>{
+export const ProductCartShimmer =()=>{
     return(
         <>
         <Box sx={{ width: "100%" }}>
@@ -10,7 +10,10 @@ export const ProductPageShimmer =()=>{
       <Box sx={{display:"flex"}}>
       
        <Skeleton variant="rectangular" width={210} height={118} />
-        <Skeleton variant="rectangular" width={210} height={118} /></Box>
+        <Skeleton variant="rectangular" width={210} height={118} />
+        <Skeleton variant="rectangular" width={210} height={118} />
+        <Skeleton variant="rectangular" width={210} height={118} />
+        </Box>
       
       
     </Box>

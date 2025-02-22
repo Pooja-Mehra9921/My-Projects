@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 // Import necessary React hooks
 import { useState } from "react";
@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 // Import necessary material ui components
 import InputAdornment from "@mui/material/InputAdornment";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -22,7 +22,11 @@ import Box from "@mui/material/Box";
 
 // import custom components
 import BackdropLoader from "../../component/BackdropLoader";
-import Notifications, { showErrorToast, showSuccessToast } from "../../component/Notifications";
+import LOGIN_IMAGE from "../../assents/images/loginpageimage.jpg";
+import Notifications, {
+  showErrorToast,
+  showSuccessToast,
+} from "../../component/Notifications";
 import { API } from "../../configs/api";
 
 // style sheet
@@ -76,21 +80,15 @@ const Login = () => {
     } catch (error) {
       setisLoading(false);
 
-      if(loginData.username !== 'emilys'){
+      if (loginData.username !== "emilys") {
         showErrorToast("please enter valid username");
-      setisLoading(false);
-
-
-      }else if(loginData.password !== 'emilyspass'){
+        setisLoading(false);
+      } else if (loginData.password !== "emilyspass") {
         showErrorToast("please enter valid password");
-      setisLoading(false);
-
-
-      }else{
+        setisLoading(false);
+      } else {
         showErrorToast(showErrorToast(error?.response?.data?.message));
-      setisLoading(false);
-
-
+        setisLoading(false);
       }
       console.log("sometning went wrong while fetching api", error);
     }
@@ -110,103 +108,112 @@ const Login = () => {
   return (
     <>
       <BackdropLoader isLoading={isLoading} />
-      <Box className="login-container">
-        <Paper elevation={4} className="login-paper">
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={12} md={6} lg={6} className="fk-left-sec">
-              <Box className="flipkart-login-image"></Box>
-            </Grid>
-            <Grid item xs={12} sm={12} md={6} lg={6} className="fk-right-sec">
-              <Typography variant="h6" className="display-flex-pro"><strong>Login Your Account</strong></Typography>
-              <Typography variant="body2" className="display-flex-pro">
-                Get access to your Orders, Wishlist and Recommendations
-              </Typography>
-              <TextField
-                error={emailerror}
-                id="outlined-error-helper-text"
-                label="UserName"
-                margin="dense"
-                size="small"
-                helperText={emailerror && "Please enter valid username   "}
-                fullWidth
-                slotProps={{
-                  input: {
-                    endAdornment: (
-                      <InputAdornment position="start">
-                        <AccountCircleIcon
-                          style={{ color: emailerror ? "red" : "grey" }}
-                        />
-                      </InputAdornment>
-                    ),
-                  },
-                }}
-                onChange={handlechange("username")}
-              />
-              <TextField
-                error={passworderror}
-                type={hidePassword ? "password" : "text"}
-                id="outlined-error-helper-text"
-                label="Password"
-                margin="dense"
-                size="small"
-                helperText={passworderror && "Please enter valid password"}
-                fullWidth
-                slotProps={{
-                  input: {
-                    endAdornment: (
-                      <InputAdornment
-                        position="start"
-                        style={{ cursor: "pointer" }}
-                      >
-                        <IconButton
-                          style={{ color: passworderror ? "red" : "grey" }}
-                          onClick={handleShowPassword}
+      <Box className="login-body">
+        <Box className="login-container">
+          <Paper elevation={4} className="login-paper">
+            <Grid container>
+              <Grid item xs={12} sm={12} md={6} lg={6} className="fk-left-sec">
+                <Box>
+                  <img
+                    className="flipkart-login-image"
+                    src={LOGIN_IMAGE}
+                    alt="login image"
+                  />
+                </Box>
+              </Grid>
+              <Grid item xs={12} sm={12} md={6} lg={6} className="fk-right-sec">
+                <Typography variant="h4" className="display-flex-pro">
+                  <strong>Login</strong>
+                </Typography>
+                <Typography variant="body2" className="display-flex-pro">
+                  Get access to your Orders, Wishlist and Recommendations
+                </Typography>
+                <TextField
+                  className="textfield"
+                  id="outlined-error-helper-text"
+                  label="UserName"
+                  margin="dense"
+                  size="small"
+                  fullWidth
+                  slotProps={{
+                    input: {
+                      endAdornment: (
+                        <InputAdornment position="start">
+                          <IconButton>
+                            <AccountCircleIcon sx={{ color: "white" }} />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    },
+                  }}
+                  onChange={handlechange("username")}
+                />
+                <TextField
+                  className="textfield"
+                  error={passworderror}
+                  type={hidePassword ? "password" : "text"}
+                  id="outlined-error-helper-text"
+                  label="Password"
+                  margin="dense"
+                  size="small"
+                  helperText={passworderror && "Please enter valid password"}
+                  fullWidth
+                  slotProps={{
+                    input: {
+                      endAdornment: (
+                        <InputAdornment
+                          position="start"
+                          style={{ cursor: "pointer" }}
                         >
-                          {hidePassword ? (
-                            <VisibilityOffIcon />
-                          ) : (
-                            <VisibilityIcon />
-                          )}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  },
-                }}
-                onChange={handlechange("password")}
-              />
+                          <IconButton
+                            style={{ color: passworderror ? "red" : "grey" }}
+                            onClick={handleShowPassword}
+                          >
+                            {hidePassword ? (
+                              <VisibilityOffIcon sx={{ color: "white" }} />
+                            ) : (
+                              <VisibilityIcon sx={{ color: "white" }} />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    },
+                  }}
+                  onChange={handlechange("password")}
+                />
 
-              <Box className="btn-container">
-                <Tooltip
-                  title={
-                    (loginData.username < 5 &&
-                      loginData.username != "emilys" &&
-                      "please enter valid Username") ||
-                    (loginData.password < 6 && "please enter valid password")
-                  }
-                >
-                  <span>
+                <Box className="btn-container">
+                  <Tooltip
+                    title={
+                      (loginData.username < 5 &&
+                        loginData.username != "emilys" &&
+                        "please enter valid Username") ||
+                      (loginData.password < 6 && "please enter valid password")
+                    }
+                  >
                     <Chip
+                      fullWidth
                       className="chip-btn login-btn"
                       label="Login"
                       variant="outlined"
                       onClick={handleSubmitbtn}
-                      disabled={
-                        loginData.username < 5 || loginData.password < 6
-                      }
+                      disabled={loginData.password < 6}
                     />
-                  </span>
-                </Tooltip>
-
-                <Chip className="chip-btn signup-btn" label="SignUp" variant="outlined" />
-              </Box>
-
-              <Typography variant="body1" style={{ marginTop: "60px", color:"#1b85d3", textAlign:"center"}}>
-                We not longer support login via Social accounts. To recover your
-                old accounts
-              </Typography>
+                  </Tooltip>
+                </Box>
+                <Typography sx={{ textAlign: "center", color: "white" }}>
+                  Don't have a account?{" "}
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => navigate("/signup")}
+                  >
+                    <strong>Register</strong>
+                  </span>{" "}
+                </Typography>
+              </Grid>
             </Grid>
-          </Grid>
-        </Paper>
+          </Paper>
+        </Box>
       </Box>
     </>
   );
