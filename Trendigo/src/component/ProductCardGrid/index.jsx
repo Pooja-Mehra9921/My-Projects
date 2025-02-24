@@ -134,9 +134,9 @@ const ProductCardGrid = ({ product }) => {
           onClick={() => handleWhishlistBtn(product)}
         >
           {isWhishlist ? (
-            <FavoriteIcon style={{ color: "#FFD700" }} disabled={isWhishlist} />
+            <FavoriteIcon style={{ color: "#cca471" }} disabled={isWhishlist} />
           ) : (
-            <FavoriteBorderIcon style={{ color: "#FFD700" }}   disabled={isWhishlist} />
+            <FavoriteBorderIcon style={{ color: "#cca471" }}   disabled={isWhishlist} />
           )}
         </IconButton>
           </Box>

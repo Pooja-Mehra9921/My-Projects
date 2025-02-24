@@ -1,20 +1,20 @@
 import React from "react";
 
-// import hooks
+// hooks
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-// import material ui components
+// material ui components
 import Box from "@mui/material/Box";
-import { Typography } from "@mui/material";
+import { Rating, Typography } from "@mui/material";
 
-// import assents
+// assents
 import DummyImage from "../../assents/suggestions/dummy.png";
 
-// import custom components
+// custom components
 import { setSelectedProducts } from "../../redux/appReducer/appReducer";
 
-// import styles
+// styles
 import "./style.css";
 
 const ProductSuggestions = ({ title = "abc", product = [] }) => {
@@ -35,9 +35,12 @@ const ProductSuggestions = ({ title = "abc", product = [] }) => {
   return (
     <>
       <Box className="Product-suggestion-main-container">
-        <Typography variant="h4" style={{ margin: "10px auto" }}>
+        <Box sx={{display:"flex", alignItems:"center", justifyContent:"center"}}>
+        <Typography variant="h4" style={{ margin: "40px auto", textAlign:"center", width:"auto", borderBottom:"4px solid #cca471"}}>
           {title}
         </Typography>
+        </Box>
+       
         <Box className="Product-suggestion-container">
           {product.length === 0 ? (
             <Typography variant="h4" style={{ margin: "10px auto" }}>

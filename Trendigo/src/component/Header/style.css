@@ -1,10 +1,10 @@
 .header-main-container {
-    background-color: black;
+    background-color: #0e1d55;
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: 10px 0;
+    padding: 25px 0;
     position: sticky;
     top: 0;
     z-index: 3;
@@ -20,11 +20,14 @@
   
   .trendigo-logo-container{
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .trendigo-image-style {
     height: 50px;
-    width: 110px;
+    width: 70px;
   }
   
   .search-container {
@@ -33,6 +36,7 @@
     gap: 10px;
     width: 400px;
     max-width: 100%;
+    margin: auto 10px;
   }
   
   .search-bar {
@@ -55,6 +59,7 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    margin: auto 40px;
   }
   
   .menu-btn {

@@ -118,8 +118,9 @@ const Home = () => {
     <>
       <Header />
       <Box className="Home-main-container">
+      <Banner />
+
         <Suggestions product={allproducts} onCategorySelect={scrollToSection} />
-        <Banner />
       </Box>
       <Box ref={electronicsRef}>
         <ProductSuggestions

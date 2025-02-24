@@ -1,6 +1,5 @@
 .suggestion-main-container {
-  background-color: rgb(37, 37, 37);
-  margin: 10px 20px;
+  margin: 40px 20px;
   padding: 15px;
 }
 
@@ -21,7 +20,6 @@
   height: 70px;
   width: 70px;
   border: 2px solid rgb(193, 193, 193);
-  border-radius: 60px;
   padding: 10px;
 }
 

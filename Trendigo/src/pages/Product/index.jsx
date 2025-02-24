@@ -19,11 +19,13 @@ import IconButton from "@mui/material/IconButton";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import ViewListIcon from "@mui/icons-material/ViewList";
 
+
 // Import Styles
 import "./style.css";
 import { useParams } from "react-router-dom";
 import PageNotFound from "../NotFound";
-import { Margin } from "@mui/icons-material";
+import { Typography } from "@mui/material";
+
 
 const ProductPage = () => {
   // State Management
@@ -83,16 +85,21 @@ const ProductPage = () => {
     <>
       <Header />
       <BackdropLoader isLoading={isLoading} />
+      <Box className="product-page-title-container">
+      <Typography variant="h4" style={{color:"black"}}><strong>ALL PRODUCTS</strong></Typography>
+
+      </Box>
+
       <Box className="product-main-container">
         <Box className="product-container">
 
           <Box className="product-section">
             <Box className="view-icon-container">
               <IconButton onClick={() => handleViewOfProduct("grid")}>
-                <ViewModuleIcon style={{color : ViewOfProduct === "grid" ? "white" : "black"}} />
+                <ViewModuleIcon style={{color : ViewOfProduct === "grid" ? "#cca471" : "white"}} />
               </IconButton>
               <IconButton onClick={() => handleViewOfProduct("list")}>
-                <ViewListIcon style={{color : ViewOfProduct === "list" ? "white" : "black"}}  />
+                <ViewListIcon style={{color : ViewOfProduct === "list" ? "#cca471" : "white"}}  />
               </IconButton>
             </Box>
 

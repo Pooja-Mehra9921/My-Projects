@@ -29,7 +29,7 @@ import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import LaptopChromebookIcon from "@mui/icons-material/LaptopChromebook";
 
 // Assents
-import MAIN_LOGO from "../../assents/logos/mainlogo.png";
+import MAIN_LOGO from "../../assents/logos/main-logo.png";
 
 // Styles
 import "./style.css";
@@ -88,6 +88,7 @@ const Header = () => {
             src={MAIN_LOGO}
             alt="trendigo logo"
           />
+          <Typography style={{fontSize:"30px"}}><strong>Trendigo</strong></Typography>
         </Box>
 
         <Box className="menu-container">

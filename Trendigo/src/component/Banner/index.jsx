@@ -5,16 +5,19 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 
 // import images
-import BANNER_IMG_1 from "../../assents/banner-images/carouselImage1.webp";
-import BANNER_IMG_2 from "../../assents/banner-images/carouselImage2.webp";
-import BANNER_IMG_3 from "../../assents/banner-images/carouselImage3.webp";
-import BANNER_IMG_4 from "../../assents/banner-images/carouselImage4.webp";
-import BANNER_IMG_5 from "../../assents/banner-images/carouselImage5.webp";
+import BANNER_IMG_1 from "../../assents/banner-images/banner2.png";
+import BANNER_IMG_2 from "../../assents/banner-images/banner1.png";
+import BANNER_IMG_3 from "../../assents/banner-images/banner4.png";
+import BANNER_IMG_4 from "../../assents/banner-images/banner5.png";
+import BANNER_IMG_5 from "../../assents/banner-images/banner3.png";
+
+// styles
+import "./style.css"
 
 const Banner = () => {
   return (
     <>
-      <div style={{ margin: "10px 20px" }}>
+    <div>
         <Carousel
           autoPlay={true}
           showThumbs={false}
@@ -23,22 +26,22 @@ const Banner = () => {
           showStatus={false}
         >
           <div>
-            <img src={BANNER_IMG_1} />
+            <img className="banner-image" src={BANNER_IMG_1} />
           </div>
           <div>
-            <img src={BANNER_IMG_2} />
+            <img className="banner-image" src={BANNER_IMG_2} />
           </div>
           <div>
-            <img src={BANNER_IMG_3} />
+            <img className="banner-image" src={BANNER_IMG_3} />
           </div>
           <div>
-            <img src={BANNER_IMG_4} />
+            <img className="banner-image" src={BANNER_IMG_4} />
           </div>
           <div>
-            <img src={BANNER_IMG_5} />
+            <img className="banner-image" src={BANNER_IMG_5} />
           </div>
         </Carousel>
-      </div>
+        </div>
     </>
   );
 };
