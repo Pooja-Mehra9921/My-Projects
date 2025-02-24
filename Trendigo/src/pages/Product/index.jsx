@@ -85,10 +85,7 @@ const ProductPage = () => {
     <>
       <Header />
       <BackdropLoader isLoading={isLoading} />
-      <Box className="product-page-title-container">
-      <Typography variant="h4" style={{color:"black"}}><strong>ALL PRODUCTS</strong></Typography>
-
-      </Box>
+   
 
       <Box className="product-main-container">
         <Box className="product-container">

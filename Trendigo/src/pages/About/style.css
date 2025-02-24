@@ -5,13 +5,12 @@
 .about-main-container{
     margin: 2% auto;
     width: 80%;
-    background-color: white;
     padding: 30px;
 }
 
 
 .objective-container{
-    background-color: black;
+    background-color: rgb(105, 105, 105);
     color: white;
     height: 200px;
     display: flex;
@@ -22,7 +21,6 @@
 
 .second-container{
     width: 80%;
-    background-color: white;
     margin: 4% auto;
     padding: 30px;
 

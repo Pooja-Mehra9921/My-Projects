@@ -174,7 +174,7 @@ const ProductCardGrid = ({ product }) => {
             style={{
               color: "white",
               margin: "5px",
-              backgroundColor: isAdded ? "grey" : "black",
+              backgroundColor: isAdded ? "grey" : "grey",
               border: "none",
             }}
             
