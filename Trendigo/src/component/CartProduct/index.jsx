@@ -86,6 +86,7 @@ const CartProduct = ({
 
   return (
     <>
+    <Box className="main-add-to-cart-container">
       <Box
         className="add-to-cart-product"
         onClick={() => handleProductCart(product)}
@@ -131,25 +132,26 @@ const CartProduct = ({
               disabled={quantity === 0}
               onClick={handleQuantityIncDec("dec")}
             >
-              <RemoveCircleOutlineIcon />
+              <RemoveCircleOutlineIcon style={{color:"white"}} />
             </IconButton>
             <TextField
+            className="textfiled"
               value={quantity}
               onChange={handleChangeQuantity}
-              sx={{ width: "50px" }}
+              sx={{ width: "50px", color:"white" }}
               size="small"
             ></TextField>
             <IconButton
               disabled={quantity === product?.stock}
               onClick={handleQuantityIncDec("inc")}
             >
-              <AddCircleOutlineIcon />
+              <AddCircleOutlineIcon style={{color:"white"}} />
             </IconButton>
           </Box>
         </Box>
         <Box className="add-to-cart-btn-container">
           <Button
-            style={{ marginRight: "10px" }}
+            style={{ marginRight: "10px", backgroundColor:"#f5c700" }}
             variant="contained"
             onClick={handleRemoveCart}
           >
@@ -158,6 +160,7 @@ const CartProduct = ({
         </Box>
       </Box>
       <Divider style={{ margin: "10px auto" }} />
+      </Box>
     </>
   );
 };

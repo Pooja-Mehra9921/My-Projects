@@ -29,8 +29,8 @@ const ProductCardList = ({ product }) => {
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem("userdata"));
   const cartItems = useSelector((store) => store?.app?.cartItems || []);
-  const wishListItems = useSelector((store) => store.app.wishListItems);
   const isProductMatched = cartItems.filter((cart) => cart.id === product.id);
+  const wishListItems = useSelector((store) => store.app.wishListItems);
   const isWishlistProductMatched = wishListItems.filter(
     (cart) => cart.id === product.id
   );
@@ -85,22 +85,28 @@ const ProductCardList = ({ product }) => {
 
 
   const handleAddToCart = (product) => {
-    if(isUserLoggedIn){
-      if (!product) {
-        console.error("No product to add to cart!");
-  
-        return;
-      }
-  
-      console.log("add to cart", product);
-  
-      // Ensure cartItems is always an array before spreading
-  
-      dispatch(setCartItems(product));
-      setisAdded(true);
-    }else{
-      navigate("/navigate");
-    }
+   if (isUserLoggedIn) {
+         if (!product) {
+           console.error("No product to add to cart!");
+           return;
+         }
+         const isAlreadyInAddToCart = cartItems.some(
+           (item) => item.id === product.id
+         );
+   
+         let updatedCartItems;
+   
+         if(isAlreadyInAddToCart){
+           updatedCartItems = cartItems.filter((item)=> item.id !== product.id);
+           setisAdded(false);
+         }else{
+           updatedCartItems = [...cartItems, product];
+           setisAdded(true);
+         }
+         dispatch(setCartItems(updatedCartItems));
+       } else {
+         navigate("/login");
+       }
 
   };
   return (
@@ -120,7 +126,7 @@ const ProductCardList = ({ product }) => {
               {isWhishlist ? (
                 <FavoriteIcon style={{ color: "#d32f2f" }} />
               ) : (
-                <FavoriteBorderIcon />
+                <FavoriteBorderIcon style={{color:"#d32f2f"}} />
               )}
             </IconButton>
           </Box>
@@ -198,13 +204,14 @@ const ProductCardList = ({ product }) => {
               <ShoppingCartIcon />
               {isAdded ? "Added to Cart" : "Add to Cart"}
             </Button>
-            <Button
+           {/* <Button
               variant="contained"
               style={{ backgroundColor: "#fb641b", margin: "5px" }}
             >
               <FlashOnIcon />
               Buy Now
             </Button>
+*/}
           </Box>
         </Box>
       </Box>

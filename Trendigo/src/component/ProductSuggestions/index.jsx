@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // hooks
 import { useNavigate } from "react-router-dom";
@@ -16,11 +16,20 @@ import { setSelectedProducts } from "../../redux/appReducer/appReducer";
 
 // styles
 import "./style.css";
+import { ProductSuggestionsShimmer } from "../Shimmer";
 
 const ProductSuggestions = ({ title = "abc", product = [] }) => {
 
   const dispatch = useDispatch(); // hook to store data in redux store
   const navigate = useNavigate();
+  const [loading , setLoading] = useState(false);
+
+  useEffect(()=>{
+    setTimeout(() => {
+setLoading(true);
+      
+    }, 2000);
+  },[]);
 
   /**
    * @description handle selected product and redirect to single product detail page
@@ -55,11 +64,18 @@ const ProductSuggestions = ({ title = "abc", product = [] }) => {
               >
                 <Box>
                   <Box className="image-container">
-                    <img
+                    {
+                        loading ?  
+                        <img
                       className="Product-suggestion-images"
                       src={item?.thumbnail || DummyImage}
                       alt={item?.title || "No title"}
+                      loading="lazy"
                     />
+                    :
+                    <ProductSuggestionsShimmer/>
+                    }
+                    
                   </Box>
 
                   <Typography

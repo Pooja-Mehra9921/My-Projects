@@ -4,6 +4,7 @@
   align-items: start;
   justify-content: space-between;
   border-bottom: 1px solid rgb(236, 236, 236);
+  border-radius: 20px;
 }
 
 .product-list-container:hover {
@@ -68,6 +69,7 @@
   width: 100%;
   display: block;
   margin-left: 90px;
+  margin-top: 20px;
 }
 
 .list-price {

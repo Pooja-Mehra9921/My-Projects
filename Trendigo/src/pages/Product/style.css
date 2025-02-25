@@ -1,29 +1,15 @@
-.product-page-title-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(223, 223, 223);
-    height: 150px;
-    z-index: 0;
-}
+
 
 .product-main-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #070e27;
 }
 
 .product-container {
     width: 90%;
     display: flex;
     justify-content: space-between;
-}
-
-.filter-section {
-    width: 20%;
-    background-color: white;
-    margin-right: 10px;
 }
 
 .product-section {

@@ -19,13 +19,12 @@ import IconButton from "@mui/material/IconButton";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import ViewListIcon from "@mui/icons-material/ViewList";
 
-
 // Import Styles
 import "./style.css";
 import { useParams } from "react-router-dom";
 import PageNotFound from "../NotFound";
 import { Typography } from "@mui/material";
-
+import { ProductCartShimmer } from "../../component/Shimmer";
 
 const ProductPage = () => {
   // State Management
@@ -34,6 +33,7 @@ const ProductPage = () => {
   const [allProduct, setAllProduct] = useState([]);
   const [ViewOfProduct, setViewOfProduct] = useState("grid"); // Default to 'grid'
   const [isLoading, setLoading] = useState(false);
+  const [shimmer, setShimmer] = useState(false);
 
   useEffect(() => {
     if (params.category == "all") {
@@ -42,6 +42,12 @@ const ProductPage = () => {
       fetchCategoryProducts(params.category);
     }
   }, [params.category]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShimmer(true);
+    }, 500);
+  }, []);
 
   const fetchAllProducts = useCallback(async () => {
     try {
@@ -85,31 +91,29 @@ const ProductPage = () => {
     <>
       <Header />
       <BackdropLoader isLoading={isLoading} />
-   
 
       <Box className="product-main-container">
         <Box className="product-container">
-
           <Box className="product-section">
             <Box className="view-icon-container">
               <IconButton onClick={() => handleViewOfProduct("grid")}>
-                <ViewModuleIcon style={{color : ViewOfProduct === "grid" ? "#cca471" : "white"}} />
+                <ViewModuleIcon
+                  style={{ color: ViewOfProduct === "grid" ? "white" : "grey" }}
+                />
               </IconButton>
               <IconButton onClick={() => handleViewOfProduct("list")}>
-                <ViewListIcon style={{color : ViewOfProduct === "list" ? "#cca471" : "white"}}  />
+                <ViewListIcon
+                  style={{ color: ViewOfProduct === "list" ? "white" : "grey" }}
+                />
               </IconButton>
             </Box>
 
             {ViewOfProduct === "list" && (
-
-              <Box >
+              <Box>
                 <Box className="product-list-con">
-
-                {allProduct.length === 0 && <PageNotFound/>}
-
+                  {allProduct.length === 0 && <PageNotFound />}
                 </Box>
 
-                
                 {allProduct.map((item, index) => {
                   return <ProductCardList key={index} product={item} />;
                 })}
@@ -118,12 +122,14 @@ const ProductPage = () => {
 
             {ViewOfProduct === "grid" && (
               <Box className="product-grid-container">
-               
-               {allProduct.length === 0 && <PageNotFound/>}
-
-                {allProduct.map((item, index) => {
-                  return <ProductCardGrid key={index} product={item} />;
-                })}
+                {shimmer ? (
+                  allProduct.map((item, index) => {
+                    return <ProductCardGrid key={index} product={item} />;
+                  })
+                ) : (
+                  <ProductCartShimmer />
+                )}
+                {}
               </Box>
             )}
           </Box>

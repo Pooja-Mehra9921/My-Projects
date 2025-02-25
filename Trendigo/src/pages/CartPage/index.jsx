@@ -4,24 +4,23 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-// import Material ui component
+// Material ui component
 import  Box  from "@mui/material/Box";
 import  Button  from "@mui/material/Button";
 import  Divider  from "@mui/material/Divider";
-import  Paper  from "@mui/material/Paper";
 import  Typography  from "@mui/material/Typography";
 
-// import Custom Components
+// Custom Components
 
 import Header from "../../component/Header";
 import Footer from "../../component/Footer";
-import { DollarToIndianPrice, GetDiscountFromPrice } from "../../helper";
 import AddAddress from "../../component/AddAddress";
 import CartProduct from "../../component/CartProduct";
+import { setCartItems } from "../../redux/appReducer/appReducer";
+import { DollarToIndianPrice, GetDiscountFromPrice } from "../../helper";
 
-// import style sheet
+// style sheet
 import "./style.css";
-import { setCartItems, setWishListItems } from "../../redux/appReducer/appReducer";
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -112,9 +111,14 @@ useEffect(() => {
     <>
       {openAddress && <AddAddress openAddress={openAddress} onClose={handleClose}/>}
       <Header />
+      <Box className="cart-title">
+       
+         <span style={{textAlign:"center", borderBottom:"1px solid white", fontSize:"50px"}}><strong>SHOPPING CART</strong></span> 
+          
+      </Box>
       <Box className="addcart-container">
         <Box className="add-product-section">
-          <Paper className="user-pincode">
+          <Box className="user-pincode">
             <Box className="address-section">
               <Typography>Deliver to : <strong>{userAddAddres?.name  || "Guest"}, {userAddAddres?.pincode}</strong></Typography>
               {!userAddAddres?.pincode ? 
@@ -125,8 +129,8 @@ useEffect(() => {
               }
             </Box>
             <Button variant="contained" onClick={handleAddress}>Change</Button>
-          </Paper>
-          <Paper className="cart-product-section">
+          </Box>
+          <Box className="cart-product-section">
             {updatedCartProduct.map((product, index) => {
               return (
                 <>
@@ -140,45 +144,45 @@ useEffect(() => {
                 </>
               );
             })}
-          </Paper>
+          </Box>
         </Box>
-        <Paper className="Billing-section">
-          <Typography variant="h6" color="grey" style={{ margin: "10px auto" }}>
+        <Box className="Billing-section">
+          <Typography variant="h6" color="white" style={{ margin: "10px auto", textAlign:"center" }}>
             PRICE DETAILS
           </Typography>
-          <Divider />
+          <Divider sx={{bgcolor:"white"}}  />
           <Box className="add-to-cart-price">
-            <Typography variant="body2">
+            <Typography color="white" variant="body2">
               Price ({updatedCartProduct.length} items)
             </Typography>
-            <Typography variant="body2">₹{originalPrice}</Typography>
+            <Typography  color="white" variant="body2">₹{originalPrice}</Typography>
           </Box>
           <Box className="add-to-cart-price">
-            <Typography variant="body2">Discount</Typography>
-            <Typography variant="body2">₹ {totalDiscountPrice}</Typography>
+            <Typography color="white" variant="body2">Discount</Typography>
+            <Typography color="white" variant="body2">₹ {totalDiscountPrice}</Typography>
           </Box>
           <Box className="add-to-cart-price">
-            <Typography variant="body2">Caupon For You</Typography>
-            <Typography variant="body2">₹{coupon}</Typography>
+            <Typography color="white" variant="body2">Caupon For You</Typography>
+            <Typography color="white" variant="body2">₹{coupon}</Typography>
           </Box>
           <Box className="add-to-cart-price">
-            <Typography variant="body2">Delivery Charges</Typography>
-            <Typography variant="body2">₹{deliveryCharges}</Typography>
+            <Typography color="white" variant="body2">Delivery Charges</Typography>
+            <Typography color="white" variant="body2">₹{deliveryCharges}</Typography>
           </Box>
-          <Divider />
+          <Divider sx={{bgcolor:"white"}} />
           <Box className="add-to-cart-price">
-            <Typography variant="body2">
+            <Typography color="white" variant="body2">
               <strong>Total Amount</strong>
             </Typography>
-            <Typography variant="body2">
+            <Typography color="white" variant="body2">
               <strong>₹{total}</strong>
             </Typography>
           </Box>
-          <Divider />
-          <Typography sx={{ color: "green", margin: "10px auto" }}>
+          <Divider sx={{bgcolor:"white"}} />
+          <Typography sx={{ color: "yellow", margin: "10px auto" }}>
   You will save ₹{totalSavings.toFixed(2)} on this Order
 </Typography>
-        </Paper>
+        </Box>
       </Box>
       <Footer />
     </>
