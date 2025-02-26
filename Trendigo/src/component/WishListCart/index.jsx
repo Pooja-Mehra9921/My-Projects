@@ -12,26 +12,29 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const WishListCart = ({ product = [], onRemoveWishlistCart }) => {
-const dispatch = useDispatch();
-const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   const handleRemoveWishlistCart = () => {
     onRemoveWishlistCart();
   };
 
-  const handleWishlistSelectedProduct =(product)=>{
+  const handleWishlistSelectedProduct = (product) => {
     console.log("cart clicked");
     dispatch(setSelectedProducts(product));
     navigate(`/product-detail/${product?.id}`);
-  
-  }
+  };
 
   return (
     <>
       <Box className="wishlist-main-container">
         <Box className="wishlist-container">
           <Box className="whishlist-cart">
-            <Box className="wishlist-detail" onClick={()=>handleWishlistSelectedProduct(product)}>
+            <Box
+              className="wishlist-detail"
+              onClick={() => handleWishlistSelectedProduct(product)}
+            >
               <img
                 className="wishlist-image"
                 src={product?.thumbnail}

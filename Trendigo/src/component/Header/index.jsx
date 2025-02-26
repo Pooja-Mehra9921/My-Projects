@@ -2,45 +2,50 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-// MUI Component
+// MUI Components
+import {
+  Avatar,
+  Badge,
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  Menu,
+  MenuItem,
+  TextField,
+  Tooltip,
+  Typography,
+  Fade,
+  ListItemIcon,
+} from "@mui/material";
 
-import Badge from "@mui/material/Badge";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import TextField from "@mui/material/TextField";
-import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
-import Avatar from "@mui/material/Avatar";
-import Fade from "@mui/material/Fade";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import Logout from "@mui/icons-material/Logout";
-import Settings from "@mui/icons-material/Settings";
-import PersonAdd from "@mui/icons-material/PersonAdd";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import SearchIcon from "@mui/icons-material/Search";
-import CountertopsIcon from "@mui/icons-material/Countertops";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
-import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import LaptopChromebookIcon from "@mui/icons-material/LaptopChromebook";
+// MUI Icons
+import {
+  Logout,
+  Settings,
+  PersonAdd,
+  Favorite as FavoriteIcon,
+  Search as SearchIcon,
+  Countertops as CountertopsIcon,
+  ShoppingCart as ShoppingCartIcon,
+  PhoneAndroid as PhoneAndroidIcon,
+  LibraryBooks as LibraryBooksIcon,
+  LaptopChromebook as LaptopChromebookIcon,
+} from "@mui/icons-material";
 
-// Assents
+// Assets & Helpers
 import MAIN_LOGO from "../../assents/logos/main-logo.png";
+import { getAvtarName } from "../../helper";
 
 // Styles
 import "./style.css";
-import { getAvtarName } from "../../helper";
 
-// Header Component
 const Header = () => {
   const navigate = useNavigate();
-  const userData = JSON.parse(localStorage.getItem("userdata"));
   const cartItems = useSelector((store) => store.app.cartItems);
   const wishListItems = useSelector((store) => store.app.wishListItems);
+  const userData = JSON.parse(localStorage.getItem("userdata")) || {};
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [quickSearchAnchor, setQuickSearchAnchor] = useState(null);
   const [search, setSearch] = useState("");
@@ -50,14 +55,12 @@ const Header = () => {
   const isUserLoggedIn = Boolean(userData?.refreshToken);
 
   /**
-   *  @description redirect to pages
+   * Redirect to pages
    */
-  const handleRedirectPages = (type) => {
-    navigate(type === "product" ? `/${type}/all` : `/${type}`);
-  };
+  const handleRedirectPages = (type) => navigate(`/${type}${type === "product" ? "/all" : ""}`);
 
   /**
-   *  to open profile menus
+   * Profile Menu Handlers
    */
   const handleProfileClick = (event) => setAnchorEl(event.currentTarget);
   const handleCloseProfileMenu = () => setAnchorEl(null);
@@ -66,77 +69,47 @@ const Header = () => {
     navigate("/login");
   };
 
-  // to open quick search menus
-  const handleQuickSearch = (event) =>
-    setQuickSearchAnchor(event.currentTarget);
+  /**
+   * Quick Search Handlers
+   */
+  const handleQuickSearch = (event) => setQuickSearchAnchor(event.currentTarget);
   const handleCloseQuickSearch = () => setQuickSearchAnchor(null);
+  const handleMenuQuick = (categoryType) => () => navigate(`/product/${categoryType}`);
 
-  // to show category related products
-  const handleMenuQuick = (categoryType) => () =>
-    navigate(`/product/${categoryType}`);
+  /**
+   * Search Handlers
+   */
   const handleSearchInputChange = (event) => setSearch(event.target.value);
   const handleSearchSubmit = () => navigate(`/product/${search}`);
 
   return (
     <Box className="header-main-container">
       <Box className="header-container">
-        <Box className="trendigo-logo-container"
-          onClick={() => handleRedirectPages("home")}
-        >
-          <img
-            className="trendigo-image-style"
-            src={MAIN_LOGO}
-            alt="trendigo logo"
-          />
-          <Typography style={{fontSize:"30px"}}><strong>Trendigo</strong></Typography>
+        {/* Logo */}
+        <Box className="trendigo-logo-container" onClick={() => handleRedirectPages("home")}>
+          <img className="trendigo-image-style" src={MAIN_LOGO} alt="Trendigo Logo" />
+          <Typography sx={{ fontSize: "30px", fontWeight: "bold" }}>Trendigo</Typography>
         </Box>
 
+        {/* Navigation Menu */}
         <Box className="menu-container">
           {["home", "product", "about", "contact"].map((item) => (
-            <Button
-            className="menu-btn"
-              key={item}
-              variant="text"
-              onClick={() => handleRedirectPages(item)}
-            >
+            <Button className="menu-btn" key={item} variant="text" onClick={() => handleRedirectPages(item)}>
               {item.charAt(0).toUpperCase() + item.slice(1)}
             </Button>
           ))}
 
-          <Button
-            style={{ color: "white", margin: "0px", width: "130px" }}
-            onClick={handleQuickSearch}
-          >
+          {/* Quick Search Dropdown */}
+          <Button sx={{ color: "white", width: "130px" }} onClick={handleQuickSearch}>
             Quick Search
           </Button>
 
-          <Menu
-            anchorEl={quickSearchAnchor}
-            open={isQuickSearchOpen}
-            onClose={handleCloseQuickSearch}
-            TransitionComponent={Fade}
-          >
+          <Menu anchorEl={quickSearchAnchor} open={isQuickSearchOpen} onClose={handleCloseQuickSearch} TransitionComponent={Fade}>
             {[
-              {
-                label: "Laptop",
-                icon: <LaptopChromebookIcon fontSize="small" />,
-                type: "laptops",
-              },
-              {
-                label: "Mobile",
-                icon: <PhoneAndroidIcon fontSize="small" />,
-                type: "smartphones",
-              },
-              {
-                label: "Beauty",
-                icon: <LibraryBooksIcon fontSize="small" />,
-                type: "beauty",
-              },
-              {
-                label: "Furniture",
-                icon: <CountertopsIcon fontSize="small" />,
-                type: "furniture",
-              },
+              { label: "Laptop", icon: <LaptopChromebookIcon fontSize="small" />, type: "laptops" },
+              { label: "Mobile", icon: <PhoneAndroidIcon fontSize="small" />, type: "smartphones" },
+              { label: "Beauty", icon: <LibraryBooksIcon fontSize="small" />, type: "beauty" },
+              { label: "Furniture", icon: <CountertopsIcon fontSize="small" />, type: "furniture" },
             ].map((item) => (
               <MenuItem key={item.type} onClick={handleMenuQuick(item.type)}>
                 <ListItemIcon>{item.icon}</ListItemIcon>
@@ -146,6 +119,7 @@ const Header = () => {
           </Menu>
         </Box>
 
+        {/* Search Bar & Login */}
         <Box className="search-container">
           <Box className="search-bar">
             <TextField
@@ -154,7 +128,7 @@ const Header = () => {
               placeholder="Search for Products, Brands and More"
               variant="standard"
               InputProps={{ disableUnderline: true }}
-              style={{ width: "300px" }}
+              sx={{ width: "300px" }}
             />
             <IconButton onClick={handleSearchSubmit}>
               <SearchIcon />
@@ -162,88 +136,55 @@ const Header = () => {
           </Box>
 
           {!isUserLoggedIn && (
-            <Button
-              className="login-btn"
-              variant="outlined"
-              onClick={() => handleRedirectPages("login")}
-            >
+            <Button className="login-btn" variant="outlined" onClick={() => handleRedirectPages("login")}>
               Login
             </Button>
           )}
         </Box>
 
-        <Box className="header-cart-item-container">
+        {/* Wishlist & Cart */}
         {isUserLoggedIn && (
-            <>
-              <IconButton
-                onClick={() => handleRedirectPages("wishlist")}
-                color="inherit"
-              >
-                <Badge badgeContent={wishListItems.length} color="error">
-                  <FavoriteIcon sx={{ color: "white" }} />
-                </Badge>
-              </IconButton>
-              <IconButton
-                onClick={() => handleRedirectPages("cart")}
-                color="inherit"
-              >
-                <Badge badgeContent={cartItems.length} color="error">
-                  <ShoppingCartIcon sx={{ color: "white" }} />
-                </Badge>
-              </IconButton>
-            </>
-          )}
-        </Box>
-        <Box className="header-profile-container">
-        <Tooltip
-                title={`${userData?.firstName} ${userData?.lastName}`}
-                arrow
-              >
-                <IconButton onClick={handleProfileClick} size="small">
-                  <Box className="user-profile">
-                    <img
-                      className="user-image"
-                      src={userData?.image}
-                      alt="user"
-                    />
-                    <Typography sx={{color:"white"}}>{userData?.firstName}</Typography>
-                  </Box>
-                </IconButton>
-              </Tooltip>
+          <Box className="header-cart-item-container">
+            <IconButton onClick={() => handleRedirectPages("wishlist")} color="inherit">
+              <Badge badgeContent={wishListItems.length} color="error">
+                <FavoriteIcon sx={{ color: "white" }} />
+              </Badge>
+            </IconButton>
+            <IconButton onClick={() => handleRedirectPages("cart")} color="inherit">
+              <Badge badgeContent={cartItems.length} color="error">
+                <ShoppingCartIcon sx={{ color: "white" }} />
+              </Badge>
+            </IconButton>
+          </Box>
+        )}
 
-              <Menu
-                anchorEl={anchorEl}
-                open={isOpen}
-                onClose={handleCloseProfileMenu}
-              >
-                <MenuItem onClick={handleCloseProfileMenu}>
-                  <Avatar>{getAvtarName(userData?.firstName)}</Avatar> Profile
-                </MenuItem>
-                <MenuItem onClick={handleCloseProfileMenu}>
-                  <Avatar /> My account
-                </MenuItem>
-                <Divider />
-                <MenuItem onClick={handleCloseProfileMenu}>
-                  <ListItemIcon>
-                    <PersonAdd fontSize="small" />
-                  </ListItemIcon>{" "}
-                  Add another account
-                </MenuItem>
-                <MenuItem onClick={handleCloseProfileMenu}>
-                  <ListItemIcon>
-                    <Settings fontSize="small" />
-                  </ListItemIcon>{" "}
-                  Settings
-                </MenuItem>
-                <MenuItem className="logout-btn" onClick={handleLogout}>
-                  <ListItemIcon>
-                    <Logout fontSize="small" />
-                  </ListItemIcon>{" "}
-                  Logout
-                </MenuItem>
-              </Menu>
-        </Box>
-       
+        {/* User Profile */}
+        {isUserLoggedIn && (
+          <Box className="header-profile-container">
+            <Box className="user-name">
+            <Tooltip title={`${userData?.firstName || "User"}`} arrow>
+              <IconButton onClick={handleProfileClick} size="small">
+                <Avatar src={userData?.image}>{getAvtarName(userData?.firstName || "U")}</Avatar>
+              </IconButton>
+            </Tooltip>
+            <Typography style={{cursor:"pointer"}}>Hii {userData?.firstName}</Typography>
+          </Box>
+
+            <Menu anchorEl={anchorEl} open={isOpen} onClose={handleCloseProfileMenu}>
+              <MenuItem onClick={handleCloseProfileMenu}>Profile</MenuItem>
+              <Divider />
+              <MenuItem>
+                <ListItemIcon>
+                  <Logout fontSize="small" />
+                </ListItemIcon>
+                Logout
+              </MenuItem>
+            </Menu>
+            <Button className="logout-btn" onClick={handleLogout} >
+              Logout
+            </Button>
+          </Box>
+        )}
       </Box>
     </Box>
   );

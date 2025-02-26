@@ -120,6 +120,19 @@ font-size: 14px;
   margin: auto 10px;
 }
 
+
+.logout-btn{
+  margin: auto 20px !important;
+  color: white !important;
+  border: 1px solid white !important;
+}
+
+.user-name, .header-profile-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
   @media (max-width: 768px) {
     .header-container {
       flex-direction: column;
