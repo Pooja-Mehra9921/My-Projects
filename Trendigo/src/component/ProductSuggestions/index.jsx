@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 // hooks
 import { useNavigate } from "react-router-dom";
@@ -19,6 +22,14 @@ import "./style.css";
 import { ProductSuggestionsShimmer } from "../Shimmer";
 
 const ProductSuggestions = ({ title = "abc", product = [] }) => {
+
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+  };
 
   const dispatch = useDispatch(); // hook to store data in redux store
   const navigate = useNavigate();
@@ -55,8 +66,9 @@ setLoading(true);
             <Typography variant="h4" style={{ margin: "10px auto" }}>
               No Product Available
             </Typography>
-          ) : (
-            product.map((item, index) => (
+          ) : 
+            <Slider {...settings}>
+            {product.map((item, index) => (
               <Box
                 key={index}
                 className="Product-suggestion-card"
@@ -91,8 +103,10 @@ setLoading(true);
                   </Typography>
                 </Box>
               </Box>
-            ))
-          )}
+            ))}
+          </Slider>
+
+          }
         </Box>
       </Box>
     </>

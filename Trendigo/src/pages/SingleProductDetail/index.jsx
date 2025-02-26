@@ -26,11 +26,11 @@ import { useNavigate } from "react-router-dom";
 
 const SingleProductDetail = () => {
   const dispatch = useDispatch();
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   const dataFromStore = useSelector((store) => store?.app?.selectedproduct); // get product data from redux store
   const cartItems = useSelector((store) => store?.app?.cartItems || []);
   const isProductMatched = cartItems.filter(
-    (cart) => cart.id === dataFromStore.id
+    (cart) => cart?.id === dataFromStore?.id
   );
   console.log("product machhhh", isProductMatched);
   const [isAdded, setisAdded] = useState(isProductMatched.length > 0);
@@ -39,7 +39,6 @@ const SingleProductDetail = () => {
   );
   const userData = JSON.parse(localStorage.getItem("userdata"));
   const isUserLoggedIn = Boolean(userData?.refreshToken);
-
 
   /**
    * @description function to set product images in image magnify
@@ -54,22 +53,33 @@ const SingleProductDetail = () => {
    */
 
   const handleAddToCart = (product) => {
-    if(isUserLoggedIn){
+    if (isUserLoggedIn) {
       if (!product) {
         console.error("No product to add to cart!");
         return;
       }
-  
-      console.log("add to cart", product);
-  
-      // Ensure cartItems is always an array before spreading
-  
-      dispatch(setCartItems(product));
+      const isAlreadyInAddToCart = cartItems.some(
+        (item) => item?.id === product?.id
+      );
+
+      let updatedProduct;
+
+      if (isAlreadyInAddToCart) {
+        updatedProduct = cartItems.filter((item) =>
+          item?.id !== product?.id);
+        setisAdded(false);
+      }else{
+        updatedProduct = [...cartItems, product];
       setisAdded(true);
-    }else{
+
+      }
+
+      // Ensure cartItems is always an array before spreading
+
+      dispatch(setCartItems(updatedProduct));
+    } else {
       navigate("/login");
     }
-
   };
 
   return (
@@ -125,7 +135,6 @@ const SingleProductDetail = () => {
                   backgroundColor: isAdded ? "grey" : "#ff9f00",
                   border: "none",
                 }}
-                disabled={isAdded} // Prevent multiple additions
               >
                 <ShoppingCartIcon />
                 {isAdded ? "Added to Cart" : "Add to Cart"}

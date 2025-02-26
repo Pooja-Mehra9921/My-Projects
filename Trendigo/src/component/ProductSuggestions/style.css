@@ -3,16 +3,7 @@
     padding: 15px;
 }
 
-.Product-suggestion-container{
-   
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   overflow-x: scroll;
-   overflow-y: hidden;
 
-    
-}
 
 .Product-suggestion-card{
     height: 250px;

@@ -49,12 +49,16 @@ const ProductPage = () => {
     }, 500);
   }, []);
 
+  const shuffleArray = (array) => {
+    return array.sort(() => Math.random() - 0.5);
+  };
+  
   const fetchAllProducts = useCallback(async () => {
     try {
       setLoading(true);
       const response = await axios.get(API.PRODUCTS_API);
       if (response.status === 200) {
-        setAllProduct(response.data.products);
+        setAllProduct(shuffleArray(response.data.products)); // Shuffle before setting state
       }
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -62,22 +66,24 @@ const ProductPage = () => {
       setLoading(false);
     }
   }, []);
+  
   const fetchCategoryProducts = async (category) => {
     try {
       setLoading(true);
-
+  
       const api = API.PRODUCT_BY_CATEGORY.replace("#CATEGORY#", category);
       const { status, data: { products = [] } = {} } = await axios(api);
-
-      if (status == 200) {
-        setAllProduct(products);
-        setLoading(false);
+  
+      if (status === 200) {
+        setAllProduct(shuffleArray(products)); // Shuffle before setting state
       }
     } catch (err) {
       console.error("--error while fetching category Api--", err);
+    } finally {
       setLoading(false);
     }
   };
+  
 
   /**
    * @description to change view of product to list view and grid view

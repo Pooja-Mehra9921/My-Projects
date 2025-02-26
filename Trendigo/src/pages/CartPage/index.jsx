@@ -29,7 +29,7 @@ const CartPage = () => {
   console.log("wishlist items", wishListItems);
   const productWithQuantity = cartItems.map((cart) => ({   // adding a quantity key in the cart 
     ...cart,
-    quantity: cart.minimumOrderQuantity ? cart.minimumOrderQuantity : 1,
+    quantity: cart?.minimumOrderQuantity ? cart?.minimumOrderQuantity : 1,
   }));
 
   const [updatedCartProduct, setUpdatedCartProduct] =
@@ -102,7 +102,7 @@ const CartPage = () => {
 useEffect(() => {
   const productWithQuantity = cartItems.map((cart) => ({
     ...cart,
-    quantity: cart.minimumOrderQuantity ? cart.minimumOrderQuantity : 1,
+    quantity: cart?.minimumOrderQuantity ? cart?.minimumOrderQuantity : 1,
   }));
   setUpdatedCartProduct(productWithQuantity);
 }, [cartItems]);

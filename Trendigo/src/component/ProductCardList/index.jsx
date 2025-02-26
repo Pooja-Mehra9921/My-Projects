@@ -199,7 +199,6 @@ const ProductCardList = ({ product }) => {
                 backgroundColor: isAdded ? "grey" : "#ff9f00",
                 border: "none",
               }}
-              disabled={isAdded} // Prevent multiple additions
             >
               <ShoppingCartIcon />
               {isAdded ? "Added to Cart" : "Add to Cart"}
